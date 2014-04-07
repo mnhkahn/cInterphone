@@ -26,6 +26,7 @@
 package org.zoolu.sip.provider;
 
 import org.sipdroid.sipua.ui.Receiver;
+import org.sipdroid.sipua.ui.Sipdroid;
 import org.zoolu.net.*;
 import org.zoolu.sip.header.*;
 import org.zoolu.sip.message.Message;
@@ -44,8 +45,6 @@ import java.util.Hashtable;
 import java.io.IOException;
 import org.zoolu.tools.HashSet;
 import org.zoolu.tools.Iterator;
-
-import com.cyeam.cInterphone.ui.CInterphone;
 
 import android.content.Context;
 import android.os.PowerManager;
@@ -1000,7 +999,7 @@ public class SipProvider implements Configurable, TransportListener,
 					printLog("NOT a SIP message: discarded\r\n", LogLevel.LOW);
 				return;
 			}
-			if (!CInterphone.release)
+			if (!Sipdroid.release)
 				printLog("received new SIP message "+msg.getRequestLine()+" "+msg.getStatusLine(), LogLevel.HIGH); // modified
 			printLog("message:\r\n" + msg.toString(), LogLevel.LOWER);
 
@@ -1209,7 +1208,7 @@ public class SipProvider implements Configurable, TransportListener,
 			ConnectionIdentifier conn_id = new ConnectionIdentifier(
 					(ConnectedTransport) transport);
 			removeConnection(conn_id);
-			if (CInterphone.on(Receiver.mContext))
+			if (Sipdroid.on(Receiver.mContext))
 				Receiver.engine(Receiver.mContext).register(); // modified
 		}
 		if (error != null)
@@ -1374,7 +1373,7 @@ public class SipProvider implements Configurable, TransportListener,
 
 	/** Adds a new string to the default Log */
 	private final void printLog(String str, int level) {
-		if (CInterphone.release) return;
+		if (Sipdroid.release) return;
 		if (event_log != null) {
 			String provider_id = (host_ipaddr == null) ? Integer
 					.toString(host_port) : host_ipaddr.toString() + ":"

@@ -40,7 +40,7 @@ import android.widget.ImageView;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import com.cyeam.cInterphone.ui.CInterphone;
+import org.sipdroid.sipua.ui.Sipdroid;
 
 /**
  * Helper class for async access of images.
@@ -198,7 +198,7 @@ public class ContactsAsyncHelper extends Handler {
                     }
                     catch (FileNotFoundException e) 
                     {
-                    	if (!CInterphone.release) e.printStackTrace();
+                    	if (!Sipdroid.release) e.printStackTrace();
 					}
                     
 

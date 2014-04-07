@@ -20,9 +20,8 @@
 package org.sipdroid.codecs;
 
 import org.sipdroid.sipua.ui.Receiver;
-
-import com.cyeam.cInterphone.ui.CInterphone;
-import com.cyeam.cInterphone.ui.Settings;
+import org.sipdroid.sipua.ui.Settings;
+import org.sipdroid.sipua.ui.Sipdroid;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -51,7 +50,7 @@ class GSM extends CodecBase implements Codec {
 			System.loadLibrary("gsm_jni");
 			super.load();
 		} catch (Throwable e) {
-			if (!CInterphone.release) e.printStackTrace();
+			if (!Sipdroid.release) e.printStackTrace();
 		}
     
 	}  

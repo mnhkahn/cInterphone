@@ -20,7 +20,7 @@
 
 package org.sipdroid.sipua.ui;
 
-import com.cyeam.cInterphone.ui.CInterphone;
+import org.sipdroid.sipua.ui.Sipdroid;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -38,7 +38,7 @@ public class PhoneStart extends BroadcastReceiver {
     	else if(intent.getAction().equals("org.sipdroid.STOP_SIPDROID")) {
         	//NOTE: this kills service, but not activity if it is currently visible.
         	//      Can activity be killed as well somehow?
-    		CInterphone.on(context, false);
+    		Sipdroid.on(context, false);
     		Receiver.pos(true);
     		Receiver.engine(context).halt();
     		Receiver.mSipdroidEngine = null;

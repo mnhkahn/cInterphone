@@ -19,7 +19,7 @@
  */
 package org.sipdroid.codecs;
 
-import com.cyeam.cInterphone.ui.CInterphone;
+import org.sipdroid.sipua.ui.Sipdroid;
 
 class BV16 extends CodecBase implements Codec {
 
@@ -40,7 +40,7 @@ class BV16 extends CodecBase implements Codec {
 			System.loadLibrary("bv16_jni");
 			super.load();
 		} catch (Throwable e) {
-			if (!CInterphone.release) e.printStackTrace();
+			if (!Sipdroid.release) e.printStackTrace();
 		}
     
 	}  

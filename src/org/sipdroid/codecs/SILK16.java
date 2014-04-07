@@ -19,7 +19,7 @@
  */
 package org.sipdroid.codecs;
 
-import com.cyeam.cInterphone.ui.CInterphone;
+import org.sipdroid.sipua.ui.Sipdroid;
 
 class SILK16 extends CodecBase implements Codec { 
 	/* 
@@ -57,7 +57,7 @@ class SILK16 extends CodecBase implements Codec {
 			System.loadLibrary("silk16_jni");
 			super.load();
 		} catch (Throwable e) {
-			if (!CInterphone.release) e.printStackTrace();
+			if (!Sipdroid.release) e.printStackTrace();
 		}
     
 	}  

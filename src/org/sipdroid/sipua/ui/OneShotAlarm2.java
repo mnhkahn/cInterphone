@@ -20,10 +20,7 @@ package org.sipdroid.sipua.ui;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-
-import com.cyeam.cInterphone.core.CInterphoneEngine;
-import com.cyeam.cInterphone.ui.CInterphone;
-import com.cyeam.cInterphone.ui.Settings;
+import org.sipdroid.sipua.SipdroidEngine;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -35,8 +32,8 @@ public class OneShotAlarm2 extends BroadcastReceiver {
 
     @Override
 	public void onReceive(Context context, Intent intent) {
-    	if (!CInterphone.release) Log.i("SipUA:","alarm2");
-		for (int i = 0; i < CInterphoneEngine.LINES; i++)
+    	if (!Sipdroid.release) Log.i("SipUA:","alarm2");
+		for (int i = 0; i < SipdroidEngine.LINES; i++)
 			if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Settings.PREF_WLAN+(i!=0?i:""), Settings.DEFAULT_WLAN) ||
 	        		PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Settings.PREF_3G+(i!=0?i:""), Settings.DEFAULT_3G) ||
 	        		PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Settings.PREF_VPN+(i!=0?i:""), Settings.DEFAULT_VPN) ||

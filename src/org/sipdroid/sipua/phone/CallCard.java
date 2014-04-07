@@ -240,7 +240,6 @@ public class CallCard extends FrameLayout implements
 	private void updateRingingCall(Phone phone) {
 		if (DBG)
 			log("updateRingingCall()...");
-
 		Call ringingCall = phone.getRingingCall();
 		Call fgCall = phone.getForegroundCall();
 		Call bgCall = phone.getBackgroundCall();
@@ -254,6 +253,7 @@ public class CallCard extends FrameLayout implements
 	 * Updates the main block of caller info on the CallCard (ie. the stuff in
 	 * the mainCallCard block) based on the specified Call.
 	 */
+	// 修改显示状态
 	public void displayMainCallStatus(Phone phone, Call call) {
 		if (DBG)
 			log("displayMainCallStatus(phone " + phone + ", call " + call

@@ -20,8 +20,6 @@ package org.sipdroid.sipua.ui;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-import com.cyeam.cInterphone.ui.CInterphone;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +32,7 @@ public class OneShotLocation extends BroadcastReceiver {
 	public static void receive(Context context, Intent intent) {
 		Location loc;
 
-		if (!CInterphone.release) Log.i("SipUA:",intent.getExtras().keySet().toString());
+		if (!Sipdroid.release) Log.i("SipUA:",intent.getExtras().keySet().toString());
     	if (Receiver.mContext == null) Receiver.mContext = context;
     	loc = (Location)intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED);
     	if (loc != null) {

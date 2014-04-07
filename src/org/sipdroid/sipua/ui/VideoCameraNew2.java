@@ -23,8 +23,6 @@ package org.sipdroid.sipua.ui;
 
 import java.io.IOException;
 
-import com.cyeam.cInterphone.ui.CInterphone;
-
 import android.annotation.TargetApi;
 import android.hardware.Camera;
 import android.os.Build;
@@ -35,7 +33,7 @@ public class VideoCameraNew2 {
 		try {
 			c.reconnect();
 		} catch (IOException e) {
-			if (!CInterphone.release) e.printStackTrace();
+			if (!Sipdroid.release) e.printStackTrace();
 		}
 	}
 }

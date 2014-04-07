@@ -74,10 +74,6 @@ import org.sipdroid.sipua.phone.Call;
 import org.sipdroid.sipua.phone.Connection;
 import org.zoolu.sip.provider.SipProvider;
 
-import com.cyeam.cInterphone.core.CInterphoneEngine;
-import com.cyeam.cInterphone.core.UserAgent;
-import com.cyeam.cInterphone.ui.CInterphone;
-
 	public class Receiver extends BroadcastReceiver {
 
 		final static String ACTION_PHONE_STATE_CHANGED = "android.intent.action.PHONE_STATE";
@@ -112,7 +108,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		final static long[] vibratePattern = {0,1000,1000};
 		
 		public static int docked = -1,headset = -1,bluetooth = -1;
-		public static CInterphoneEngine mSipdroidEngine;
+		public static SipdroidEngine mSipdroidEngine;
 		
 		public static Context mContext;
 		public static SipdroidListener listener_video;
@@ -126,14 +122,14 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		public static String MWI_account;
 		private static String laststate,lastnumber;	
 		
-		public static synchronized CInterphoneEngine engine(Context context) {
+		public static synchronized SipdroidEngine engine(Context context) {
 			if (mContext == null || !context.getClass().getName().contains("ReceiverRestrictedContext"))
 				mContext = context;
 			if (mSipdroidEngine == null) {
 				if (android.os.Build.VERSION.SDK_INT > 9) {
 					ReceiverNew.setPolicy();
 				}
-				mSipdroidEngine = new CInterphoneEngine();
+				mSipdroidEngine = new SipdroidEngine();
 				mSipdroidEngine.StartEngine();
 				if (Integer.parseInt(Build.VERSION.SDK) >= 8)
 					Bluetooth.init();
@@ -196,7 +192,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 			        KeyguardManager mKeyguardManager = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);
 					if (v == null) v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 					if ((pstn_state == null || pstn_state.equals("IDLE")) &&
-							PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_AUTO_ON, com.cyeam.cInterphone.ui.Settings.DEFAULT_AUTO_ON) &&
+							PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_AUTO_ON, org.sipdroid.sipua.ui.Settings.DEFAULT_AUTO_ON) &&
 							!mKeyguardManager.inKeyguardRestrictedInputMode())
 						v.vibrate(vibratePattern,1);
 					else {
@@ -205,7 +201,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 								(rm == AudioManager.RINGER_MODE_NORMAL && vs == AudioManager.VIBRATE_SETTING_ON)))
 							v.vibrate(vibratePattern,1);
 						if (am.getStreamVolume(AudioManager.STREAM_RING) > 0) {				 
-							String sUriSipRingtone = PreferenceManager.getDefaultSharedPreferences(mContext).getString(com.cyeam.cInterphone.ui.Settings.PREF_SIPRINGTONE,
+							String sUriSipRingtone = PreferenceManager.getDefaultSharedPreferences(mContext).getString(org.sipdroid.sipua.ui.Settings.PREF_SIPRINGTONE,
 									Settings.System.DEFAULT_RINGTONE_URI.toString());
 							if(!TextUtils.isEmpty(sUriSipRingtone)) {
 								oRingtone = RingtoneManager.getRingtone(mContext, Uri.parse(sUriSipRingtone));
@@ -223,6 +219,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		        	Checkin.checkin(true);
 					break;
 				case UserAgent.UA_STATE_OUTGOING_CALL:
+					System.out.println("fuck in call***************");
 					RtpStreamReceiver.good = RtpStreamReceiver.lost = RtpStreamReceiver.loss = RtpStreamReceiver.late = 0;
 					RtpStreamReceiver.speakermode = speakermode();
 					bluetooth = -1;
@@ -235,8 +232,9 @@ import com.cyeam.cInterphone.ui.CInterphone;
 					ccConn.setIncoming(false);
 					ccConn.date = System.currentTimeMillis();
 					ccCall.base = 0;
+					// 启动InCallScreen activity
 					moveTop();
-		        	Checkin.checkin(true);
+//		        	Checkin.checkin(true);
 					break;
 				case UserAgent.UA_STATE_IDLE:
 					broadcastCallStateChanged("IDLE", null);
@@ -253,6 +251,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 					engine(mContext).listen();
 					break;
 				case UserAgent.UA_STATE_INCALL:
+					System.out.println("incall********************************");
 					broadcastCallStateChanged("OFFHOOK", null);
 					if (ccCall.base == 0) {
 						ccCall.base = SystemClock.elapsedRealtime();
@@ -262,7 +261,8 @@ import com.cyeam.cInterphone.ui.CInterphone;
 					stopRingtone();
 					if (wl != null && wl.isHeld())
 						wl.release();
-			        mContext.startActivity(createIntent(InCallScreen.class));
+//			        mContext.startActivity(createIntent(InCallScreen.class));
+					mContext.startActivity(createIntent(VideoCamera.class));
 					break;
 				case UserAgent.UA_STATE_HOLD:
 					onText(CALL_NOTIFICATION, mContext.getString(R.string.card_title_on_hold), android.R.drawable.stat_sys_phone_call_on_hold,ccCall.base);
@@ -278,13 +278,13 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		static String cache_text;
 		static int cache_res;
 		
-		public static void onText(int type,String text,int mInCallResId,long base) {
+	public static void onText(int type,String text,int mInCallResId,long base) {
 			if (mSipdroidEngine != null && type == REGISTER_NOTIFICATION+mSipdroidEngine.pref) {
 				cache_text = text;
 				cache_res = mInCallResId;
 			}
 			if (type >= REGISTER_NOTIFICATION && mInCallResId == R.drawable.sym_presence_available &&
-					!PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_REGISTRATION, com.cyeam.cInterphone.ui.Settings.DEFAULT_REGISTRATION))
+					!PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_REGISTRATION, org.sipdroid.sipua.ui.Settings.DEFAULT_REGISTRATION))
 				text = null;
 	        NotificationManager mNotificationMgr = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 	        if (text != null) {
@@ -294,7 +294,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 			        	notification.flags |= Notification.FLAG_AUTO_CANCEL;
 			        	notification.setLatestEventInfo(mContext, text, mContext.getString(R.string.app_name),
 			        			PendingIntent.getActivity(mContext, 0, createCallLogIntent(), 0));
-			        	if (PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_NOTIFY, com.cyeam.cInterphone.ui.Settings.DEFAULT_NOTIFY)) {
+			        	if (PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_NOTIFY, org.sipdroid.sipua.ui.Settings.DEFAULT_NOTIFY)) {
 				        	notification.flags |= Notification.FLAG_SHOW_LIGHTS;
 				        	notification.ledARGB = 0xff0000ff; /* blue */
 				        	notification.ledOnMS = 125;
@@ -322,7 +322,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 						            createIntent(ChangeAccount.class), 0);
 		        		else
 		        			notification.contentIntent = PendingIntent.getActivity(mContext, 0,
-		        					createIntent(CInterphone.class), 0);
+		        					createIntent(Sipdroid.class), 0);
 				        if (mInCallResId == R.drawable.sym_presence_away) {
 				        	notification.flags |= Notification.FLAG_SHOW_LIGHTS;
 				        	notification.ledARGB = 0xffff0000; /* red */
@@ -338,7 +338,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 					if (base != 0) {
 						contentView.setChronometer(R.id.text1, base, text+" (%s)", true);
 					} else if (type >= REGISTER_NOTIFICATION) {
-						if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_POS, com.cyeam.cInterphone.ui.Settings.DEFAULT_POS))
+						if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_POS, org.sipdroid.sipua.ui.Settings.DEFAULT_POS))
 							contentView.setTextViewText(R.id.text2, text+"/"+mContext.getString(R.string.settings_pos3));
 						else
 							contentView.setTextViewText(R.id.text2, text);
@@ -361,9 +361,9 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		}
 		
 		static void updateAutoAnswer() {
-			if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_AUTO_ONDEMAND, com.cyeam.cInterphone.ui.Settings.DEFAULT_AUTO_ONDEMAND) &&
-				CInterphone.on(mContext)) {
-				if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_AUTO_DEMAND, com.cyeam.cInterphone.ui.Settings.DEFAULT_AUTO_DEMAND))
+			if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_AUTO_ONDEMAND, org.sipdroid.sipua.ui.Settings.DEFAULT_AUTO_ONDEMAND) &&
+				Sipdroid.on(mContext)) {
+				if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_AUTO_DEMAND, org.sipdroid.sipua.ui.Settings.DEFAULT_AUTO_DEMAND))
 					updateAutoAnswer(1);
 				else
 					updateAutoAnswer(0);
@@ -404,8 +404,8 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		
 		public static void pos(boolean enable) {
 			
-			if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_POS, com.cyeam.cInterphone.ui.Settings.DEFAULT_POS) ||
-			PreferenceManager.getDefaultSharedPreferences(mContext).getString(com.cyeam.cInterphone.ui.Settings.PREF_POSURL, com.cyeam.cInterphone.ui.Settings.DEFAULT_POSURL).length() < 1) {
+			if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_POS, org.sipdroid.sipua.ui.Settings.DEFAULT_POS) ||
+			PreferenceManager.getDefaultSharedPreferences(mContext).getString(org.sipdroid.sipua.ui.Settings.PREF_POSURL, org.sipdroid.sipua.ui.Settings.DEFAULT_POSURL).length() < 1) {
 				if (lm != null && am != null) {
 					pos_gps(false);
 					pos_net(false);
@@ -419,9 +419,9 @@ import com.cyeam.cInterphone.ui.CInterphone;
 			if (am == null) am = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
 			pos_gps(false);
 			if (enable) {
-				if (call_state == UserAgent.UA_STATE_IDLE && CInterphone.on(mContext) &&
-						PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_POS, com.cyeam.cInterphone.ui.Settings.DEFAULT_POS) &&
-						PreferenceManager.getDefaultSharedPreferences(mContext).getString(com.cyeam.cInterphone.ui.Settings.PREF_POSURL, com.cyeam.cInterphone.ui.Settings.DEFAULT_POSURL).length()>0) {
+				if (call_state == UserAgent.UA_STATE_IDLE && Sipdroid.on(mContext) &&
+						PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_POS, org.sipdroid.sipua.ui.Settings.DEFAULT_POS) &&
+						PreferenceManager.getDefaultSharedPreferences(mContext).getString(org.sipdroid.sipua.ui.Settings.PREF_POSURL, org.sipdroid.sipua.ui.Settings.DEFAULT_POSURL).length()>0) {
 					Location last = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 					if (System.currentTimeMillis() - loctrydate > GPS_UPDATES && (last == null || System.currentTimeMillis() - last.getTime() > GPS_UPDATES)) {
 						loctrydate = System.currentTimeMillis();
@@ -467,9 +467,9 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		}
 		
 		static void enable_wifi(boolean enable) {
-			if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_OWNWIFI, com.cyeam.cInterphone.ui.Settings.DEFAULT_OWNWIFI))
+			if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_OWNWIFI, org.sipdroid.sipua.ui.Settings.DEFAULT_OWNWIFI))
 				return;
-			if (enable && !PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_WIFI_DISABLED, com.cyeam.cInterphone.ui.Settings.DEFAULT_WIFI_DISABLED))
+			if (enable && !PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_WIFI_DISABLED, org.sipdroid.sipua.ui.Settings.DEFAULT_WIFI_DISABLED))
         		return;
         	WifiManager wm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
 	        ContentResolver cr = Receiver.mContext.getContentResolver();
@@ -477,7 +477,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 				return;
     		Editor edit = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).edit();
     		
-    		edit.putBoolean(com.cyeam.cInterphone.ui.Settings.PREF_WIFI_DISABLED,!enable);
+    		edit.putBoolean(org.sipdroid.sipua.ui.Settings.PREF_WIFI_DISABLED,!enable);
     		edit.commit();
     		/*
     		if (enable) {
@@ -493,13 +493,13 @@ import com.cyeam.cInterphone.ui.CInterphone;
 	        (new Thread() {
 				public void run() {
 					try {
-				        URL url = new URL(PreferenceManager.getDefaultSharedPreferences(mContext).getString(com.cyeam.cInterphone.ui.Settings.PREF_POSURL, com.cyeam.cInterphone.ui.Settings.DEFAULT_POSURL)+
+				        URL url = new URL(PreferenceManager.getDefaultSharedPreferences(mContext).getString(org.sipdroid.sipua.ui.Settings.PREF_POSURL, org.sipdroid.sipua.ui.Settings.DEFAULT_POSURL)+
 				        		"?"+opt);
 				        BufferedReader in;
 						in = new BufferedReader(new InputStreamReader(url.openStream()));
 				        in.close();
 					} catch (IOException e) {
-						if (!CInterphone.release) e.printStackTrace();
+						if (!Sipdroid.release) e.printStackTrace();
 					}
 
 				}
@@ -537,7 +537,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		}
 		
 		public static void alarm(int renew_time,Class <?>cls) {
-       		if (!CInterphone.release) Log.i("SipUA:","alarm "+renew_time);
+       		if (!Sipdroid.release) Log.i("SipUA:","alarm "+renew_time);
 	        Intent intent = new Intent(mContext, cls);
 	        PendingIntent sender = PendingIntent.getBroadcast(mContext,
 	                0, intent, 0);
@@ -624,6 +624,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 			mContext.startActivity(createIntent(Activity2.class)); 
 		}
 
+		// 返回显示的状态
 		public static void progress() {
 			if (call_state == UserAgent.UA_STATE_IDLE) return;
 			int mode = RtpStreamReceiver.speakermode;
@@ -640,13 +641,13 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		public static boolean on_wlan;
 		
 		static boolean on_vpn() {
-			return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_ON_VPN, com.cyeam.cInterphone.ui.Settings.DEFAULT_ON_VPN);
+			return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_ON_VPN, org.sipdroid.sipua.ui.Settings.DEFAULT_ON_VPN);
 		}
 		
 		static void on_vpn(boolean enable) {
     		Editor edit = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).edit();
     		
-    		edit.putBoolean(com.cyeam.cInterphone.ui.Settings.PREF_ON_VPN,enable);
+    		edit.putBoolean(org.sipdroid.sipua.ui.Settings.PREF_ON_VPN,enable);
     		edit.commit();
 		}
 		
@@ -654,19 +655,19 @@ import com.cyeam.cInterphone.ui.CInterphone;
         	WifiManager wm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         	WifiInfo wi = wm.getConnectionInfo();
 
-        	if (PreferenceManager.getDefaultSharedPreferences(mContext).getString(com.cyeam.cInterphone.ui.Settings.PREF_USERNAME+(i!=0?i:""),"").equals("") ||
-        			PreferenceManager.getDefaultSharedPreferences(mContext).getString(com.cyeam.cInterphone.ui.Settings.PREF_SERVER+(i!=0?i:""),"").equals(""))
+        	if (PreferenceManager.getDefaultSharedPreferences(mContext).getString(org.sipdroid.sipua.ui.Settings.PREF_USERNAME+(i!=0?i:""),"").equals("") ||
+        			PreferenceManager.getDefaultSharedPreferences(mContext).getString(org.sipdroid.sipua.ui.Settings.PREF_SERVER+(i!=0?i:""),"").equals(""))
         		return false;
         	if (wi != null) {
-        		if (!CInterphone.release) Log.i("SipUA:","isFastWifi() "+WifiInfo.getDetailedStateOf(wi.getSupplicantState())
+        		if (!Sipdroid.release) Log.i("SipUA:","isFastWifi() "+WifiInfo.getDetailedStateOf(wi.getSupplicantState())
         				+" "+wi.getIpAddress());
 	        	if (wi.getIpAddress() != 0 && (WifiInfo.getDetailedStateOf(wi.getSupplicantState()) == DetailedState.OBTAINING_IPADDR
 	        			|| WifiInfo.getDetailedStateOf(wi.getSupplicantState()) == DetailedState.CONNECTED)) {
 	        		on_wlan = true;
 	        		if (!on_vpn())
-	        			return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_WLAN+(i!=0?i:""), com.cyeam.cInterphone.ui.Settings.DEFAULT_WLAN);
+	        			return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_WLAN+(i!=0?i:""), org.sipdroid.sipua.ui.Settings.DEFAULT_WLAN);
 	        		else
-	        			return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_VPN+(i!=0?i:""), com.cyeam.cInterphone.ui.Settings.DEFAULT_VPN);  
+	        			return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_VPN+(i!=0?i:""), org.sipdroid.sipua.ui.Settings.DEFAULT_VPN);  
 	        	}
         	}
         	on_wlan = false;
@@ -676,14 +677,14 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		static boolean isFastGSM(int i) {
         	TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
 
-        	if (CInterphone.market)
+        	if (Sipdroid.market)
         		return false;
         	if (on_vpn() && (tm.getNetworkType() >= TelephonyManager.NETWORK_TYPE_EDGE))
-        		return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_VPN+(i!=0?i:""), com.cyeam.cInterphone.ui.Settings.DEFAULT_VPN);
+        		return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_VPN+(i!=0?i:""), org.sipdroid.sipua.ui.Settings.DEFAULT_VPN);
         	if (tm.getNetworkType() >= TelephonyManager.NETWORK_TYPE_UMTS)
-        		return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_3G+(i!=0?i:""), com.cyeam.cInterphone.ui.Settings.DEFAULT_3G);
+        		return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_3G+(i!=0?i:""), org.sipdroid.sipua.ui.Settings.DEFAULT_3G);
         	if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_EDGE)
-       			return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_EDGE+(i!=0?i:""), com.cyeam.cInterphone.ui.Settings.DEFAULT_EDGE);
+       			return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_EDGE+(i!=0?i:""), org.sipdroid.sipua.ui.Settings.DEFAULT_EDGE);
         	return false;
 		}
 		
@@ -722,8 +723,8 @@ import com.cyeam.cInterphone.ui.CInterphone;
 	    @Override
 		public void onReceive(Context context, Intent intent) {
 	        String intentAction = intent.getAction();
-	        if (!CInterphone.on(context)) return;
-        	if (!CInterphone.release) Log.i("SipUA:",intentAction);
+	        if (!Sipdroid.on(context)) return;
+        	if (!Sipdroid.release) Log.i("SipUA:",intentAction);
         	if (mContext == null) mContext = context;
 	        if (intentAction.equals(Intent.ACTION_BOOT_COMPLETED)){
 	        	on_vpn(false);
@@ -779,14 +780,14 @@ import com.cyeam.cInterphone.ui.CInterphone;
 	        		engine(mContext).speaker(speakermode());
 	        } else
 	        if (intentAction.equals(Intent.ACTION_SCREEN_ON)) {
-				if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_OWNWIFI, com.cyeam.cInterphone.ui.Settings.DEFAULT_OWNWIFI))
+				if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_OWNWIFI, org.sipdroid.sipua.ui.Settings.DEFAULT_OWNWIFI))
 					alarm(0,OwnWifi.class);
 	        } else
 	        if (intentAction.equals(Intent.ACTION_USER_PRESENT)) {
 	        	mHandler.sendEmptyMessageDelayed(MSG_ENABLE,3000);
 	        } else
 	        if (intentAction.equals(Intent.ACTION_SCREEN_OFF)) {
-				if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_OWNWIFI, com.cyeam.cInterphone.ui.Settings.DEFAULT_OWNWIFI)) {
+				if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_OWNWIFI, org.sipdroid.sipua.ui.Settings.DEFAULT_OWNWIFI)) {
 		        	WifiManager wm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
 		        	WifiInfo wi = wm.getConnectionInfo();
 		        	if (wm.getWifiState() != WifiManager.WIFI_STATE_ENABLED || wi == null || wi.getSupplicantState() != SupplicantState.COMPLETED
@@ -795,20 +796,20 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		        	else
 		        		alarm(15*60,OwnWifi.class);
 				}
-	        	if (CInterphoneEngine.pwl != null)
-	        		for (PowerManager.WakeLock pwl : CInterphoneEngine.pwl)
+	        	if (SipdroidEngine.pwl != null)
+	        		for (PowerManager.WakeLock pwl : SipdroidEngine.pwl)
 	        			if (pwl != null && pwl.isHeld()) {
 			        		pwl.release();
 			        		pwl.acquire();
 	        			}
 	        } else
 		    if (intentAction.equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
-				if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_SELECTWIFI, com.cyeam.cInterphone.ui.Settings.DEFAULT_SELECTWIFI))
+				if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_SELECTWIFI, org.sipdroid.sipua.ui.Settings.DEFAULT_SELECTWIFI))
 					mHandler.sendEmptyMessageDelayed(MSG_SCAN, 3000);
 	        } else
 	        if (intentAction.equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
 	        	if (SystemClock.uptimeMillis() > lastscan + 45000 &&
-	        			PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_SELECTWIFI, com.cyeam.cInterphone.ui.Settings.DEFAULT_SELECTWIFI)) {
+	        			PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_SELECTWIFI, org.sipdroid.sipua.ui.Settings.DEFAULT_SELECTWIFI)) {
 		        	WifiManager wm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
 		        	WifiInfo wi = wm.getConnectionInfo();
 		        	String activeSSID = null;
@@ -843,7 +844,7 @@ import com.cyeam.cInterphone.ui.CInterphone;
 		                		(activeconfig == null || bestconfig.priority != activeconfig.priority) &&
 		                		asu(bestscan) > asu(activescan)*1.5 &&
 		                		(activeSSID == null || activescan != null) && asu(bestscan) > 22) {
-		               		if (!CInterphone.release) Log.i("SipUA:","changing to "+bestconfig.SSID);
+		               		if (!Sipdroid.release) Log.i("SipUA:","changing to "+bestconfig.SSID);
 		               		if (activeSSID == null || !activeSSID.equals(bestscan.SSID))
 		               			wm.disconnect();
 		                	bestconfig.priority = maxconfig.priority + 1;

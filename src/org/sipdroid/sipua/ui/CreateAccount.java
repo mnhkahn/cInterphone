@@ -28,11 +28,8 @@ import java.util.Locale;
 import java.util.Random;
 
 import org.sipdroid.sipua.R;
-
-import com.cyeam.cInterphone.core.RegisterAgent;
-import com.cyeam.cInterphone.core.CInterphoneEngine;
-import com.cyeam.cInterphone.ui.CInterphone;
-import com.cyeam.cInterphone.ui.Settings;
+import org.sipdroid.sipua.RegisterAgent;
+import org.sipdroid.sipua.SipdroidEngine;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -68,7 +65,7 @@ public class CreateAccount extends Dialog {
 	public static String isPossible(Context context) {
 		Boolean found = false;
 		email = trunkserver = null;
-	   	for (int i = 0; i < CInterphoneEngine.LINES; i++) {
+	   	for (int i = 0; i < SipdroidEngine.LINES; i++) {
 	   		String j = (i!=0?""+i:"");
 	   		String username = PreferenceManager.getDefaultSharedPreferences(context).getString(Settings.PREF_USERNAME+j, Settings.DEFAULT_USERNAME),
 	   			server = PreferenceManager.getDefaultSharedPreferences(context).getString(Settings.PREF_SERVER+j, Settings.DEFAULT_SERVER);
@@ -193,7 +190,7 @@ public class CreateAccount extends Dialog {
 					}
 			        in.close();
 				} catch (IOException e) {
-					if (!CInterphone.release) e.printStackTrace();
+					if (!Sipdroid.release) e.printStackTrace();
 				}
 				mHandler.sendEmptyMessage(0);
 			}

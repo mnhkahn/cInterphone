@@ -20,9 +20,6 @@ package org.sipdroid.sipua.ui;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-import com.cyeam.cInterphone.ui.CInterphone;
-import com.cyeam.cInterphone.ui.Settings;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -53,7 +50,7 @@ public class SIP extends Activity {
 		super.onCreate(saved);
 		Intent intent;
 		Uri uri;
-		CInterphone.on(this,true);
+		Sipdroid.on(this,true);
 		if ((intent = getIntent()) != null
 			&& (uri = intent.getData()) != null)
 				callPSTN(uri.toString());

@@ -19,7 +19,7 @@
  */
 package org.sipdroid.codecs;
 
-import com.cyeam.cInterphone.ui.CInterphone;
+import org.sipdroid.sipua.ui.Sipdroid;
 
 class G722 extends CodecBase implements Codec {
 
@@ -46,7 +46,7 @@ class G722 extends CodecBase implements Codec {
 			System.loadLibrary("g722_jni");
 			super.load();
 		} catch (Throwable e) {
-			if (!CInterphone.release) e.printStackTrace();
+			if (!Sipdroid.release) e.printStackTrace();
 		}
     
 	}  

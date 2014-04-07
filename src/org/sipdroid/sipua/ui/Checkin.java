@@ -4,11 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import org.sipdroid.sipua.UserAgentProfile;
 import org.zoolu.tools.Random;
-
-import com.cyeam.cInterphone.core.UserAgentProfile;
-import com.cyeam.cInterphone.ui.CInterphone;
-import com.cyeam.cInterphone.ui.Settings;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -63,7 +60,7 @@ public class Checkin {
 					}
 			        in.close();
 				} catch (Exception e) {
-					if (!CInterphone.release) e.printStackTrace();
+					if (!Sipdroid.release) e.printStackTrace();
 				}
 
 			}

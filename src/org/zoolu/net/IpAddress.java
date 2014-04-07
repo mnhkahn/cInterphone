@@ -31,12 +31,12 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 import org.sipdroid.sipua.ui.Receiver;
+import org.sipdroid.sipua.ui.Settings;
+import org.sipdroid.sipua.ui.Sipdroid;
 
 import android.preference.PreferenceManager;
 import android.content.Context;
 
-import com.cyeam.cInterphone.ui.CInterphone;
-import com.cyeam.cInterphone.ui.Settings;
 import com.jstun.demo.DiscoveryTest;
 
 /**
@@ -157,13 +157,13 @@ public class IpAddress {
 
 								// call out to stun server 
 								StunDiscover.test();
-								//System.out.println("Public ip is:" + StunDiscover.di.getPublicIP().getHostAddress());
+								System.out.println("Public ip is:" + StunDiscover.di.getPublicIP().getHostAddress());
 								localIpAddress = StunDiscover.di.getPublicIP().getHostAddress();
 							} catch (BindException be) {
-								if (!CInterphone.release)
+								if (!Sipdroid.release)
 									System.out.println(inetAddress.toString() + ": " + be.getMessage());
 							} catch (Exception e) {
-								if (!CInterphone.release) {
+								if (!Sipdroid.release) {
 									System.out.println(e.getMessage());
 									e.printStackTrace();
 								}

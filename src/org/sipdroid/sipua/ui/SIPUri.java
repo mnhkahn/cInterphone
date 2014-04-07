@@ -23,10 +23,7 @@
 package org.sipdroid.sipua.ui;
 
 import org.sipdroid.sipua.R;
-
-import com.cyeam.cInterphone.core.CInterphoneEngine;
-import com.cyeam.cInterphone.ui.CInterphone;
-import com.cyeam.cInterphone.ui.Settings;
+import org.sipdroid.sipua.SipdroidEngine;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -67,7 +64,7 @@ public class SIPUri extends Activity {
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		CInterphone.on(this,true);
+		Sipdroid.on(this,true);
 		Uri uri = getIntent().getData();
 		String target;
 		if (uri.getScheme().equals("sip") || uri.getScheme().equals("sipdroid"))
@@ -84,11 +81,11 @@ public class SIPUri extends Activity {
 			else
 				target = uri.getLastPathSegment();
 		}
-		if (!CInterphone.release) Log.v("SIPUri", "sip uri: " + target);
+		if (!Sipdroid.release) Log.v("SIPUri", "sip uri: " + target);
 		if (!target.contains("@") && PreferenceManager.getDefaultSharedPreferences(this).getString(Settings.PREF_PREF, Settings.DEFAULT_PREF).equals(Settings.VAL_PREF_ASK)) {
 			final String t = target;
 			String items[] = {getString(R.string.pstn_name)};
-			for (int p = 0; p < CInterphoneEngine.LINES; p++)
+			for (int p = 0; p < SipdroidEngine.LINES; p++)
 				if (Receiver.isFast(p) || (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Settings.PREF_CALLBACK, Settings.DEFAULT_CALLBACK) &&
 						PreferenceManager.getDefaultSharedPreferences(this).getString(Settings.PREF_POSURL, Settings.DEFAULT_POSURL).length() > 0)) {
 					items = new String[2];

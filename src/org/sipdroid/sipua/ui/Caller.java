@@ -26,10 +26,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.sipdroid.media.RtpStreamReceiver;
-
-import com.cyeam.cInterphone.core.UserAgent;
-import com.cyeam.cInterphone.ui.CInterphone;
-import com.cyeam.cInterphone.ui.Settings;
+import org.sipdroid.sipua.UserAgent;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -61,8 +58,8 @@ public class Caller extends BroadcastReceiver {
 	        
 	        if (intentAction.equals(Intent.ACTION_NEW_OUTGOING_CALL) && number != null)
 	        {
-        		if (!CInterphone.release) Log.i("SipUA:","outgoing call");
-        		if (!CInterphone.on(context)) return;
+        		if (!Sipdroid.release) Log.i("SipUA:","outgoing call");
+        		if (!Sipdroid.on(context)) return;
     			boolean sip_type = !PreferenceManager.getDefaultSharedPreferences(context).getString(Settings.PREF_PREF, Settings.DEFAULT_PREF).equals(Settings.VAL_PREF_PSTN);
     	        boolean ask = PreferenceManager.getDefaultSharedPreferences(context).getString(Settings.PREF_PREF, Settings.DEFAULT_PREF).equals(Settings.VAL_PREF_ASK);
     	        

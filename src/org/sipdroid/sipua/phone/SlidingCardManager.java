@@ -287,7 +287,7 @@ public class SlidingCardManager implements
 	 * Update the "slide hints" (displayed onscreen either above or below the
 	 * slidable CallCard) based on the current state.
 	 */
-	public void updateCardSlideHints() {
+	public/* package */void updateCardSlideHints() {
 		if (DBG)
 			log("updateCardSlideHints()...");
 
@@ -359,8 +359,7 @@ public class SlidingCardManager implements
 	 * 
 	 * @see CallCard.dispatchTouchEvent
 	 */
-	/* package */
-	void handleCallCardTouchEvent(MotionEvent ev) {
+	/* package */void handleCallCardTouchEvent(MotionEvent ev) {
 		// if (DBG) log("handleCallCardTouchEvent(" + ev + ")...");
 
 		if (mInCallScreen == null || mInCallScreen.isFinishing()) {
@@ -431,8 +430,7 @@ public class SlidingCardManager implements
 	 * slideable CallCard. x and y are the location of the DOWN event in
 	 * absolute screen coordinates.
 	 */
-	/* package */
-	void startSliding(int x, int y) {
+	/* package */void startSliding(int x, int y) {
 		if (DBG)
 			log("startSliding(" + x + ", " + y + ")...");
 
@@ -454,8 +452,7 @@ public class SlidingCardManager implements
 	 *            the y-position of the MOVE event in absolute screen
 	 *            coordinates.
 	 */
-	/* package */
-	void updateWhileSliding(int y) {
+	/* package */void updateWhileSliding(int y) {
 		int totalSlideAmount = y - mTouchDownY;
 		// if (DBG) log("--------------> MOTION! y = " + y
 		// + "  (total slide = " + totalSlideAmount + ")");
@@ -633,7 +630,7 @@ public class SlidingCardManager implements
 		mCallCard.update(mCardPreferredX, mCardPreferredY, -1, -1);
 	}
 
-	/* package */public boolean isSlideInProgress() {
+	public boolean isSlideInProgress() {
 		return mSlideInProgress;
 	}
 
@@ -652,7 +649,6 @@ public class SlidingCardManager implements
 		}
 	}
 
-	/* package */
 	public static class WindowAttachNotifierView extends View {
 		private SlidingCardManager mSlidingCardManager;
 

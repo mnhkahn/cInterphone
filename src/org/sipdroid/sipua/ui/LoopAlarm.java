@@ -20,8 +20,6 @@
 
 package org.sipdroid.sipua.ui;
 
-import com.cyeam.cInterphone.ui.CInterphone;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +29,7 @@ public class LoopAlarm extends BroadcastReceiver {
 
     @Override
 	public void onReceive(Context context, Intent intent) {
-    	if (!CInterphone.release) Log.i("SipUA:","alarm");
+    	if (!Sipdroid.release) Log.i("SipUA:","alarm");
     	Receiver.engine(context).keepAlive();
     }
 }

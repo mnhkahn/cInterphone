@@ -30,13 +30,12 @@ import java.util.Random;
 import org.sipdroid.net.RtpPacket;
 import org.sipdroid.net.RtpSocket;
 import org.sipdroid.net.SipdroidSocket;
+import org.sipdroid.sipua.UserAgent;
 import org.sipdroid.sipua.ui.Receiver;
+import org.sipdroid.sipua.ui.Settings;
+import org.sipdroid.sipua.ui.Sipdroid;
 import org.sipdroid.codecs.Codecs;
 import org.sipdroid.codecs.G711;
-
-import com.cyeam.cInterphone.core.UserAgent;
-import com.cyeam.cInterphone.ui.CInterphone;
-import com.cyeam.cInterphone.ui.Settings;
 
 import android.content.Context;
 import android.media.AudioFormat;
@@ -171,7 +170,7 @@ public class RtpStreamSender extends Thread {
 			rtp_socket = new RtpSocket(src_socket, InetAddress
 					.getByName(dest_addr), dest_port);
 		} catch (Exception e) {
-			if (!CInterphone.release) e.printStackTrace();
+			if (!Sipdroid.release) e.printStackTrace();
 		}
 	}
 
@@ -277,7 +276,7 @@ public class RtpStreamSender extends Thread {
 		long time = 0;
 		double p = 0;
 		boolean improve = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(Settings.PREF_IMPROVE, Settings.DEFAULT_IMPROVE);
-		boolean selectWifi = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_SELECTWIFI, com.cyeam.cInterphone.ui.Settings.DEFAULT_SELECTWIFI);
+		boolean selectWifi = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_SELECTWIFI, org.sipdroid.sipua.ui.Settings.DEFAULT_SELECTWIFI);
 		int micgain = 0;
 		long last_tx_time = 0;
 		long next_tx_delay;
@@ -326,7 +325,7 @@ public class RtpStreamSender extends Thread {
 		try {
 			alerting = Receiver.mContext.getAssets().open("alerting");
 		} catch (IOException e2) {
-			if (!CInterphone.release) e2.printStackTrace();
+			if (!Sipdroid.release) e2.printStackTrace();
 		}
 		p_type.codec.init();
 		while (running) {
@@ -456,7 +455,7 @@ public class RtpStreamSender extends Thread {
 						alerting.reset();
 					alerting.read(buffer,12,num/mu);
 				 } catch (IOException e) {
-					if (!CInterphone.release) e.printStackTrace();
+					if (!Sipdroid.release) e.printStackTrace();
 				 }
 				 if (p_type.codec.number() != 8) {
 					 G711.alaw2linear(buffer, lin, num, mu);
@@ -529,7 +528,7 @@ public class RtpStreamSender extends Thread {
 
 	/** Debug output */
 	private static void println(String str) {
-		if (!CInterphone.release) System.out.println("RtpStreamSender: " + str);
+		if (!Sipdroid.release) System.out.println("RtpStreamSender: " + str);
 	}
 
 	/** Set RTP payload type of outband DTMF packets. **/  
