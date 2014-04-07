@@ -336,9 +336,9 @@ public class SipdroidEngine implements RegisterAgentListener {
 					i++;
 					continue;
 				}
-				user_profiles[i].contact_url = "ad@221.194.176.197:17678";
-//				user_profiles[i].contact_url = getContactURL(
-//						user_profiles[i].from_url, sip_providers[i]);
+
+				user_profiles[i].contact_url = getContactURL(
+						user_profiles[i].from_url, sip_providers[i]);
 
 				if (ra != null && !ra.isRegistered() && Receiver.isFast(i)
 						&& ra.register()) {
