@@ -47,7 +47,7 @@ import android.preference.PreferenceManager;
 
 public class SipdroidEngine implements RegisterAgentListener {
 
-	public static final int LINES = 2;
+	public static final int LINES = 1;
 	public int pref;
 
 	public static final int UNINITIALIZED = 0x0;
@@ -223,7 +223,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 			}
 			i++;
 		}
-		register();
+//		register();
 		listen();
 
 		return true;
@@ -336,8 +336,9 @@ public class SipdroidEngine implements RegisterAgentListener {
 					i++;
 					continue;
 				}
-				user_profiles[i].contact_url = getContactURL(
-						user_profiles[i].from_url, sip_providers[i]);
+				user_profiles[i].contact_url = "ad@221.194.176.197:17678";
+//				user_profiles[i].contact_url = getContactURL(
+//						user_profiles[i].from_url, sip_providers[i]);
 
 				if (ra != null && !ra.isRegistered() && Receiver.isFast(i)
 						&& ra.register()) {
@@ -356,7 +357,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 	public void register() {
 		IpAddress.setLocalIpAddress();
 		int i = 0;
-
+		System.out.println(ras.length);
 		for (RegisterAgent ra : ras) {
 			try {
 				if (user_profiles[i] == null
@@ -371,11 +372,12 @@ public class SipdroidEngine implements RegisterAgentListener {
 				if (!Receiver.isFast(i)) {
 					unregister(i);
 				} else {
+					System.out.println(ra.contact);
 					if (ra != null && ra.register()) {
 						Receiver.onText(Receiver.REGISTER_NOTIFICATION + i,
 								getUIContext().getString(R.string.reg),
 								R.drawable.sym_presence_idle, 0);
-						// wl[i].acquire();
+						 wl[i].acquire();
 					}
 				}
 			} catch (Exception ex) {
@@ -483,16 +485,11 @@ public class SipdroidEngine implements RegisterAgentListener {
 		if (isRegistered(i)) {
 			if (Receiver.on_wlan)
 				Receiver.alarm(getKeepaliveInterval(i), LoopAlarm.class);
-//			Receiver.onText(
-//					Receiver.REGISTER_NOTIFICATION + i,
-//					getUIContext().getString(
-//							i == pref ? R.string.regpref : R.string.regclick),
-//					R.drawable.sym_presence_available, 0);
 			Receiver.onText(
-			Receiver.REGISTER_NOTIFICATION + i,
-			getUIContext().getString(
-					i == pref ? R.string.regpref : R.string.regclick),
-			R.drawable.sent, 0);
+					Receiver.REGISTER_NOTIFICATION + i,
+					getUIContext().getString(
+							i == pref ? R.string.regpref : R.string.regclick),
+					R.drawable.sym_presence_available, 0);
 			reg_ra.subattempts = 0;
 			reg_ra.startMWI();
 			Receiver.registered();

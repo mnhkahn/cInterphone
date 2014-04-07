@@ -245,78 +245,17 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 			// 发送视频
 			startVideoRecording();
 		} else if (Receiver.engine(mContext).getRemoteVideo() != 0) {
-			System.out.println("11111111111111111111111");
-			final VideoCamera that = this;
-			(new Thread() {
-				public void run() {
-					RtpPacket keepalive = new RtpPacket(new byte[12], 0);
-					RtpPacket videopacket = new RtpPacket(new byte[1000], 0);
-
-					try {
-						if (intent == null || rtp_socket == null) {
-							rtp_socket = new RtpSocket(
-									socket = new SipdroidSocket(Receiver
-											.engine(mContext).getLocalVideo()),
-									InetAddress.getByName(Receiver.engine(
-											mContext).getRemoteAddr()),
-									Receiver.engine(mContext).getRemoteVideo());
-							// sleep(3000);
-						} else
-							socket = rtp_socket.getDatagramSocket();
-						rtp_socket.getDatagramSocket().setSoTimeout(15000);
-					} catch (Exception e) {
-						if (!Sipdroid.release)
-							e.printStackTrace();
-						return;
-					}
-					keepalive.setPayloadType(126);
-					try {
-						rtp_socket.send(keepalive);
-					} catch (Exception e1) {
-						return;
-					}
-					for (;;) {
-						try {
-							rtp_socket.receive(videopacket);
-						} catch (IOException e) {
-							rtp_socket.getDatagramSocket().disconnect();
-							try {
-								rtp_socket.send(keepalive);
-							} catch (IOException e1) {
-								System.out.println(e1);
-							}
-						}
-
-
-						// mVideoFrame.setVideoURI(Uri.parse("rtsp://"
-						// + Receiver.engine(mContext).getRemoteAddr()
-						// + "/"
-						// + Receiver.engine(mContext)
-						// .getRemoteVideo() + "/sipdroid"));
-						//
-						// mVideoFrame
-						// .setMediaController(mMediaController = new
-						// MediaController(
-						// that));
-						// mVideoFrame.setOnErrorListener(that);
-						// mVideoFrame.requestFocus();
-						// mVideoFrame.start();
-					}
-				}
-			}).start();
-//			 mVideoFrame
-//			 .setVideoURI(Uri.parse("rtsp://"
-//			 + Receiver.engine(mContext).getRemoteAddr() + ":"
-//			 + Receiver.engine(mContext).getRemoteVideo()
-//			 + "/Sipdroid"));
-			 mVideoFrame
-			 .setVideoURI(Uri.parse("rtsp://192.168.1.102:8554/fuck"));			
-			 mVideoFrame
-			 .setMediaController(mMediaController = new MediaController(
-			 this));
-			 mVideoFrame.setOnErrorListener(this);
-			 mVideoFrame.requestFocus();
-			 mVideoFrame.start();
+			mVideoFrame
+					.setVideoURI(Uri.parse("rtsp://"
+							+ Receiver.engine(mContext).getRemoteAddr() + "/"
+							+ Receiver.engine(mContext).getRemoteVideo()
+							+ "/sipdroid"));
+			mVideoFrame
+					.setMediaController(mMediaController = new MediaController(
+							this));
+			mVideoFrame.setOnErrorListener(this);
+			mVideoFrame.requestFocus();
+			mVideoFrame.start();
 
 		}
 

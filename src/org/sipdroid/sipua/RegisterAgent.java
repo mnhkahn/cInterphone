@@ -226,11 +226,7 @@ public class RegisterAgent implements TransactionClientListener, SubscriberDialo
 		//Create message re (modified by mandrajg)
 		Message req = MessageFactory.createRegisterRequest(sip_provider,
 				target, target, new NameAddress(user_profile.contact_url), qvalue, icsi);
-		
-//		System.out.println(req.getBody() + "!!!!!!!!!!!!");
-//		System.out.println(user_profile.contact_url);
-//		user_profile.contact_url = "sipdroid@113.31.44.135;transport=udp";
-		
+
 		req.setExpiresHeader(new ExpiresHeader(String.valueOf(expire_time)));
 		
 		//create and fill the authentication params this is done when
@@ -262,8 +258,6 @@ public class RegisterAgent implements TransactionClientListener, SubscriberDialo
 		
 		t = new TransactionClient(sip_provider, req, this, 30000);
 		t.request();
-//		System.out.println("registering");
-//		System.out.println(req.getContacts());
 
 		return true;
 	}
