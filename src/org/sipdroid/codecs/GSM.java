@@ -23,6 +23,7 @@ import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.Settings;
 import org.sipdroid.sipua.ui.Sipdroid;
 
+
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 

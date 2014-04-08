@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.sipdroid.sipua.ui.Receiver;
 
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;

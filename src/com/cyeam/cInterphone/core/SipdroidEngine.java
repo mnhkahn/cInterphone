@@ -51,7 +51,7 @@ import android.preference.PreferenceManager;
 
 public class SipdroidEngine implements RegisterAgentListener {
 
-	public static final int LINES = 1;
+	public static final int LINES = 2;
 	public int pref;
 
 	public static final int UNINITIALIZED = 0x0;

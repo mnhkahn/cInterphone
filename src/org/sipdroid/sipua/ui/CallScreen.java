@@ -100,8 +100,8 @@ public class CallScreen extends Activity implements
 			menu.findItem(HOLD_MENU_ITEM).setVisible(true);
 			menu.findItem(MUTE_MENU_ITEM).setVisible(true);
 			menu.findItem(VIDEO_MENU_ITEM).setVisible(
-					VideoCamera.videoValid()
-							&& Receiver.call_state == UserAgent.UA_STATE_INCALL
+//					VideoCamera.videoValid() &&
+							Receiver.call_state == UserAgent.UA_STATE_INCALL
 							&& Receiver.engine(this).getRemoteVideo() != 0);
 			menu.findItem(TRANSFER_MENU_ITEM).setVisible(true);
 			menu.findItem(BLUETOOTH_MENU_ITEM).setVisible(
@@ -181,9 +181,9 @@ public class CallScreen extends Activity implements
 			if (Receiver.call_state == UserAgent.UA_STATE_HOLD)
 				Receiver.engine(this).togglehold();
 			try {
-				intent = new Intent(this,
-						org.sipdroid.sipua.ui.VideoCamera.class);
-				startActivity(intent);
+//				intent = new Intent(this,
+//						org.sipdroid.sipua.ui.VideoCamera.class);
+//				startActivity(intent);
 			} catch (ActivityNotFoundException e) {
 			}
 			break;
@@ -301,10 +301,10 @@ public class CallScreen extends Activity implements
 								intent.putExtra("justplay", true);
 								mHandler.sendEmptyMessage(0);
 							} else {
-								Intent i = new Intent(mContext,
-										org.sipdroid.sipua.ui.VideoCamera.class);
-								i.putExtra("justplay", true);
-								startActivity(i);
+//								Intent i = new Intent(mContext,
+//										org.sipdroid.sipua.ui.VideoCamera.class);
+//								i.putExtra("justplay", true);
+//								startActivity(i);
 							}
 							return;
 						}

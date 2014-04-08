@@ -27,6 +27,8 @@ package org.sipdroid.sipua.phone;
 //import com.android.internal.telephony.Connection;
 //import com.android.internal.telephony.Phone;
 
+import org.sipdroid.sipua.ui.Receiver;
+
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -46,7 +48,6 @@ import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import org.sipdroid.sipua.ui.Receiver;
 
 import com.cyeam.cInterphone.*;
 

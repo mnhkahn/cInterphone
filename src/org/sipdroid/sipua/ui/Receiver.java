@@ -76,6 +76,7 @@ import org.zoolu.sip.provider.SipProvider;
 import com.cyeam.cInterphone.*;
 import com.cyeam.cInterphone.core.SipdroidEngine;
 import com.cyeam.cInterphone.core.UserAgent;
+import com.cyeam.cInterphone.ui.InterphoneActivity;
 
 	public class Receiver extends BroadcastReceiver {
 
@@ -266,6 +267,7 @@ import com.cyeam.cInterphone.core.UserAgent;
 						wl.release();
 //			        mContext.startActivity(createIntent(InCallScreen.class));
 					mContext.startActivity(createIntent(VideoCamera.class));
+//					mContext.startActivity(createIntent(InterphoneActivity.class));
 					break;
 				case UserAgent.UA_STATE_HOLD:
 					onText(CALL_NOTIFICATION, mContext.getString(R.string.card_title_on_hold), android.R.drawable.stat_sys_phone_call_on_hold,ccCall.base);

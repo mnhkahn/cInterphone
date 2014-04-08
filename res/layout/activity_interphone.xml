@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <SurfaceView
+        android:id="@+id/you_view"
+        android:layout_width="fill_parent"
+        android:layout_height="760dp"
+        android:layout_weight="0.73" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/camera_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:onClick="switchCamera"
+            android:src="@drawable/update"
+            android:text="切换" />
+
+        <Button
+            android:id="@+id/camera_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/red4stop"
+            android:onClick="stopCamera"
+            android:text="结束" />
+
+        <ImageButton
+            android:id="@+id/camera_mute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:onClick="muteCamera"
+            android:src="@drawable/mute"
+            android:text="静音" />
+    </LinearLayout>
+
+</LinearLayout>

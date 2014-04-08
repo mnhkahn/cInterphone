@@ -409,6 +409,7 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 					mCamera.setParameters(parameters);
 				}
 			}
+			mCamera.setDisplayOrientation(90);
 			VideoCameraNew.unlock(mCamera);
 			mMediaRecorder.setCamera(mCamera);
 			mVideoPreview.setOnClickListener(this);

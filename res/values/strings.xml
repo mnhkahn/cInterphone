@@ -289,5 +289,6 @@ http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_ev
     <string name="codecs_move_down">Move down one place</string>
     <string name="help_speakerphone">Press and hold volume buttons to force talk</string>
     <string name="menu_create">New PBX linked to my Google Voice</string>
+    <string name="test">Test</string>
 
 </resources>

@@ -27,8 +27,10 @@ import java.util.Locale;
 
 import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.RegisterService;
+import org.sipdroid.sipua.ui.VideoCamera;
 
 import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.core.SipdroidEngine;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -82,6 +84,8 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 	public static final int CONFIGURE_MENU_ITEM = FIRST_MENU_ID + 1;
 	public static final int ABOUT_MENU_ITEM = FIRST_MENU_ID + 2;
 	public static final int EXIT_MENU_ITEM = FIRST_MENU_ID + 3;
+	public static final int TEST1 = FIRST_MENU_ID + 4;
+	public static final int TEST2 = FIRST_MENU_ID + 5;
 
 	private static AlertDialog m_AlertDlg;
 	AutoCompleteTextView sip_uri_box, sip_uri_box2;
@@ -240,12 +244,22 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		boolean result = super.onCreateOptionsMenu(menu);
 
 		MenuItem m;
+		m = menu.add(0, TEST1, 0, R.string.test);
+		m.setIcon(android.R.drawable.ic_menu_call);
+		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
+		
+		m = menu.add(0, TEST2, 0, R.string.test);
+		m.setIcon(android.R.drawable.ic_menu_gallery);
+		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
+		
 		m = menu.add(0, CONFIGURE_MENU_ITEM, 0, R.string.menu_settings);
 		m.setIcon(android.R.drawable.ic_menu_preferences);
 		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
+		
 		m = menu.add(0, ABOUT_MENU_ITEM, 0, R.string.menu_about);
 		m.setIcon(android.R.drawable.ic_menu_info_details);
 		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
+		
 		m = menu.add(0, EXIT_MENU_ITEM, 0, R.string.menu_exit);
 		m.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
@@ -289,7 +303,13 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 				startActivity(intent);
 			} catch (ActivityNotFoundException e) {
 			}
+			break;
 		}
+		
+		case TEST1:
+			startActivity(new Intent(this, VideoCamera.class));
+			break;
+		case TEST2:
 			break;
 		}
 
