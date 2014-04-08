@@ -20,7 +20,7 @@
 
 package org.sipdroid.sipua.ui;
 
-import org.sipdroid.sipua.UserAgent;
+import com.cyeam.cInterphone.core.UserAgent;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

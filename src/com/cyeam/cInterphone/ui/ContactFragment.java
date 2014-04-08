@@ -3,7 +3,6 @@ package com.cyeam.cInterphone.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sipdroid.sipua.R;
 import org.sipdroid.sipua.ui.Receiver;
 
 import android.app.Activity;
@@ -22,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 
+import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.model.Contact;
 
 public class ContactFragment extends ListFragment {

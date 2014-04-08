@@ -24,12 +24,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import org.sipdroid.sipua.R;
-import org.sipdroid.sipua.SipdroidEngine;
 import org.sipdroid.sipua.ui.Checkin;
 import org.sipdroid.sipua.ui.InstantAutoCompleteTextView;
 import org.sipdroid.sipua.ui.Receiver;
 import org.zoolu.sip.provider.SipStack;
+
+import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.core.SipdroidEngine;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

@@ -1,7 +1,8 @@
 package com.cyeam.cInterphone.ui;
 
 import java.util.List;
-import org.sipdroid.sipua.R;
+
+import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.model.Contact;
 
 import android.content.Context;

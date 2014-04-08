@@ -24,10 +24,10 @@
 /////////////////////////////////////////////////////////////////////
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.sipdroid.sipua"
+    package="com.cyeam.cInterphone"
     android:installLocation="auto"
-    android:versionCode="97"
-    android:versionName="3.4 beta" >
+    android:versionCode="1"
+    android:versionName="0.1 beta" >
 
     <uses-sdk
         android:minSdkVersion="5"

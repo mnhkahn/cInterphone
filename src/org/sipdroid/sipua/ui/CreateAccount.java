@@ -27,9 +27,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import org.sipdroid.sipua.R;
-import org.sipdroid.sipua.RegisterAgent;
-import org.sipdroid.sipua.SipdroidEngine;
+
+import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.core.RegisterAgent;
+import com.cyeam.cInterphone.core.SipdroidEngine;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

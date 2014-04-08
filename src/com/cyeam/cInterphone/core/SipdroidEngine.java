@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package org.sipdroid.sipua;
+package com.cyeam.cInterphone.core;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -35,6 +35,10 @@ import org.zoolu.net.SocketAddress;
 import org.zoolu.sip.address.NameAddress;
 import org.zoolu.sip.provider.SipProvider;
 import org.zoolu.sip.provider.SipStack;
+
+import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.R.drawable;
+import com.cyeam.cInterphone.R.string;
 
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
@@ -74,7 +78,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 	UserAgentProfile getUserAgentProfile(String suffix) {
 		UserAgentProfile user_profile = new UserAgentProfile(null);
 
-		// @进行编码
+		// 把@进行编码
 		user_profile.username = PreferenceManager.getDefaultSharedPreferences(
 				getUIContext()).getString(Settings.PREF_USERNAME + suffix,
 				Settings.DEFAULT_USERNAME).replace("@", "%23"); // modified
@@ -372,7 +376,6 @@ public class SipdroidEngine implements RegisterAgentListener {
 				if (!Receiver.isFast(i)) {
 					unregister(i);
 				} else {
-					System.out.println(ra.contact);
 					if (ra != null && ra.register()) {
 						Receiver.onText(Receiver.REGISTER_NOTIFICATION + i,
 								getUIContext().getString(R.string.reg),

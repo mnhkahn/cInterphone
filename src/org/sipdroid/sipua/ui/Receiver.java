@@ -69,10 +69,13 @@ import android.widget.RemoteViews;
 import org.sipdroid.media.Bluetooth;
 import org.sipdroid.media.RtpStreamReceiver;
 import org.sipdroid.media.RtpStreamSender;
-import org.sipdroid.sipua.*;
 import org.sipdroid.sipua.phone.Call;
 import org.sipdroid.sipua.phone.Connection;
 import org.zoolu.sip.provider.SipProvider;
+
+import com.cyeam.cInterphone.*;
+import com.cyeam.cInterphone.core.SipdroidEngine;
+import com.cyeam.cInterphone.core.UserAgent;
 
 	public class Receiver extends BroadcastReceiver {
 

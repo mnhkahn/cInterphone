@@ -30,12 +30,13 @@ import java.util.Random;
 import org.sipdroid.net.RtpPacket;
 import org.sipdroid.net.RtpSocket;
 import org.sipdroid.net.SipdroidSocket;
-import org.sipdroid.sipua.UserAgent;
 import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.Settings;
 import org.sipdroid.sipua.ui.Sipdroid;
 import org.sipdroid.codecs.Codecs;
 import org.sipdroid.codecs.G711;
+
+import com.cyeam.cInterphone.core.UserAgent;
 
 import android.content.Context;
 import android.media.AudioFormat;

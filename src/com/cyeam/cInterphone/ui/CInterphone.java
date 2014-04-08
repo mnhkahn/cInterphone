@@ -25,9 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.sipdroid.sipua.R;
 import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.RegisterService;
+
+import com.cyeam.cInterphone.R;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

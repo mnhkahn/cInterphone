@@ -24,12 +24,13 @@ import java.util.HashMap;
 
 import org.sipdroid.media.RtpStreamReceiver;
 import org.sipdroid.media.RtpStreamSender;
-import org.sipdroid.sipua.R;
-import org.sipdroid.sipua.UserAgent;
 import org.sipdroid.sipua.phone.Call;
 import org.sipdroid.sipua.phone.CallCard;
 import org.sipdroid.sipua.phone.Phone;
 import org.sipdroid.sipua.phone.SlidingCardManager;
+
+import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.core.UserAgent;
 
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;

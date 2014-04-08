@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package org.sipdroid.sipua;
+package com.cyeam.cInterphone.core;
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -51,6 +51,9 @@ import org.zoolu.sip.provider.SipStack;
 import org.zoolu.tools.Log;
 import org.zoolu.tools.LogLevel;
 import org.zoolu.tools.Parser;
+
+import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.R.string;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

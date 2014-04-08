@@ -26,9 +26,10 @@ import java.io.FileOutputStream;
 
 import org.sipdroid.codecs.Codecs;
 import org.sipdroid.media.RtpStreamReceiver;
-import org.sipdroid.sipua.R;
-import org.sipdroid.sipua.SipdroidEngine;
 import org.zoolu.sip.provider.SipStack;
+
+import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.core.SipdroidEngine;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

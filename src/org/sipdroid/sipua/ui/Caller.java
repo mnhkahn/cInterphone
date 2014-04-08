@@ -26,7 +26,8 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.sipdroid.media.RtpStreamReceiver;
-import org.sipdroid.sipua.UserAgent;
+
+import com.cyeam.cInterphone.core.UserAgent;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

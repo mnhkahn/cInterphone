@@ -1,6 +1,6 @@
 package com.cyeam.cInterphone.ui;
 
-import org.sipdroid.sipua.R;
+import com.cyeam.cInterphone.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

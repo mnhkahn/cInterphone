@@ -46,8 +46,9 @@ import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import org.sipdroid.sipua.*;
 import org.sipdroid.sipua.ui.Receiver;
+
+import com.cyeam.cInterphone.*;
 
 /**
  * "Call card" UI element: the in-call screen contains a tiled layout of call
