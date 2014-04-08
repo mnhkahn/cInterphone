@@ -223,7 +223,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 			}
 			i++;
 		}
-//		register();
+		register();
 		listen();
 
 		return true;
@@ -488,7 +488,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 			Receiver.onText(
 					Receiver.REGISTER_NOTIFICATION + i,
 					getUIContext().getString(
-							i == pref ? R.string.regpref : R.string.regclick),
+							i == pref ? R.string.regok : R.string.regclick),
 					R.drawable.sym_presence_available, 0);
 			reg_ra.subattempts = 0;
 			reg_ra.startMWI();
