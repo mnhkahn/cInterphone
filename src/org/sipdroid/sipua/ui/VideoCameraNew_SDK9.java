@@ -10,10 +10,14 @@ public class VideoCameraNew_SDK9 {
 	static Camera open() {
 		Camera c = null;
 		try {
-			c = Camera.open(FindFrontCamera()); // attempt to get a Camera
+			int camera_id = FindFrontCamera();
+			if (camera_id == -1) {
+				camera_id = CameraInfo.CAMERA_FACING_BACK;
+			}
+			c = Camera.open(camera_id); // attempt to get a Camera
 												// instance
 		} catch (Exception e) {
-			// Camera is not available (in use or does not exist)
+			c = Camera.open(CameraInfo.CAMERA_FACING_BACK);
 		}
 		return c;
 	}
@@ -26,9 +30,6 @@ public class VideoCameraNew_SDK9 {
 			Camera.getCameraInfo(camIdx, cameraInfo); // get camerainfo
 			if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
 				// 代表摄像头的方位，目前有定义值两个分别为CAMERA_FACING_FRONT前置和CAMERA_FACING_BACK后置
-				return camIdx;
-			}
-			else if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
 				return camIdx;
 			}
 		}
