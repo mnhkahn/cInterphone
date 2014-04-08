@@ -7,7 +7,7 @@ import android.os.Build;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD) 
 public class VideoCameraNew_SDK9 {
-	static Camera open() {
+	public static Camera open() {
 		Camera c = null;
 		try {
 			int camera_id = FindFrontCamera();

@@ -230,9 +230,9 @@ public class CallScreen extends Activity implements
 	}
 
 	SipdroidSocket socket;
-	RtpSocket rtp_socket;
+	public RtpSocket rtp_socket;
 	Context mContext = this;
-	Intent intent;
+	protected Intent intent;
 
 	@Override
 	public void onResume() {

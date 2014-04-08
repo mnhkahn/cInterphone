@@ -27,10 +27,11 @@ import java.util.Locale;
 
 import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.RegisterService;
-import org.sipdroid.sipua.ui.VideoCamera;
 
 import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.core.SipdroidEngine;
+import com.cyeam.cInterphone.demo.CameraDemo;
+import com.cyeam.cInterphone.demo.PlayDemo;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -307,9 +308,10 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		}
 		
 		case TEST1:
-			startActivity(new Intent(this, VideoCamera.class));
+			startActivity(new Intent(this, CameraDemo.class));
 			break;
 		case TEST2:
+			startActivity(new Intent(this, PlayDemo.class));
 			break;
 		}
 

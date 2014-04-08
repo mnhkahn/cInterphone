@@ -166,7 +166,7 @@
         </activity>
         <!-- portrait表示始终竖屏 landscape表示始终横屏 -->
         <activity
-            android:name="org.sipdroid.sipua.ui.VideoCamera"
+            android:name="com.cyeam.cInterphone.ui.VideoCamera"
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
@@ -181,6 +181,16 @@
             android:label="@string/app_name"
             android:launchMode="singleInstance"
             android:taskAffinity="" >
+        </activity>
+        <activity
+            android:name="com.cyeam.cInterphone.demo.CameraDemo"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" > <!-- Fix Activity -->
+        </activity>
+        <activity
+            android:name="com.cyeam.cInterphone.demo.PlayDemo"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" > <!-- Fix Activity -->
         </activity>
 
         <receiver android:name="org.sipdroid.sipua.ui.OneShotAlarm" />

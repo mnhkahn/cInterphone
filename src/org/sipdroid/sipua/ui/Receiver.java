@@ -77,6 +77,7 @@ import com.cyeam.cInterphone.*;
 import com.cyeam.cInterphone.core.SipdroidEngine;
 import com.cyeam.cInterphone.core.UserAgent;
 import com.cyeam.cInterphone.ui.InterphoneActivity;
+import com.cyeam.cInterphone.ui.VideoCamera;
 
 	public class Receiver extends BroadcastReceiver {
 

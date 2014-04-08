@@ -29,7 +29,7 @@ import android.os.Build;
 
 @TargetApi(Build.VERSION_CODES.FROYO) 
 public class VideoCameraNew2 {
-	static void reconnect(Camera c) {
+	public static void reconnect(Camera c) {
 		try {
 			c.reconnect();
 		} catch (IOException e) {

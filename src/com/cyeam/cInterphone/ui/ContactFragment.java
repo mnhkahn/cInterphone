@@ -84,7 +84,7 @@ public class ContactFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 
 		Contact contact = (Contact) l.getItemAtPosition(position);
-		call_menu("100");
+		call_menu("mint");
 	}
 
 	// 呼叫请求

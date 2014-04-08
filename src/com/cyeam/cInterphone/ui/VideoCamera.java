@@ -1,4 +1,4 @@
-package org.sipdroid.sipua.ui;
+package com.cyeam.cInterphone.ui;
 
 /*
  * Copyright (C) 2009 The Sipdroid Open Source Project
@@ -27,16 +27,31 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+import net.majorkernelpanic.streaming.SessionBuilder;
+import net.majorkernelpanic.streaming.gl.SurfaceView;
+import net.majorkernelpanic.streaming.rtsp.RtspServer;
+
 import org.sipdroid.media.RtpStreamReceiver;
 import org.sipdroid.media.RtpStreamSender;
 import org.sipdroid.net.RtpPacket;
 import org.sipdroid.net.RtpSocket;
 import org.sipdroid.net.SipdroidSocket;
+import org.sipdroid.sipua.ui.CallScreen;
+import org.sipdroid.sipua.ui.Receiver;
+import org.sipdroid.sipua.ui.Settings;
+import org.sipdroid.sipua.ui.Sipdroid;
+import org.sipdroid.sipua.ui.SipdroidListener;
+import org.sipdroid.sipua.ui.VideoCameraNew;
+import org.sipdroid.sipua.ui.VideoCameraNew2;
+import org.sipdroid.sipua.ui.VideoCameraNew_SDK9;
+import org.sipdroid.sipua.ui.VideoPreview;
 
 import com.cyeam.cInterphone.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.location.LocationManager;
@@ -218,6 +233,7 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 		mRecordingTimeView = (TextView) findViewById(R.id.recording_time);
 		mFPS = (TextView) findViewById(R.id.fps);
 		mVideoFrame = (VideoView) findViewById(R.id.video_frame);
+		
 	}
 
 	int speakermode;
