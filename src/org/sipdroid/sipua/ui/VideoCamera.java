@@ -35,7 +35,9 @@ import org.sipdroid.net.SipdroidSocket;
 
 import com.cyeam.cInterphone.R;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Point;
 import android.hardware.Camera;
 import android.location.LocationManager;
 import android.media.AudioManager;
@@ -54,6 +56,7 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,7 +66,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -78,7 +85,7 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 
 	private static int UPDATE_RECORD_TIME = 1;
 
-	private static final float VIDEO_ASPECT_RATIO = 176.0f / 144.0f;
+	private static final float VIDEO_ASPECT_RATIO = 144.0f / 176.0f;
 	VideoPreview mVideoPreview;
 	SurfaceHolder mSurfaceHolder = null;
 	VideoView mVideoFrame;
@@ -170,6 +177,7 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 	};
 
 	/** Called with the activity is first created. */
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -180,6 +188,22 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setScreenOnFlag();
 		setContentView(R.layout.video_camera);
+
+		// findViewById需要在setContentView之后，否则获得为null
+		ImageButton stopButton = (ImageButton) findViewById(R.id.camera_stop);
+		ImageButton switchButton = (ImageButton) findViewById(R.id.camera_switch);
+		ImageButton muteButton = (ImageButton) findViewById(R.id.camera_mute);
+		
+		WindowManager windowManager = (WindowManager) this
+				.getSystemService(WINDOW_SERVICE);
+		int screenWidth = windowManager.getDefaultDisplay().getWidth();
+		int screenHeight = windowManager.getDefaultDisplay().getHeight();
+		stopButton.setLayoutParams(new LinearLayout.LayoutParams(
+				screenWidth / 2, screenHeight / 10));
+		switchButton.setLayoutParams(new LinearLayout.LayoutParams(
+				screenWidth / 4, screenHeight / 10));
+		muteButton.setLayoutParams(new LinearLayout.LayoutParams(
+				screenWidth / 4, screenHeight / 10));
 
 		mVideoPreview = (VideoPreview) findViewById(R.id.camera_preview);
 		mVideoPreview.setAspectRatio(VIDEO_ASPECT_RATIO);
@@ -647,6 +671,18 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 			}
 			releaseMediaRecorder();
 		}
+	}
+	
+	public void stopCamera(View view) {
+		super.onBackPressed();// Click back button.
+	}
+	
+	public void switchCamera(View view) {
+		System.out.println("****************switch");
+	}
+	
+	public void muteCamera(View view) {
+		System.out.println("***************mute");
 	}
 
 	private void setScreenOnFlag() {

@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:background="@color/grey"
             android:onClick="muteCamera"
-            android:src="@drawable/mute"
+            android:src="@android:drawable/stat_notify_call_mute"
             android:text="静音" />
     </LinearLayout>
 
