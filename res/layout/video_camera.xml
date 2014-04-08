@@ -17,7 +17,7 @@
      android:layout_height="fill_parent"
      android:orientation="vertical" >
 
-     <org.sipdroid.sipua.ui.VideoPreview
+     <net.majorkernelpanic.streaming.gl.SurfaceView
          android:id="@+id/camera_preview"
          android:layout_width="144px"
          android:layout_height="176px"

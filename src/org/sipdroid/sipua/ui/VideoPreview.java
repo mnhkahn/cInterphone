@@ -24,7 +24,7 @@ package org.sipdroid.sipua.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.SurfaceView;
+import net.majorkernelpanic.streaming.gl.SurfaceView;
 
 public class VideoPreview extends SurfaceView {
 	private float mAspectRatio;
@@ -38,16 +38,16 @@ public class VideoPreview extends SurfaceView {
 	public static float DONT_CARE = 0.0f;
 
 	public VideoPreview(Context context) {
-		super(context);
+		super(context, null);
 	}
 
 	public VideoPreview(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public VideoPreview(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-	}
+//	public VideoPreview(Context context, AttributeSet attrs, int defStyle) {
+//		super(context, attrs, defStyle);
+//	}
 
 	public void setTileSize(int horizontalTileSize, int verticalTileSize) {
 		if ((mHorizontalTileSize != horizontalTileSize)
