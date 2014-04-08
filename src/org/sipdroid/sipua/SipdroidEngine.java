@@ -74,9 +74,10 @@ public class SipdroidEngine implements RegisterAgentListener {
 	UserAgentProfile getUserAgentProfile(String suffix) {
 		UserAgentProfile user_profile = new UserAgentProfile(null);
 
+		// @进行编码
 		user_profile.username = PreferenceManager.getDefaultSharedPreferences(
 				getUIContext()).getString(Settings.PREF_USERNAME + suffix,
-				Settings.DEFAULT_USERNAME); // modified
+				Settings.DEFAULT_USERNAME).replace("@", "%23"); // modified
 		user_profile.passwd = PreferenceManager.getDefaultSharedPreferences(
 				getUIContext()).getString(Settings.PREF_PASSWORD + suffix,
 				Settings.DEFAULT_PASSWORD);
@@ -188,7 +189,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 
 				if (SipStack.default_transport_protocols[0].equals("tls"))
 					SipStack.default_transport_protocols[0] = "tcp";
-				String version = "Sipdroid/" + Sipdroid.getVersion() + "/"
+				String version = "cInterphone/" + Sipdroid.getVersion() + "/"
 						+ Build.MODEL;
 				SipStack.ua_info = version;
 				SipStack.server_info = version;
@@ -357,7 +358,6 @@ public class SipdroidEngine implements RegisterAgentListener {
 	public void register() {
 		IpAddress.setLocalIpAddress();
 		int i = 0;
-		System.out.println(ras.length);
 		for (RegisterAgent ra : ras) {
 			try {
 				if (user_profiles[i] == null

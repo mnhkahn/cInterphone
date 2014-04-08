@@ -111,12 +111,11 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		mViewPager.setCurrentItem(2);
 		
 		// 初始化SIP&注册
-//		Account[] accounts = AccountManager.get(this).getAccountsByType(
-//				"com.google");
-//		if (accounts.length > 0) {
-//			Settings.DEFAULT_USERNAME = accounts[0].name.replace("@", "%23");
-//		}
-		Settings.DEFAULT_USERNAME = "superman";
+		Account[] accounts = AccountManager.get(this).getAccountsByType(
+				"com.google");
+		if (accounts.length > 0) {
+			Settings.DEFAULT_USERNAME = accounts[0].name;
+		}
 		Receiver.engine(this).StartEngine();
 	}
 
@@ -284,7 +283,8 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 
 		case CONFIGURE_MENU_ITEM: {
 			try {
-				intent = new Intent(this, com.cyeam.cInterphone.ui.Settings.class);
+//				intent = new Intent(this, com.cyeam.cInterphone.ui.Settings.class);
+				intent = new Intent(this, org.sipdroid.sipua.ui.Settings.class);
 				startActivity(intent);
 			} catch (ActivityNotFoundException e) {
 			}
