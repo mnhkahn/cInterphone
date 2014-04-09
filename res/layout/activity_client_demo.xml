@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:orientation="vertical" >
+
+     <net.majorkernelpanic.streaming.gl.SurfaceView
+         android:id="@+id/camera_preview1"
+         android:layout_width="144px"
+         android:layout_height="176px"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentTop="true" />
+
+     <VideoView
+         android:id="@+id/video_frame"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentLeft="true" />
+     
+     <TextView
+         android:id="@+id/recording_time"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_marginBottom="60dip"
+         android:layout_marginRight="6dip"
+         android:gravity="right"
+         android:paddingRight="2dip"
+         android:shadowColor="#c0000000"
+         android:shadowDx="1"
+         android:shadowDy="1"
+         android:shadowRadius="1"
+         android:textColor="@color/recording_time_elapsed_text"
+         android:textSize="20dip"
+         android:textStyle="bold"
+         android:visibility="gone" />
+
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentRight="true"
+         android:gravity="center"
+         android:orientation="horizontal" >
+
+         <ImageButton
+             android:id="@+id/camera_switch"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="@color/grey"
+             android:onClick="switchCamera"
+             android:src="@drawable/update"
+             android:text="切换" />
+
+         <ImageButton
+             android:id="@+id/camera_stop"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="@color/red4stop"
+             android:onClick="stopCamera"
+             android:src="@drawable/ic_lockscreen_decline_activated"
+             android:text="结束" />
+
+         <ImageButton
+             android:id="@+id/camera_mute"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="@color/grey"
+             android:onClick="muteCamera"
+             android:src="@android:drawable/presence_audio_online"
+             android:text="静音" />
+     </LinearLayout>
+
+     <TextView
+         android:id="@+id/fps"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/camera_preview"
+         android:layout_marginTop="152dp"
+         android:gravity="right"
+         android:paddingRight="2dip"
+         android:shadowColor="#c0000000"
+         android:shadowDx="1"
+         android:shadowDy="1"
+         android:shadowRadius="1"
+         android:textColor="@color/recording_time_elapsed_text"
+         android:textSize="20dip" />
+
+ </RelativeLayout>

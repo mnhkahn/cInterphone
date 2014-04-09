@@ -27,6 +27,8 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+import javax.security.auth.callback.Callback;
+
 import net.majorkernelpanic.streaming.SessionBuilder;
 import net.majorkernelpanic.streaming.gl.SurfaceView;
 import net.majorkernelpanic.streaming.rtsp.RtspServer;
@@ -57,6 +59,7 @@ import android.hardware.Camera;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaRecorder;
 import android.net.LocalServerSocket;
 import android.net.LocalSocket;
@@ -105,6 +108,7 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 	SurfaceHolder mSurfaceHolder = null;
 	VideoView mVideoFrame;
 	MediaController mMediaController;
+	MediaPlayer mediaPlayer;
 
 	private MediaRecorder mMediaRecorder;
 	private boolean mMediaRecorderRecording = false;
@@ -222,6 +226,7 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 
 		mVideoPreview = (VideoPreview) findViewById(R.id.camera_preview);
 		mVideoPreview.setAspectRatio(VIDEO_ASPECT_RATIO);
+		
 
 		// don't set mSurfaceHolder here. We have it set ONLY within
 		// surfaceCreated / surfaceDestroyed, other parts of the code
@@ -233,7 +238,45 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 		mRecordingTimeView = (TextView) findViewById(R.id.recording_time);
 		mFPS = (TextView) findViewById(R.id.fps);
 		mVideoFrame = (VideoView) findViewById(R.id.video_frame);
-		
+		mVideoFrame.getHolder().addCallback(new SurfaceHolder.Callback() {
+			public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void surfaceCreated(SurfaceHolder arg0) {
+
+		        try {
+		        	mediaPlayer = new MediaPlayer();
+		            mediaPlayer.setDisplay(mVideoFrame.getHolder());
+					mediaPlayer.setDataSource("rtsp://192.168.1.101:1234");
+					mediaPlayer.prepare();
+					mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
+						public void onPrepared(MediaPlayer mp) {
+							mediaPlayer.start();
+						}
+					});
+					mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			public void surfaceDestroyed(SurfaceHolder arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	int speakermode;
@@ -257,53 +300,50 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 
 	@Override
 	public void onResume() {
-		if (!Sipdroid.release)
-			Log.i("SipUA:", "on resume");
-		justplay = intent.hasExtra("justplay");
-		if (!justplay) {
-			System.out.println("00000000000000000000");
-			receiver = new LocalSocket();
-			try {
-				lss = new LocalServerSocket("Sipdroid");
-				receiver.connect(new LocalSocketAddress("Sipdroid"));
-				receiver.setReceiveBufferSize(500000);
-				receiver.setSendBufferSize(500000);
-				sender = lss.accept();
-				sender.setReceiveBufferSize(500000);
-				sender.setSendBufferSize(500000);
-			} catch (IOException e1) {
-				if (!Sipdroid.release)
-					e1.printStackTrace();
-				super.onResume();
-				finish();
-				return;
-			}
-			checkForCamera();
-			mVideoPreview.setVisibility(View.VISIBLE);
-			// 预览
-			if (!mMediaRecorderRecording)
-				initializeVideo();
-			// 发送视频
-			startVideoRecording();
-		} else if (Receiver.engine(mContext).getRemoteVideo() != 0) {
-			mVideoFrame
-					.setVideoURI(Uri.parse("rtsp://"
-							+ Receiver.engine(mContext).getRemoteAddr() + "/"
-							+ Receiver.engine(mContext).getRemoteVideo()
-							+ "/sipdroid"));
-			mVideoFrame
-					.setMediaController(mMediaController = new MediaController(
-							this));
-			mVideoFrame.setOnErrorListener(this);
-			mVideoFrame.requestFocus();
-			mVideoFrame.start();
+//		if (!Sipdroid.release)
+//			Log.i("SipUA:", "on resume");
+//		justplay = intent.hasExtra("justplay");
+//		if (!justplay) {
+//			System.out.println("00000000000000000000");
+//			receiver = new LocalSocket();
+//			try {
+//				lss = new LocalServerSocket("Sipdroid");
+//				receiver.connect(new LocalSocketAddress("Sipdroid"));
+//				receiver.setReceiveBufferSize(500000);
+//				receiver.setSendBufferSize(500000);
+//				sender = lss.accept();
+//				sender.setReceiveBufferSize(500000);
+//				sender.setSendBufferSize(500000);
+//			} catch (IOException e1) {
+//				if (!Sipdroid.release)
+//					e1.printStackTrace();
+//				super.onResume();
+//				finish();
+//				return;
+//			}
+//			checkForCamera();
+//			mVideoPreview.setVisibility(View.VISIBLE);
+//			// 预览
+//			if (!mMediaRecorderRecording)
+//				initializeVideo();
+//			// 发送视频
+//			startVideoRecording();
+//		} else if (Receiver.engine(mContext).getRemoteVideo() != 0) {
+//			mVideoFrame
+//					.setVideoURI(Uri.parse("rtsp://192.168.1.101:1234"));
+//			mVideoFrame
+//					.setMediaController(mMediaController = new MediaController(
+//							this));
+//			mVideoFrame.setOnErrorListener(this);
+//			mVideoFrame.requestFocus();
+//			mVideoFrame.start();
 
-		}
+//		}
 
-		mRecordingTimeView.setText("");
-		mRecordingTimeView.setVisibility(View.VISIBLE);
-		mHandler.removeMessages(UPDATE_RECORD_TIME);
-		mHandler.sendEmptyMessage(UPDATE_RECORD_TIME);
+//		mRecordingTimeView.setText("");
+//		mRecordingTimeView.setVisibility(View.VISIBLE);
+//		mHandler.removeMessages(UPDATE_RECORD_TIME);
+//		mHandler.sendEmptyMessage(UPDATE_RECORD_TIME);
 		super.onResume();
 	}
 
