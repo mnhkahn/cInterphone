@@ -253,7 +253,7 @@ public class PlayDemo extends CallScreen implements SipdroidListener,
 							mediaPlayer.start();
 						}
 					});
-					mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//					mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

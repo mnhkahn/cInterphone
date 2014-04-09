@@ -308,7 +308,8 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		}
 		
 		case TEST1:
-			startActivity(new Intent(this, CameraDemo.class));
+//			startActivity(new Intent(this, CameraDemo.class));
+			startActivity(new Intent(this, VideoCamera.class));
 			break;
 		case TEST2:
 			startActivity(new Intent(this, PlayDemo.class));
