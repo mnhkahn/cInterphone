@@ -246,14 +246,18 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 		        try {
 		        	mediaPlayer = new MediaPlayer();
 		            mediaPlayer.setDisplay(mVideoFrame.getHolder());
-					mediaPlayer.setDataSource("rtsp://192.168.1.101:1234");
+		            String remote_ip = Receiver.engine(mContext).getRemoteAddr();
+		            System.out.println(remote_ip + "_____________");
+		            if (remote_ip == null) {
+						remote_ip = "127.0.0.1";
+					}
+					mediaPlayer.setDataSource("rtsp://" + remote_ip + ":1234");
 					mediaPlayer.prepare();
 					mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
 						public void onPrepared(MediaPlayer mp) {
 							mediaPlayer.start();
 						}
 					});
-//					mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -285,8 +289,8 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 
 		// Configures the SessionBuilder
 		SessionBuilder.getInstance().setSurfaceView(mSurfaceView)
-				.setPreviewOrientation(90).setContext(getApplicationContext())
-				.setAudioEncoder(SessionBuilder.AUDIO_NONE)
+				/*.setPreviewOrientation(90)*/.setContext(getApplicationContext())
+				.setAudioEncoder(SessionBuilder.AUDIO_AAC)
 				.setVideoEncoder(SessionBuilder.VIDEO_H264);
 
 		// Starts the RTSP server

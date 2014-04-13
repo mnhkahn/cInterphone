@@ -415,82 +415,84 @@ public class UserAgent extends CallListenerAdapter {
 
 	/** Launches the Media Application (currently, the RAT audio tool) */
 	protected void launchMediaApplication() {
-		// exit if the Media Application is already running
-		if (audio_app != null) {
-			printLog("DEBUG: media application is already running",
-					LogLevel.HIGH);
-			return;
-		}
-		Codecs.Map c;
-		// parse local sdp
-		SessionDescriptor local_sdp = new SessionDescriptor(
-				call.getLocalSessionDescriptor());
-		int local_audio_port = 0;
-		local_video_port = 0;
-		int dtmf_pt = 0;
-		c = Codecs.getCodec(local_sdp);
-		if (c == null) {
-			Receiver.call_end_reason = R.string.card_title_ended_no_codec;
-			hangup();
-			return;
-		}
-		MediaDescriptor m = local_sdp.getMediaDescriptor("video");
-		if (m != null)
-			local_video_port = m.getMedia().getPort();
-		m = local_sdp.getMediaDescriptor("audio");
-		if (m != null) {
-			local_audio_port = m.getMedia().getPort();
-			if (m.getMedia().getFormatList()
-					.contains(String.valueOf(user_profile.dtmf_avp)))
-				dtmf_pt = user_profile.dtmf_avp;
-		}
-		// parse remote sdp
-		SessionDescriptor remote_sdp = new SessionDescriptor(
-				call.getRemoteSessionDescriptor());
-		remote_media_address = (new Parser(remote_sdp.getConnection()
-				.toString())).skipString().skipString().getString();
-		int remote_audio_port = 0;
-		remote_video_port = 0;
-		for (Enumeration<MediaDescriptor> e = remote_sdp.getMediaDescriptors()
-				.elements(); e.hasMoreElements();) {
-			MediaField media = e.nextElement().getMedia();
-			if (media.getMedia().equals("audio"))
-				remote_audio_port = media.getPort();
-			if (media.getMedia().equals("video"))
-				remote_video_port = media.getPort();
-		}
-		System.out.println(remote_media_address + "|" + remote_video_port + "|" + remote_audio_port + "|" + remote_sdp);
-		// select the media direction (send_only, recv_ony, fullduplex)
-		int dir = 0;
-		if (user_profile.recv_only)
-			dir = -1;
-		else if (user_profile.send_only)
-			dir = 1;
-
-		if (user_profile.audio && local_audio_port != 0
-				&& remote_audio_port != 0) { // create an audio_app and start
-												// it
-
-			if (audio_app == null) { // for testing..
-				String audio_in = null;
-				if (user_profile.send_tone) {
-					audio_in = JAudioLauncher.TONE;
-				} else if (user_profile.send_file != null) {
-					audio_in = user_profile.send_file;
-				}
-				String audio_out = null;
-				if (user_profile.recv_file != null) {
-					audio_out = user_profile.recv_file;
-				}
-
-				audio_app = new JAudioLauncher(local_audio_port,
-						remote_media_address, remote_audio_port, dir, audio_in,
-						audio_out, c.codec.samp_rate(),
-						user_profile.audio_sample_size, c.codec.frame_size(),
-						log, c, dtmf_pt);
-			}
-			audio_app.startMedia();
-		}
+		// // exit if the Media Application is already running
+		// if (audio_app != null) {
+		// printLog("DEBUG: media application is already running",
+		// LogLevel.HIGH);
+		// return;
+		// }
+		// Codecs.Map c;
+		// // parse local sdp
+		// SessionDescriptor local_sdp = new SessionDescriptor(
+		// call.getLocalSessionDescriptor());
+		// int local_audio_port = 0;
+		// local_video_port = 0;
+		// int dtmf_pt = 0;
+		// c = Codecs.getCodec(local_sdp);
+		// if (c == null) {
+		// Receiver.call_end_reason = R.string.card_title_ended_no_codec;
+		// hangup();
+		// return;
+		// }
+		// MediaDescriptor m = local_sdp.getMediaDescriptor("video");
+		// if (m != null)
+		// local_video_port = m.getMedia().getPort();
+		// m = local_sdp.getMediaDescriptor("audio");
+		// if (m != null) {
+		// local_audio_port = m.getMedia().getPort();
+		// if (m.getMedia().getFormatList()
+		// .contains(String.valueOf(user_profile.dtmf_avp)))
+		// dtmf_pt = user_profile.dtmf_avp;
+		// }
+		// // parse remote sdp
+		// SessionDescriptor remote_sdp = new SessionDescriptor(
+		// call.getRemoteSessionDescriptor());
+		// remote_media_address = (new Parser(remote_sdp.getConnection()
+		// .toString())).skipString().skipString().getString();
+		// int remote_audio_port = 0;
+		// remote_video_port = 0;
+		// for (Enumeration<MediaDescriptor> e =
+		// remote_sdp.getMediaDescriptors()
+		// .elements(); e.hasMoreElements();) {
+		// MediaField media = e.nextElement().getMedia();
+		// if (media.getMedia().equals("audio"))
+		// remote_audio_port = media.getPort();
+		// if (media.getMedia().equals("video"))
+		// remote_video_port = media.getPort();
+		// }
+		// System.out.println(remote_media_address + "|" + remote_video_port +
+		// "|" + remote_audio_port + "|" + remote_sdp);
+		// // select the media direction (send_only, recv_ony, fullduplex)
+		// int dir = 0;
+		// if (user_profile.recv_only)
+		// dir = -1;
+		// else if (user_profile.send_only)
+		// dir = 1;
+		//
+		// if (user_profile.audio && local_audio_port != 0
+		// && remote_audio_port != 0) { // create an audio_app and start
+		// // it
+		//
+		// if (audio_app == null) { // for testing..
+		// String audio_in = null;
+		// if (user_profile.send_tone) {
+		// audio_in = JAudioLauncher.TONE;
+		// } else if (user_profile.send_file != null) {
+		// audio_in = user_profile.send_file;
+		// }
+		// String audio_out = null;
+		// if (user_profile.recv_file != null) {
+		// audio_out = user_profile.recv_file;
+		// }
+		//
+		// audio_app = new JAudioLauncher(local_audio_port,
+		// remote_media_address, remote_audio_port, dir, audio_in,
+		// audio_out, c.codec.samp_rate(),
+		// user_profile.audio_sample_size, c.codec.frame_size(),
+		// log, c, dtmf_pt);
+		// }
+		// audio_app.startMedia();
+		// }
 	}
 
 	/** Close the Media Application */
@@ -636,8 +638,13 @@ public class UserAgent extends CallListenerAdapter {
 			printLog("RINGING(with SDP)", LogLevel.HIGH);
 			if (!user_profile.no_offer) {
 				RtpStreamReceiver.ringback(false);
+				// 通过SDP获得ip
 				// Update the local SDP along with offer/answer
 				sessionProduct(new SessionDescriptor(remote_sdp));
+				SessionDescriptor remote_sdp1 = new SessionDescriptor(
+						call.getRemoteSessionDescriptor());
+				remote_media_address = (new Parser(remote_sdp1.getConnection()
+						.toString())).skipString().skipString().getString();
 				launchMediaApplication();
 			}
 		}
@@ -669,7 +676,7 @@ public class UserAgent extends CallListenerAdapter {
 			// Update the local SDP along with offer/answer
 			sessionProduct(remote_sdp);
 		}
-		
+
 		// 音频发送
 		launchMediaApplication();
 		// 在launchMediaApplication中修改port，在changeStatus中要使用
