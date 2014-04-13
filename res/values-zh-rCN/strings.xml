@@ -22,7 +22,7 @@
 // Simplified Chinese language file by Vantonio.
 // If there should be any problems please email me
 // at nio.von@gmail.com or report it at http://www.sipdroid.org
-/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
@@ -35,8 +35,7 @@
     <string name="contact">联系人</string>
     <string name="setting">设置</string>
     <string name="about">基于流媒体的对讲机系统
-http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_evaluate/
- </string>
+http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_evaluate/</string>
     <string name="reg">正在登录...</string>
     <string name="regok">登录成功</string>
     <string name="regfailed">登录失败</string>
@@ -278,5 +277,8 @@ http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_ev
     <string name="codecs_move_up">上移</string>
     <string name="codecs_move_down">下移</string>
     <string name="help_speakerphone">按住音量键以强制通话</string>
+    <string name="calling">呼叫中...</string>
+    <string name="connecting">连接中...</string>
+    <string name="closed">连接断开</string>
 
 </resources>

@@ -22,7 +22,7 @@
 // these are the main messages of Sipdroid
 // for modifying them additional terms according to section 7, GPL apply
 // see ADDITIONAL_TERMS.txt
-/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
@@ -35,8 +35,7 @@
     <string name="contact">Contacts</string>
     <string name="setting">Setting</string>
     <string name="about">基于流媒体的对讲机系统
-http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_evaluate/
- </string>
+http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_evaluate/</string>
     <string name="reg">Registering...</string>
     <string name="regpref">Preferred</string>
     <string name="regclick">Click to select</string>
@@ -290,5 +289,9 @@ http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_ev
     <string name="help_speakerphone">Press and hold volume buttons to force talk</string>
     <string name="menu_create">New PBX linked to my Google Voice</string>
     <string name="test">Test</string>
+    <string name="calling">Calling</string>
+    <string name="connecting">Connecting</string>
+    <string name="closed">Closed</string>
+    <string name="called">CInterphone...</string>
 
 </resources>
