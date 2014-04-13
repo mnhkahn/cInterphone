@@ -256,7 +256,7 @@ import com.cyeam.cInterphone.ui.VideoCamera;
 					engine(mContext).listen();
 					break;
 				case UserAgent.UA_STATE_INCALL:
-					System.out.println("incall********************************");
+//					System.out.println("incall********************************");
 					broadcastCallStateChanged("OFFHOOK", null);
 					if (ccCall.base == 0) {
 						ccCall.base = SystemClock.elapsedRealtime();
