@@ -81,7 +81,7 @@ public class ContactFragment extends ListFragment {
 				avatarCursor.moveToFirst();
 				String photo_id = avatarCursor.getString(avatarCursor
 						.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
-				contact.setAvatar(getPhoto(photo_id));
+				contact.setAvatar(Contact.getPhoto(resolver, photo_id));
 			}
 			else {
 //				contact.setAvatar();
@@ -101,6 +101,7 @@ public class ContactFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 
 		Contact contact = (Contact) l.getItemAtPosition(position);
+		System.out.println(contact.getName() + contact.getId());
 		call_menu("100");
 	}
 
@@ -117,26 +118,5 @@ public class ContactFragment extends ListFragment {
 			m_AlertDlg = new AlertDialog.Builder(getActivity())
 					.setMessage(R.string.notfast).setTitle(R.string.app_name)
 					.setIcon(R.drawable.icon22).setCancelable(true).show();
-	}
-
-	public byte[] getPhoto(String photo_id) {
-		String selection = null;
-		if (photo_id == null) {
-			return null;
-		} else {
-			selection = ContactsContract.Data._ID + " = " + photo_id;
-		}
-
-		String[] projection = new String[] { ContactsContract.Data.DATA15 };
-		Cursor cur = getActivity().getContentResolver().query(
-				ContactsContract.Data.CONTENT_URI, projection, selection, null,
-				null);
-		cur.moveToFirst();
-		byte[] contactIcon = cur.getBlob(0);
-		if (contactIcon == null) {
-			return null;
-		} else {
-			return contactIcon;
-		}
 	}
 }

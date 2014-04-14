@@ -45,7 +45,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
 		TextView nameTextView = (TextView) contactListView
 				.findViewById(R.id.contact_name);
-		System.out.println(contact.getName() + (contact.getAvatar() == null));
 		ImageView avatar = (ImageView)contactListView.findViewById(R.id.contact_avatar);
 		if (contact.getAvatar() != null) {
 			Bitmap bitmap = BitmapFactory.decodeByteArray(contact.getAvatar(), 0, contact.getAvatar().length);

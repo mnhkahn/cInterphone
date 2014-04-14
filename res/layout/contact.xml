@@ -43,6 +43,14 @@
             android:textSize="26sp" />
 
         <ImageView
+            android:id="@+id/contact_favourite"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/round"
+            android:src="@drawable/star" />
+
+        <ImageView
             android:id="@+id/contact_info"
             android:layout_width="45dip"
             android:layout_height="45dip"
