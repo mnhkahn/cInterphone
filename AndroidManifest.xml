@@ -207,20 +207,25 @@
         <receiver android:name="org.sipdroid.sipua.ui.LoopLocation" />
         <receiver android:name="org.sipdroid.sipua.ui.Caller" >
             <intent-filter android:priority="-1" >
+                <!-- 拨打电话时会发送action为android.intent.action.NEW_OUTGOING_CALL的广播 -->
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
+        <!-- 某个action执行的时候，通过onReceiver()唤醒receiver -->
         <receiver
             android:name="org.sipdroid.sipua.ui.Receiver"
             android:enabled="true" >
             <intent-filter>
+                <!-- 开机启动 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- apk从设备内存移至SD卡或从SD卡移至设备内存之后 -->
                 <action android:name="android.intent.action.EXTERNAL_APPLICATIONS_AVAILABLE" />
+                <!-- apk从设备内存移至SD卡或从SD卡移至设备内存之后 -->
                 <action android:name="android.intent.action.EXTERNAL_APPLICATIONS_UNAVAILABLE" />
             </intent-filter>
             <intent-filter>
+                <!-- A new version of an application package has been installed, replacing an existing version that was previously installed. -->
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
-
                 <data android:scheme="package" />
                 <data android:path="org.sipdroid.sipua" />
             </intent-filter>

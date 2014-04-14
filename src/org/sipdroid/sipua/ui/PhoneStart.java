@@ -22,7 +22,6 @@ package org.sipdroid.sipua.ui;
 
 import org.sipdroid.sipua.ui.Sipdroid;
 
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,21 +29,21 @@ import android.util.Log;
 
 public class PhoneStart extends BroadcastReceiver {
 
-    @Override
+	@Override
 	public void onReceive(Context context, Intent intent) {
-    	
-    	if(intent.getAction().equals("org.sipdroid.START_SIPDROID")) {
-    		Receiver.engine(context).registerMore();
-    	}
-    	else if(intent.getAction().equals("org.sipdroid.STOP_SIPDROID")) {
-        	//NOTE: this kills service, but not activity if it is currently visible.
-        	//      Can activity be killed as well somehow?
-    		Sipdroid.on(context, false);
-    		Receiver.pos(true);
-    		Receiver.engine(context).halt();
-    		Receiver.mSipdroidEngine = null;
-    		Receiver.reRegister(0);
-    		context.stopService(new Intent(context,RegisterService.class));
-    	}
+
+		if (intent.getAction().equals("org.sipdroid.START_SIPDROID")) {
+			Receiver.engine(context).registerMore();
+		} else if (intent.getAction().equals("org.sipdroid.STOP_SIPDROID")) {
+			// NOTE: this kills service, but not activity if it is currently
+			// visible.
+			// Can activity be killed as well somehow?
+			Sipdroid.on(context, false);
+			Receiver.pos(true);
+			Receiver.engine(context).halt();
+			Receiver.mSipdroidEngine = null;
+			Receiver.reRegister(0);
+			context.stopService(new Intent(context, RegisterService.class));
+		}
 	}
 }

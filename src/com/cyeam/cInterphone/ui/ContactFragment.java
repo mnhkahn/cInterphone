@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.sipdroid.sipua.ui.Receiver;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -71,6 +70,20 @@ public class ContactFragment extends ListFragment {
 				}
 				contact.getPhones().add(phoneCursor.getString(0));
 			}
+			// 增加头像
+			Cursor avatarCursor = resolver.query(
+					ContactsContract.Contacts.CONTENT_URI,
+					null,
+					ContactsContract.Contacts._ID + " = "
+							+ contactCursor.getLong(0), null, null);
+			if (avatarCursor.getCount() > 0) {
+				avatarCursor.moveToFirst();
+				String photo_id = avatarCursor.getString(avatarCursor
+						.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
+				contact.setAvatar(getPhoto(photo_id));
+			}
+			avatarCursor.close();
+			
 			contacts.add(contact);
 			phoneCursor.close();
 		}
@@ -100,5 +113,26 @@ public class ContactFragment extends ListFragment {
 			m_AlertDlg = new AlertDialog.Builder(getActivity())
 					.setMessage(R.string.notfast).setTitle(R.string.app_name)
 					.setIcon(R.drawable.icon22).setCancelable(true).show();
+	}
+
+	public byte[] getPhoto(String photo_id) {
+		String selection = null;
+		if (photo_id == null) {
+			return null;
+		} else {
+			selection = ContactsContract.Data._ID + " = " + photo_id;
+		}
+
+		String[] projection = new String[] { ContactsContract.Data.DATA15 };
+		Cursor cur = getActivity().getContentResolver().query(
+				ContactsContract.Data.CONTENT_URI, projection, selection, null,
+				null);
+		cur.moveToFirst();
+		byte[] contactIcon = cur.getBlob(0);
+		if (contactIcon == null) {
+			return null;
+		} else {
+			return contactIcon;
+		}
 	}
 }
