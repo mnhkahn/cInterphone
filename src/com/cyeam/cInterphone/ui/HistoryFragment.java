@@ -1,6 +1,7 @@
 package com.cyeam.cInterphone.ui;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.cyeam.cInterphone.R;
@@ -34,7 +35,7 @@ public class HistoryFragment extends ListFragment {
 			values.put(DbHelper.C_ID, 1);
 			values.put(DbHelper.C_USER_ID, 190);
 
-			values.put(DbHelper.C_DATE, 1223);
+			values.put(DbHelper.C_DATE, new Date().toString());
 			values.put(DbHelper.C_CALL_TYPE, 0);
 			db.insertOrThrow(DbHelper.HISTORY_TABLE, null, values);
 		} catch (SQLException e) {
@@ -57,9 +58,10 @@ public class HistoryFragment extends ListFragment {
 		List<Contact> contacts = new ArrayList<Contact>();
 		
 		db = dbHelper.getReadableDatabase();
-		Cursor favouriteCursor = db.query(DbHelper.FAVOURITE_TABLE, new String[]{DbHelper.C_USER_ID}, null, null, null, null, null);
-		while (favouriteCursor.moveToNext()) {
-			Contact contact = Contact.getContact(getActivity().getContentResolver(), favouriteCursor.getLong(0));
+		Cursor historyCursor = db.query(DbHelper.HISTORY_TABLE, new String[]{DbHelper.C_USER_ID, DbHelper.C_DATE, DbHelper.C_CALL_TYPE}, null, null, null, null, null);
+		while (historyCursor.moveToNext()) {
+			Contact contact = Contact.getContact(getActivity().getContentResolver(), historyCursor.getLong(0));
+			contact.setDate(new Date(historyCursor.getString(1)));
 			contacts.add(contact);
 		}
 		return contacts;

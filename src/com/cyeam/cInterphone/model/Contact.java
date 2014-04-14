@@ -19,6 +19,7 @@ public class Contact implements Serializable {
 	private Long id;
 	private String name;
 	private byte[] avatar;
+	// sqlite 不支持date类型，使用string代替
 	private Date date;
 	private int type = -1;
 
