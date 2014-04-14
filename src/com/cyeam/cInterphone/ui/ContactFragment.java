@@ -62,6 +62,7 @@ public class ContactFragment extends ListFragment {
 							null);
 			// 因为号码与联系人不存在一个表中,一个联系人可能存在多个号码,所以根据联系人ID查找号码,存在phoneNum中
 			Contact contact = new Contact();
+			contact.setId(contactCursor.getLong(0));
 			contact.setName(contactCursor.getString(1));
 			if (phoneCursor.moveToNext()) {
 				if (contact.getPhones() == null) {
@@ -81,6 +82,9 @@ public class ContactFragment extends ListFragment {
 				String photo_id = avatarCursor.getString(avatarCursor
 						.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
 				contact.setAvatar(getPhoto(photo_id));
+			}
+			else {
+//				contact.setAvatar();
 			}
 			avatarCursor.close();
 			

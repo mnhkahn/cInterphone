@@ -9,17 +9,17 @@ public class Contact implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8663290597835403021L;
-	private Integer id;
+	private Long id;
 	private String name;
 	private byte[] avatar;
 
 	private List<String> phones;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

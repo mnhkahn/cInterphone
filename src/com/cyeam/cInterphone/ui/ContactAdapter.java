@@ -2,16 +2,20 @@ package com.cyeam.cInterphone.ui;
 
 import java.util.List;
 
-import com.cyeam.cInterphone.R;
-import com.cyeam.cInterphone.model.Contact;
-
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.model.Contact;
+import com.cyeam.cInterphone.util.RoundBitmap;
 
 public class ContactAdapter extends ArrayAdapter<Contact> {
 
@@ -41,6 +45,14 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
 		TextView nameTextView = (TextView) contactListView
 				.findViewById(R.id.contact_name);
+		System.out.println(contact.getName() + (contact.getAvatar() == null));
+		ImageView avatar = (ImageView)contactListView.findViewById(R.id.contact_avatar);
+		if (contact.getAvatar() != null) {
+			Bitmap bitmap = BitmapFactory.decodeByteArray(contact.getAvatar(), 0, contact.getAvatar().length);
+	        avatar.setImageBitmap(RoundBitmap.toRoundCorner(bitmap, Commons.ROUND_DEGREE));
+		} else {
+			avatar.setImageResource(R.drawable.user_male2);
+		}
 		nameTextView.setText(contactName);
 
 		return contactListView;
