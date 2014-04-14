@@ -74,7 +74,7 @@ import android.widget.TextView;
 // see ADDITIONAL_TERMS.txt
 /////////////////////////////////////////////////////////////////////
 
-// 如果想在关闭dialog的时候执行某些程序,那你应该考虑使用DialogInterface.OnDismissListener
+// 濡傛灉鎯冲湪鍏抽棴dialog鐨勬椂鍊欐墽琛屾煇浜涚▼搴�閭ｄ綘搴旇鑰冭檻浣跨敤DialogInterface.OnDismissListener
 public class CInterphone extends FragmentActivity implements OnDismissListener {
 
 	public static final boolean release = true;
@@ -96,7 +96,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 
 	ViewPager mViewPager;
 
-	// 从starting到running状态 onCreate onStart onResume
+	// 浠巗tarting鍒皉unning鐘舵� onCreate onStart onResume
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -116,7 +116,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		// Set default fragment.
 		mViewPager.setCurrentItem(2);
 		
-		// 初始化SIP&注册
+		// 鍒濆鍖朣IP&娉ㄥ唽
 		Account[] accounts = AccountManager.get(this).getAccountsByType(
 				"com.google");
 		if (accounts.length > 0) {
@@ -268,7 +268,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		return result;
 	}
 
-	// 当客户点击菜单当中的某一个选项时，会调用该方法
+	// 褰撳鎴风偣鍑昏彍鍗曞綋涓殑鏌愪竴涓�椤规椂锛屼細璋冪敤璇ユ柟娉�
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean result = super.onOptionsItemSelected(item);
@@ -312,7 +312,8 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 			startActivity(new Intent(this, VideoCamera.class));
 			break;
 		case TEST2:
-			startActivity(new Intent(this, PlayDemo.class));
+//			startActivity(new Intent(this, PlayDemo.class));
+			startActivity(new Intent(this, CallScreen.class));
 			break;
 		}
 
@@ -342,7 +343,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		return unknown;
 	}
 
-	// Dialog关闭后执行的代码
+	// Dialog鍏抽棴鍚庢墽琛岀殑浠ｇ爜
 	@Override
 	public void onDismiss(DialogInterface dialog) {
 		onResume();

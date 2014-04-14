@@ -5,6 +5,29 @@
     android:orientation="vertical"
     android:id="@+id/main_container" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true" >
+
+        <ImageView
+            android:id="@+id/camera_stop"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_marginRight="80dp"
+            android:background="@drawable/round"
+            android:src="@drawable/ic_lockscreen_decline_activated" />
+
+        <ImageView
+            android:id="@+id/camera_mute"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:background="@drawable/round"
+            android:src="@drawable/ic_lockscreen_answer_active" />
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -36,42 +59,11 @@
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="88dp"
+            android:layout_marginRight="84dp"
             android:layout_toLeftOf="@+id/contact_avatar"
             android:text="@string/app_name"
             android:textSize="40sp" />
 
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true" >
-
-        <ImageView
-            android:id="@+id/camera_switch"
-            android:layout_width="100dip"
-            android:layout_height="100dip"
-            android:background="@drawable/round"
-            android:src="@drawable/update" />
-
-        <ImageView
-            android:id="@+id/camera_stop"
-            android:layout_width="100dip"
-            android:layout_height="100dip"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/round"
-            android:src="@drawable/ic_lockscreen_decline_activated" />
-
-        <ImageView
-            android:id="@+id/camera_mute"
-            android:layout_width="100dip"
-            android:layout_height="100dip"
-            android:background="@drawable/round"
-            android:src="@drawable/medium_volume" />
-    </LinearLayout>
 
 </RelativeLayout >
