@@ -99,7 +99,7 @@ public class Contact implements Serializable {
 				ContactsContract.Contacts.CONTENT_URI,
 				null,
 				ContactsContract.Contacts._ID + " = "
-						+ contactCursor.getLong(0), null, null);
+						+ id, null, null);
 		if (avatarCursor.getCount() > 0) {
 			avatarCursor.moveToFirst();
 			String photo_id = avatarCursor.getString(avatarCursor

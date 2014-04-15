@@ -27,21 +27,32 @@ public class HistoryFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		db = dbHelper.getWritableDatabase();
-
-		ContentValues values = new ContentValues();
-
-		try {
-			values.put(DbHelper.C_ID, 1);
-			values.put(DbHelper.C_USER_ID, 190);
-
-			values.put(DbHelper.C_DATE, new Date().toString());
-			values.put(DbHelper.C_CALL_TYPE, 0);
-			db.insertOrThrow(DbHelper.HISTORY_TABLE, null, values);
-		} catch (SQLException e) {
-			// TODO: handle exception
-		}
-		db.close();
+//		db = dbHelper.getWritableDatabase();
+//
+//		ContentValues values = new ContentValues();
+//
+//		try {
+//			values.put(DbHelper.C_ID, 1);
+//			values.put(DbHelper.C_USER_ID, 420);
+//			values.put(DbHelper.C_DATE, new Date().toString());
+//			values.put(DbHelper.C_CALL_TYPE, 0);
+//			db.insertOrThrow(DbHelper.HISTORY_TABLE, null, values);
+//			
+//			values.put(DbHelper.C_ID, 2);
+//			values.put(DbHelper.C_USER_ID, 421);
+//			values.put(DbHelper.C_DATE, new Date().toString());
+//			values.put(DbHelper.C_CALL_TYPE, 0);
+//			db.insertOrThrow(DbHelper.HISTORY_TABLE, null, values);
+//			
+//			values.put(DbHelper.C_ID, 3);
+//			values.put(DbHelper.C_USER_ID, 422);
+//			values.put(DbHelper.C_DATE, new Date().toString());
+//			values.put(DbHelper.C_CALL_TYPE, 0);
+//			db.insertOrThrow(DbHelper.HISTORY_TABLE, null, values);
+//		} catch (SQLException e) {
+//			System.out.println(e);
+//		}
+//		db.close();
 
 		return inflater.inflate(R.layout.fragment_history, container, false);
 	}

@@ -26,18 +26,26 @@ public class FavouriteFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		db = dbHelper.getWritableDatabase();
-
-		ContentValues values = new ContentValues();
-
-		try {
-			values.put(DbHelper.C_ID, 1);
-			values.put(DbHelper.C_USER_ID, 190);
-			db.insertOrThrow(DbHelper.FAVOURITE_TABLE, null, values);
-		} catch (SQLException e) {
-			// TODO: handle exception
-		}
-		db.close();
+//		db = dbHelper.getWritableDatabase();
+//
+//		ContentValues values = new ContentValues();
+//
+//		try {
+//			values.put(DbHelper.C_ID, 1);
+//			values.put(DbHelper.C_USER_ID, 420);
+//			db.insertOrThrow(DbHelper.FAVOURITE_TABLE, null, values);
+//			
+//			values.put(DbHelper.C_ID, 2);
+//			values.put(DbHelper.C_USER_ID, 421);
+//			db.insertOrThrow(DbHelper.FAVOURITE_TABLE, null, values);
+//			
+//			values.put(DbHelper.C_ID, 3);
+//			values.put(DbHelper.C_USER_ID, 422);
+//			db.insertOrThrow(DbHelper.FAVOURITE_TABLE, null, values);
+//		} catch (SQLException e) {
+//			System.out.println(e);
+//		}
+//		db.close();
 		
 
 		return inflater.inflate(R.layout.fragment_favourite, container, false);
