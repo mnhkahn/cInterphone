@@ -290,7 +290,7 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 		// Configures the SessionBuilder
 		SessionBuilder.getInstance().setSurfaceView(mSurfaceView)
 				/*.setPreviewOrientation(90)*/.setContext(getApplicationContext())
-				.setAudioEncoder(SessionBuilder.AUDIO_AAC)
+				.setAudioEncoder(SessionBuilder.AUDIO_NONE)
 				.setVideoEncoder(SessionBuilder.VIDEO_H264);
 
 		// Starts the RTSP server

@@ -266,8 +266,8 @@ import com.cyeam.cInterphone.ui.VideoCamera;
 					stopRingtone();
 					if (wl != null && wl.isHeld())
 						wl.release();
-//			        mContext.startActivity(createIntent(InCallScreen.class));
-					mContext.startActivity(createIntent(VideoCamera.class));
+			        mContext.startActivity(createIntent(InCallScreen.class));
+//					mContext.startActivity(createIntent(VideoCamera.class));
 //					mContext.startActivity(createIntent(InterphoneActivity.class));
 					break;
 				case UserAgent.UA_STATE_HOLD:

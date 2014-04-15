@@ -114,7 +114,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// Set default fragment.
-		mViewPager.setCurrentItem(0);
+		mViewPager.setCurrentItem(1);
 		
 		// 鍒濆鍖朣IP&娉ㄥ唽
 		Account[] accounts = AccountManager.get(this).getAccountsByType(

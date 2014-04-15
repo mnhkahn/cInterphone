@@ -101,7 +101,6 @@ public class ContactFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 
 		Contact contact = (Contact) l.getItemAtPosition(position);
-		System.out.println(contact.getName() + contact.getId());
 		call_menu("100");
 	}
 
