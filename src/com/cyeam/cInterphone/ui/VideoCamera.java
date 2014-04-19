@@ -203,8 +203,24 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setScreenOnFlag();
 		setContentView(R.layout.video_camera);
+		
+		// Sets the port of the RTSP server to 1234
+		Editor editor = PreferenceManager.getDefaultSharedPreferences(this)
+				.edit();
+		editor.putString(RtspServer.KEY_PORT, String.valueOf(1234));
+		editor.commit();
 
-		// findViewById需要在setContentView之后，否则获得为null
+		mSurfaceView = (SurfaceView)findViewById(R.id.camera_preview);
+		// Configures the SessionBuilder
+		SessionBuilder.getInstance().setSurfaceView(mSurfaceView)
+				/*.setPreviewOrientation(90)*/.setContext(getApplicationContext())
+				.setAudioEncoder(SessionBuilder.AUDIO_NONE)
+				.setVideoEncoder(SessionBuilder.VIDEO_H264);
+
+		// Starts the RTSP server
+		this.startService(new Intent(this, RtspServer.class));
+
+		// findViewById闇�鍦╯etContentView涔嬪悗锛屽惁鍒欒幏寰椾负null
 		ImageButton stopButton = (ImageButton) findViewById(R.id.camera_stop);
 		ImageButton switchButton = (ImageButton) findViewById(R.id.camera_switch);
 		ImageButton muteButton = (ImageButton) findViewById(R.id.camera_mute);
@@ -222,7 +238,6 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 
 //		mVideoPreview = (VideoPreview) findViewById(R.id.camera_preview);
 //		mVideoPreview.setAspectRatio(VIDEO_ASPECT_RATIO);
-		mSurfaceView = (SurfaceView)findViewById(R.id.camera_preview);
 
 		// don't set mSurfaceHolder here. We have it set ONLY within
 		// surfaceCreated / surfaceDestroyed, other parts of the code
@@ -248,16 +263,17 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 		            mediaPlayer.setDisplay(mVideoFrame.getHolder());
 		            String remote_ip = Receiver.engine(mContext).getRemoteAddr();
 		            System.out.println(remote_ip + "_____________");
-		            if (remote_ip == null) {
-						remote_ip = "127.0.0.1";
-					}
+//		            if (remote_ip == null) {
+						remote_ip = "192.168.23.11";
+//		            remote_ip = "127.0.0.1";
+//					}
 					mediaPlayer.setDataSource("rtsp://" + remote_ip + ":1234");
 					mediaPlayer.prepare();
-					mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
-						public void onPrepared(MediaPlayer mp) {
+//					mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
+//						public void onPrepared(MediaPlayer mp) {
 							mediaPlayer.start();
-						}
-					});
+//						}
+//					});
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -280,21 +296,6 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 			}
 		});
 
-		
-		// Sets the port of the RTSP server to 1234
-		Editor editor = PreferenceManager.getDefaultSharedPreferences(this)
-				.edit();
-		editor.putString(RtspServer.KEY_PORT, String.valueOf(1234));
-		editor.commit();
-
-		// Configures the SessionBuilder
-		SessionBuilder.getInstance().setSurfaceView(mSurfaceView)
-				/*.setPreviewOrientation(90)*/.setContext(getApplicationContext())
-				.setAudioEncoder(SessionBuilder.AUDIO_NONE)
-				.setVideoEncoder(SessionBuilder.VIDEO_H264);
-
-		// Starts the RTSP server
-		this.startService(new Intent(this, RtspServer.class));
 	}
 
 	int speakermode;
@@ -342,10 +343,10 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 //			checkForCamera();
 ////			mVideoPreview.setVisibility(View.VISIBLE);
 //			mSurfaceView.setVisibility(View.VISIBLE);
-//			// 预览
+//			// 棰勮
 //			// if (!mMediaRecorderRecording)
 //			// initializeVideo();
-//			// 发送视频
+//			// 鍙戦�瑙嗛
 ////			startVideoRecording();
 //		} else if (Receiver.engine(mContext).getRemoteVideo() != 0) {
 //			mVideoFrame

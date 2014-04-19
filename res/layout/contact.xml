@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="54dp"
     android:gravity="center_vertical" >
-
-    <!--
-	<TextView  
-        android:id="@+id/contact_id"  
-        android:layout_width="wrap_content"  
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:textSize="18sp" />
-    -->
 
     <ImageView
         android:id="@+id/contact_avatar"
@@ -21,17 +12,11 @@
         android:background="@drawable/round"
         android:src="@drawable/user_male2" />
 
-    <TextView
-        android:id="@+id/contact_name"
-        android:layout_width="wrap_content"
-        android:layout_height="45dip"
-        android:text="contact"
-        android:textColor="#fff"
-        android:textSize="26sp" />
-
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:gravity="right" >
 
         <TextView
@@ -59,4 +44,19 @@
             android:src="@drawable/info" />
     </LinearLayout>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/contact_name"
+        android:layout_width="150dip"
+        android:layout_height="45dip"
+        android:layout_alignTop="@+id/contact_avatar"
+        android:layout_toLeftOf="@+id/linearLayout1"
+        android:layout_toRightOf="@+id/contact_avatar"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="contact"
+        android:textColor="#fff"
+        android:textSize="26sp" />
+    
+    <!-- 单行显示 超出部分用省略号 -->
+
+</RelativeLayout>
