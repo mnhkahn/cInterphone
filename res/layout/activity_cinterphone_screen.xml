@@ -3,7 +3,8 @@
     android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:gravity="right"
+    android:orientation="horizontal" >
 
     <VideoView
         android:id="@+id/video_frame_cinterphone"
@@ -45,8 +46,8 @@
 
     <net.majorkernelpanic.streaming.gl.SurfaceView
         android:id="@+id/camera_preview"
-        android:layout_width="144px"
-        android:layout_height="176px"
+        android:layout_width="176px"
+        android:layout_height="144px"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="52dp" />

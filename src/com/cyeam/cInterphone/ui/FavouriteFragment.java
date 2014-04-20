@@ -14,10 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.core.CInterphoneEngine;
 import com.cyeam.cInterphone.model.Contact;
 import com.cyeam.cInterphone.sqlite.DbHelper;
 
@@ -36,6 +38,14 @@ public class FavouriteFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		dbHelper = new DbHelper(getActivity());
+	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+
+		Contact contact = (Contact) l.getItemAtPosition(position);
+		CInterphoneEngine.call_menu(getActivity(), contact.getName());
 	}
 
 	@Override

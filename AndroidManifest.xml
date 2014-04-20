@@ -31,7 +31,7 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="16" />
+        android:targetSdkVersion="19" />
 
     <supports-screens
         android:anyDensity="false"
@@ -177,7 +177,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
             android:label="@string/menu_video"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:taskAffinity=""
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>

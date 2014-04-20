@@ -21,7 +21,7 @@ public class VideoCameraNew_SDK9 {
 		}
 		return c;
 	}
-	private static int FindFrontCamera() {
+	public static int FindFrontCamera() {
 		int cameraCount = 0;
 		Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
 		cameraCount = Camera.getNumberOfCameras(); // get cameras number

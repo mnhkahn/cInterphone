@@ -56,6 +56,15 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 		}
 		nameTextView.setText(contactName);
 		
+		ImageView info = (ImageView)contactListView.findViewById(R.id.contact_info);
+		info.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				v.getRootView();
+			}
+		});
+		
 //		ImageView favourite = (ImageView)contactListView.findViewById(R.id.contact_favourite);
 //		if (contact.getIsFavourite() == 1) {
 //			favourite.setVisibility(View.GONE);

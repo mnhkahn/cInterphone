@@ -29,12 +29,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.core.CInterphoneEngine;
 import com.cyeam.cInterphone.model.Contact;
 import com.cyeam.cInterphone.sqlite.DbHelper;
 
 public class ContactFragment extends ListFragment {
 	private ContactAdapter adapter;
-	private static AlertDialog m_AlertDlg;
 	private DbHelper dbHelper;
 	private SQLiteDatabase db;
 
@@ -151,21 +151,6 @@ public class ContactFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 
 		Contact contact = (Contact) l.getItemAtPosition(position);
-		call_menu("100");
-	}
-
-	// 呼叫请求
-	void call_menu(String target) {
-		if (m_AlertDlg != null) {
-			m_AlertDlg.cancel();
-		}
-		if (target.length() == 0)
-			m_AlertDlg = new AlertDialog.Builder(getActivity())
-					.setMessage(R.string.empty).setTitle(R.string.app_name)
-					.setIcon(R.drawable.icon22).setCancelable(true).show();
-		else if (!Receiver.engine(getActivity()).call(target, true))
-			m_AlertDlg = new AlertDialog.Builder(getActivity())
-					.setMessage(R.string.notfast).setTitle(R.string.app_name)
-					.setIcon(R.drawable.icon22).setCancelable(true).show();
+		CInterphoneEngine.call_menu(getActivity(), contact.getName());
 	}
 }
