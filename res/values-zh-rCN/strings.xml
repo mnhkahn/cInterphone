@@ -34,6 +34,8 @@
     <string name="history">最近通话</string>
     <string name="contact">联系人</string>
     <string name="setting">设置</string>
+    <string name="toast_add_favourtie_success">收藏 %s 成功!</string>
+    <string name="toast_del_favourtie_success">取消 %s 收藏成功!</string>
     <string name="about">基于流媒体的对讲机系统
 http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_evaluate/</string>
     <string name="reg">正在登录...</string>

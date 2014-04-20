@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.R.integer;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.provider.ContactsContract;
@@ -22,6 +23,7 @@ public class Contact implements Serializable {
 	// sqlite 不支持date类型，使用string代替
 	private Date date;
 	private int type = -1;
+	private int isFavourite = 0;
 
 	private List<String> phones;
 
@@ -71,6 +73,14 @@ public class Contact implements Serializable {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public int getIsFavourite() {
+		return isFavourite;
+	}
+
+	public void setIsFavourite(int isFavourite) {
+		this.isFavourite = isFavourite;
 	}
 
 	public static Contact getContact(ContentResolver resolver, Long id) {

@@ -34,6 +34,8 @@
     <string name="history">History</string>
     <string name="contact">Contacts</string>
     <string name="setting">Setting</string>
+    <string name="toast_add_favourtie_success">Add %s to Favourite success!</string>
+    <string name="toast_del_favourtie_success">Delete %s from Favourite success!</string>
     <string name="about">基于流媒体的对讲机系统
 http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_evaluate/</string>
     <string name="reg">Registering...</string>
