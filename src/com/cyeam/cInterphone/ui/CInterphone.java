@@ -28,11 +28,6 @@ import java.util.Locale;
 import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.RegisterService;
 
-import com.cyeam.cInterphone.R;
-import com.cyeam.cInterphone.core.SipdroidEngine;
-import com.cyeam.cInterphone.demo.CameraDemo;
-import com.cyeam.cInterphone.demo.PlayDemo;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
@@ -66,6 +61,8 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
+import com.cyeam.cInterphone.R;
 
 
 /////////////////////////////////////////////////////////////////////
