@@ -30,7 +30,6 @@ import org.sipdroid.media.JAudioLauncher;
 import org.sipdroid.media.MediaLauncher;
 import org.sipdroid.media.RtpStreamReceiver;
 import org.sipdroid.sipua.ui.Receiver;
-import org.sipdroid.sipua.ui.Settings;
 import org.sipdroid.sipua.ui.Sipdroid;
 import org.zoolu.net.IpAddress;
 import org.zoolu.sdp.AttributeField;
@@ -54,6 +53,7 @@ import org.zoolu.tools.Parser;
 
 import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.R.string;
+import com.cyeam.cInterphone.ui.Settings;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

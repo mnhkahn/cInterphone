@@ -153,23 +153,23 @@ public class InCallScreen extends CallScreen implements View.OnClickListener/*
 					|| Receiver.pstn_state.equals("IDLE"))
 				if (PreferenceManager.getDefaultSharedPreferences(mContext)
 						.getBoolean(
-								org.sipdroid.sipua.ui.Settings.PREF_AUTO_ON,
-								org.sipdroid.sipua.ui.Settings.DEFAULT_AUTO_ON)
+								com.cyeam.cInterphone.ui.Settings.PREF_AUTO_ON,
+								com.cyeam.cInterphone.ui.Settings.DEFAULT_AUTO_ON)
 						&& !mKeyguardManager.inKeyguardRestrictedInputMode())
 					mHandler.sendEmptyMessageDelayed(MSG_ANSWER, 1000);
 				else if ((PreferenceManager.getDefaultSharedPreferences(
 						mContext).getBoolean(
-						org.sipdroid.sipua.ui.Settings.PREF_AUTO_ONDEMAND,
-						org.sipdroid.sipua.ui.Settings.DEFAULT_AUTO_ONDEMAND) && PreferenceManager
+						com.cyeam.cInterphone.ui.Settings.PREF_AUTO_ONDEMAND,
+						com.cyeam.cInterphone.ui.Settings.DEFAULT_AUTO_ONDEMAND) && PreferenceManager
 						.getDefaultSharedPreferences(mContext)
 						.getBoolean(
-								org.sipdroid.sipua.ui.Settings.PREF_AUTO_DEMAND,
-								org.sipdroid.sipua.ui.Settings.DEFAULT_AUTO_DEMAND))
+								com.cyeam.cInterphone.ui.Settings.PREF_AUTO_DEMAND,
+								com.cyeam.cInterphone.ui.Settings.DEFAULT_AUTO_DEMAND))
 						|| (PreferenceManager
 								.getDefaultSharedPreferences(mContext)
 								.getBoolean(
-										org.sipdroid.sipua.ui.Settings.PREF_AUTO_HEADSET,
-										org.sipdroid.sipua.ui.Settings.DEFAULT_AUTO_HEADSET) && Receiver.headset > 0))
+										com.cyeam.cInterphone.ui.Settings.PREF_AUTO_HEADSET,
+										com.cyeam.cInterphone.ui.Settings.DEFAULT_AUTO_HEADSET) && Receiver.headset > 0))
 					mHandler.sendEmptyMessageDelayed(MSG_ANSWER_SPEAKER, 10000);
 			break;
 		case UserAgent.UA_STATE_INCALL:
@@ -206,7 +206,7 @@ public class InCallScreen extends CallScreen implements View.OnClickListener/*
 							Settings.System.DTMF_TONE_WHEN_DIALING, 1) == 1)
 						tg = new ToneGenerator(
 								AudioManager.STREAM_VOICE_CALL,
-								(int) (ToneGenerator.MAX_VOLUME * 2 * org.sipdroid.sipua.ui.Settings
+								(int) (ToneGenerator.MAX_VOLUME * 2 * com.cyeam.cInterphone.ui.Settings
 										.getEarGain()));
 					for (;;) {
 						if (!running) {

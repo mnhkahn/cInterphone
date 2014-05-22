@@ -20,8 +20,9 @@
 package org.sipdroid.codecs;
 
 import org.sipdroid.sipua.ui.Receiver;
-import org.sipdroid.sipua.ui.Settings;
 import org.sipdroid.sipua.ui.Sipdroid;
+
+import com.cyeam.cInterphone.ui.Settings;
 
 
 import android.content.SharedPreferences;

@@ -31,12 +31,12 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 import org.sipdroid.sipua.ui.Receiver;
-import org.sipdroid.sipua.ui.Settings;
 import org.sipdroid.sipua.ui.Sipdroid;
 
 import android.preference.PreferenceManager;
 import android.content.Context;
 
+import com.cyeam.cInterphone.ui.Settings;
 import com.jstun.demo.DiscoveryTest;
 
 /**

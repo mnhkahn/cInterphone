@@ -21,6 +21,7 @@ package org.sipdroid.sipua.ui;
  */
 
 import com.cyeam.cInterphone.core.SipdroidEngine;
+import com.cyeam.cInterphone.ui.Settings;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

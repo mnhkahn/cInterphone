@@ -161,7 +161,7 @@
             android:label="@string/app_name"
             android:taskAffinity="" />
         <activity
-            android:name="org.sipdroid.sipua.ui.Settings"
+            android:name="com.cyeam.cInterphone.ui.Settings"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name" >
         	android:excludeFromRecents="true" android:taskAffinity="">
@@ -177,7 +177,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
             android:label="@string/menu_video"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:taskAffinity=""
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>

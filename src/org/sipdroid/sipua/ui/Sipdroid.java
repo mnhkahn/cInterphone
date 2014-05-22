@@ -29,6 +29,7 @@ import org.zoolu.tools.Random;
 import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.core.SipdroidEngine;
 import com.cyeam.cInterphone.core.UserAgent;
+import com.cyeam.cInterphone.ui.Settings;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -237,7 +238,7 @@ public class Sipdroid extends Activity implements OnDismissListener {
 		Button settingsButton = (Button) findViewById(R.id.settings_button);
 		settingsButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-					Intent myIntent = new Intent(mContext,org.sipdroid.sipua.ui.Settings.class);
+					Intent myIntent = new Intent(mContext,com.cyeam.cInterphone.ui.Settings.class);
 				startActivity(myIntent);
 			}
 		});
@@ -414,7 +415,7 @@ public class Sipdroid extends Activity implements OnDismissListener {
 			
 		case CONFIGURE_MENU_ITEM: {
 			try {
-				intent = new Intent(this, org.sipdroid.sipua.ui.Settings.class);
+				intent = new Intent(this, com.cyeam.cInterphone.ui.Settings.class);
 				startActivity(intent);
 			} catch (ActivityNotFoundException e) {
 			}

@@ -21,6 +21,8 @@
 package org.sipdroid.sipua.ui;
 
 
+import com.cyeam.cInterphone.ui.Settings;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;

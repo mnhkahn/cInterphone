@@ -20,6 +20,8 @@ package org.sipdroid.sipua.ui;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+import com.cyeam.cInterphone.ui.Settings;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;

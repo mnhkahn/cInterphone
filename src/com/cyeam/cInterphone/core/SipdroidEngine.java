@@ -28,7 +28,6 @@ import org.sipdroid.net.KeepAliveSip;
 import org.sipdroid.sipua.ui.ChangeAccount;
 import org.sipdroid.sipua.ui.LoopAlarm;
 import org.sipdroid.sipua.ui.Receiver;
-import org.sipdroid.sipua.ui.Settings;
 import org.sipdroid.sipua.ui.Sipdroid;
 import org.zoolu.net.IpAddress;
 import org.zoolu.net.SocketAddress;
@@ -39,6 +38,7 @@ import org.zoolu.sip.provider.SipStack;
 import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.R.drawable;
 import com.cyeam.cInterphone.R.string;
+import com.cyeam.cInterphone.ui.Settings;
 
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
@@ -51,7 +51,7 @@ import android.preference.PreferenceManager;
 
 public class SipdroidEngine implements RegisterAgentListener {
 
-	public static final int LINES = 2;
+	public static final int LINES = 1;
 	public int pref;
 
 	public static final int UNINITIALIZED = 0x0;
@@ -135,11 +135,11 @@ public class SipdroidEngine implements RegisterAgentListener {
 				Context.WIFI_SERVICE);
 		if (wl == null) {
 			if (!PreferenceManager.getDefaultSharedPreferences(getUIContext())
-					.contains(org.sipdroid.sipua.ui.Settings.PREF_KEEPON)) {
+					.contains(com.cyeam.cInterphone.ui.Settings.PREF_KEEPON)) {
 				Editor edit = PreferenceManager.getDefaultSharedPreferences(
 						getUIContext()).edit();
 
-				edit.putBoolean(org.sipdroid.sipua.ui.Settings.PREF_KEEPON,
+				edit.putBoolean(com.cyeam.cInterphone.ui.Settings.PREF_KEEPON,
 						true);
 				edit.commit();
 			}
@@ -171,8 +171,8 @@ public class SipdroidEngine implements RegisterAgentListener {
 						"Sipdroid.SipdroidEngine");
 				if (!PreferenceManager.getDefaultSharedPreferences(
 						getUIContext()).getBoolean(
-						org.sipdroid.sipua.ui.Settings.PREF_KEEPON,
-						org.sipdroid.sipua.ui.Settings.DEFAULT_KEEPON)) {
+						com.cyeam.cInterphone.ui.Settings.PREF_KEEPON,
+						com.cyeam.cInterphone.ui.Settings.DEFAULT_KEEPON)) {
 					wwl[i] = wm.createWifiLock(3, "Sipdroid.SipdroidEngine");
 					wwl[i].setReferenceCounted(false);
 				}

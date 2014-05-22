@@ -88,8 +88,8 @@ public class JAudioLauncher implements MediaLauncher {
 			CallRecorder call_recorder = null;
 			if (PreferenceManager
 					.getDefaultSharedPreferences(Receiver.mContext).getBoolean(
-							org.sipdroid.sipua.ui.Settings.PREF_CALLRECORD,
-							org.sipdroid.sipua.ui.Settings.DEFAULT_CALLRECORD))
+							com.cyeam.cInterphone.ui.Settings.PREF_CALLRECORD,
+							com.cyeam.cInterphone.ui.Settings.DEFAULT_CALLRECORD))
 				call_recorder = new CallRecorder(null,
 						payload_type.codec.samp_rate()); // Autogenerate
 															// filename from

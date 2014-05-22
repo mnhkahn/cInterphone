@@ -25,6 +25,7 @@ package org.sipdroid.sipua.ui;
 
 import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.core.SipdroidEngine;
+import com.cyeam.cInterphone.ui.Settings;
 
 import android.app.Activity;
 import android.app.AlertDialog;

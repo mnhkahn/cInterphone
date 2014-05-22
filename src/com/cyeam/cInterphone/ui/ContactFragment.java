@@ -3,11 +3,11 @@ package com.cyeam.cInterphone.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sipdroid.sipua.ui.Receiver;
-
-import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -16,14 +16,20 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.core.CInterphoneEngine;
 import com.cyeam.cInterphone.model.Contact;
+import com.cyeam.cInterphone.sqlite.DbHelper;
 
 public class ContactFragment extends ListFragment {
 	private ContactAdapter adapter;
-	private static AlertDialog m_AlertDlg;
+	private DbHelper dbHelper;
+	private SQLiteDatabase db;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,11 +40,46 @@ public class ContactFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		dbHelper = new DbHelper(getActivity());
 		adapter = new ContactAdapter(getActivity(), R.layout.contact, getData());
 		this.setListAdapter(adapter);
 	}
 
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		// 长按事件
+		getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int position, long id) {
+				Contact contact = (Contact) arg0.getItemAtPosition(position);
+				db = dbHelper.getWritableDatabase();
+
+				ContentValues values = new ContentValues();
+
+				try {
+//					values.put(DbHelper.C_ID, contact.getId());
+					values.put(DbHelper.C_USER_ID, contact.getId());
+					db.insertOrThrow(DbHelper.FAVOURITE_TABLE, null, values);
+				} catch (SQLException e) {
+					System.out.println(e);
+				}
+				db.close();
+				Toast.makeText(
+						getActivity(),
+						String.format(
+								getResources().getString(
+										R.string.toast_add_favourtie_success),
+								contact.getName()), Toast.LENGTH_LONG).show();
+				return true;
+			}
+		});
+		super.onViewCreated(view, savedInstanceState);
+	}
+
 	private List<Contact> getData() {
+		db = dbHelper.getReadableDatabase();
+
 		ContentResolver resolver = getActivity().getContentResolver();
 
 		List<Contact> contacts = new ArrayList<Contact>();
@@ -79,12 +120,17 @@ public class ContactFragment extends ListFragment {
 				String photo_id = avatarCursor.getString(avatarCursor
 						.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
 				contact.setAvatar(Contact.getPhoto(resolver, photo_id));
-			}
-			else {
-//				contact.setAvatar();
+			} else {
+				// contact.setAvatar();
 			}
 			avatarCursor.close();
-			
+
+			Cursor favouriteCursor = db.query(DbHelper.FAVOURITE_TABLE,
+					new String[] { DbHelper.C_USER_ID }, DbHelper.C_USER_ID
+							+ "=" + contact.getId(), null, null, null, null);
+			if (favouriteCursor.moveToNext()) {
+				contact.setIsFavourite(1);
+			}
 			contacts.add(contact);
 			phoneCursor.close();
 		}
@@ -98,21 +144,6 @@ public class ContactFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 
 		Contact contact = (Contact) l.getItemAtPosition(position);
-		call_menu("100");
-	}
-
-	// 呼叫请求
-	void call_menu(String target) {
-		if (m_AlertDlg != null) {
-			m_AlertDlg.cancel();
-		}
-		if (target.length() == 0)
-			m_AlertDlg = new AlertDialog.Builder(getActivity())
-					.setMessage(R.string.empty).setTitle(R.string.app_name)
-					.setIcon(R.drawable.icon22).setCancelable(true).show();
-		else if (!Receiver.engine(getActivity()).call(target, true))
-			m_AlertDlg = new AlertDialog.Builder(getActivity())
-					.setMessage(R.string.notfast).setTitle(R.string.app_name)
-					.setIcon(R.drawable.icon22).setCancelable(true).show();
+		CInterphoneEngine.call_menu(getActivity(), contact.getName());
 	}
 }

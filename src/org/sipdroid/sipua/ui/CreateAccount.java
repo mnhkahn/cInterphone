@@ -31,6 +31,7 @@ import java.util.Random;
 import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.core.RegisterAgent;
 import com.cyeam.cInterphone.core.SipdroidEngine;
+import com.cyeam.cInterphone.ui.Settings;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

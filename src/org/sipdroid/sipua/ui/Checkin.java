@@ -7,6 +7,7 @@ import java.net.URL;
 import org.zoolu.tools.Random;
 
 import com.cyeam.cInterphone.core.UserAgentProfile;
+import com.cyeam.cInterphone.ui.Settings;
 
 import android.content.Intent;
 import android.net.Uri;

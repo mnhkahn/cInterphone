@@ -28,6 +28,7 @@ import java.util.regex.PatternSyntaxException;
 import org.sipdroid.media.RtpStreamReceiver;
 
 import com.cyeam.cInterphone.core.UserAgent;
+import com.cyeam.cInterphone.ui.Settings;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

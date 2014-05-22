@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -53,6 +55,20 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 			avatar.setImageResource(R.drawable.user_male2);
 		}
 		nameTextView.setText(contactName);
+		
+		ImageView info = (ImageView)contactListView.findViewById(R.id.contact_info);
+		info.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				v.getRootView();
+			}
+		});
+		
+//		ImageView favourite = (ImageView)contactListView.findViewById(R.id.contact_favourite);
+//		if (contact.getIsFavourite() == 1) {
+//			favourite.setVisibility(View.GONE);
+//		}
 
 		return contactListView;
 	}

@@ -31,12 +31,12 @@ import org.sipdroid.net.RtpPacket;
 import org.sipdroid.net.RtpSocket;
 import org.sipdroid.net.SipdroidSocket;
 import org.sipdroid.sipua.ui.Receiver;
-import org.sipdroid.sipua.ui.Settings;
 import org.sipdroid.sipua.ui.Sipdroid;
 import org.sipdroid.codecs.Codecs;
 import org.sipdroid.codecs.G711;
 
 import com.cyeam.cInterphone.core.UserAgent;
+import com.cyeam.cInterphone.ui.Settings;
 
 import android.content.Context;
 import android.media.AudioFormat;
@@ -277,7 +277,7 @@ public class RtpStreamSender extends Thread {
 		long time = 0;
 		double p = 0;
 		boolean improve = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(Settings.PREF_IMPROVE, Settings.DEFAULT_IMPROVE);
-		boolean selectWifi = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_SELECTWIFI, org.sipdroid.sipua.ui.Settings.DEFAULT_SELECTWIFI);
+		boolean selectWifi = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_SELECTWIFI, com.cyeam.cInterphone.ui.Settings.DEFAULT_SELECTWIFI);
 		int micgain = 0;
 		long last_tx_time = 0;
 		long next_tx_delay;

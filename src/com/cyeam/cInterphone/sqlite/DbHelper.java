@@ -28,8 +28,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String create_favourite_sql = "create table " + FAVOURITE_TABLE + " (" + C_ID + " int primary key, " + C_USER_ID + " int)";
-		String create_history_sql = "create table " + HISTORY_TABLE + " (" + C_ID + " int primary key, " + C_USER_ID + " int, " + C_DATE + " int, " + C_CALL_TYPE + " int)";
+		String create_favourite_sql = "create table " + FAVOURITE_TABLE + "(" + C_ID + " int primary key AUTOINCREMENT, " + C_USER_ID + " int)";
+		String create_history_sql = "create table " + HISTORY_TABLE + "(" + C_ID + " int primary key AUTOINCREMENT, " + C_USER_ID + " int, " + C_DATE + " int, " + C_CALL_TYPE + " int)";
 		
 		db.execSQL(create_favourite_sql);
 		db.execSQL(create_history_sql);

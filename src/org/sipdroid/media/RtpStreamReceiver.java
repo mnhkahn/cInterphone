@@ -183,14 +183,14 @@ public class RtpStreamReceiver extends Thread {
                     Context.AUDIO_SERVICE);
 			oldvol = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 			setMode(speakermode);
-			enableBluetooth(PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_BLUETOOTH,
-					org.sipdroid.sipua.ui.Settings.DEFAULT_BLUETOOTH));
+			enableBluetooth(PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_BLUETOOTH,
+					com.cyeam.cInterphone.ui.Settings.DEFAULT_BLUETOOTH));
 			am.setStreamVolume(stream(),
 					PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt("volume"+speakermode, 
 					am.getStreamMaxVolume(stream())*
 					(speakermode == AudioManager.MODE_NORMAL?4:3)/4
 					),0);
-			ringbackPlayer = new ToneGenerator(stream(),(int)(ToneGenerator.MAX_VOLUME*2*org.sipdroid.sipua.ui.Settings.getEarGain()));
+			ringbackPlayer = new ToneGenerator(stream(),(int)(ToneGenerator.MAX_VOLUME*2*com.cyeam.cInterphone.ui.Settings.getEarGain()));
 			ringbackPlayer.startTone(ToneGenerator.TONE_SUP_RINGTONE);
 		} else if (!ringback && ringbackPlayer != null) {
 			ringbackPlayer.stopTone();
@@ -311,11 +311,11 @@ public class RtpStreamReceiver extends Thread {
 				int oldring = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt("oldring",0);
 				if (oldring > 0) setStreamVolume(AudioManager.STREAM_RING,(int)(
 						am.getStreamMaxVolume(AudioManager.STREAM_RING)*
-						org.sipdroid.sipua.ui.Settings.getEarGain()*3), 0);
+						com.cyeam.cInterphone.ui.Settings.getEarGain()*3), 0);
 				track.setStereoVolume(AudioTrack.getMaxVolume()*
-						(ogain = org.sipdroid.sipua.ui.Settings.getEarGain()*2)
+						(ogain = com.cyeam.cInterphone.ui.Settings.getEarGain()*2)
 						,AudioTrack.getMaxVolume()*
-						org.sipdroid.sipua.ui.Settings.getEarGain()*2);
+						com.cyeam.cInterphone.ui.Settings.getEarGain()*2);
 				if (gain == 0 || ogain <= 1) gain = ogain;
 				break;
 		case AudioManager.MODE_NORMAL:
@@ -338,19 +338,19 @@ public class RtpStreamReceiver extends Thread {
 	}
 	
 	void saveSettings() {
-		if (!PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_OLDVALID, org.sipdroid.sipua.ui.Settings.DEFAULT_OLDVALID)) {
+		if (!PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_OLDVALID, com.cyeam.cInterphone.ui.Settings.DEFAULT_OLDVALID)) {
 			int oldvibrate = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
 			int oldvibrate2 = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION);
-			if (!PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).contains(org.sipdroid.sipua.ui.Settings.PREF_OLDVIBRATE2))
+			if (!PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).contains(com.cyeam.cInterphone.ui.Settings.PREF_OLDVIBRATE2))
 				oldvibrate2 = AudioManager.VIBRATE_SETTING_ON;
 			int oldpolicy = android.provider.Settings.System.getInt(cr, android.provider.Settings.System.WIFI_SLEEP_POLICY, 
 					Settings.System.WIFI_SLEEP_POLICY_DEFAULT);
 			Editor edit = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).edit();
-			edit.putInt(org.sipdroid.sipua.ui.Settings.PREF_OLDVIBRATE, oldvibrate);
-			edit.putInt(org.sipdroid.sipua.ui.Settings.PREF_OLDVIBRATE2, oldvibrate2);
-			edit.putInt(org.sipdroid.sipua.ui.Settings.PREF_OLDPOLICY, oldpolicy);
-			edit.putInt(org.sipdroid.sipua.ui.Settings.PREF_OLDRING, am.getStreamVolume(AudioManager.STREAM_RING));
-			edit.putBoolean(org.sipdroid.sipua.ui.Settings.PREF_OLDVALID, true);
+			edit.putInt(com.cyeam.cInterphone.ui.Settings.PREF_OLDVIBRATE, oldvibrate);
+			edit.putInt(com.cyeam.cInterphone.ui.Settings.PREF_OLDVIBRATE2, oldvibrate2);
+			edit.putInt(com.cyeam.cInterphone.ui.Settings.PREF_OLDPOLICY, oldpolicy);
+			edit.putInt(com.cyeam.cInterphone.ui.Settings.PREF_OLDRING, am.getStreamVolume(AudioManager.STREAM_RING));
+			edit.putBoolean(com.cyeam.cInterphone.ui.Settings.PREF_OLDVALID, true);
 			edit.commit();
 		}
 	}
@@ -367,7 +367,7 @@ public class RtpStreamReceiver extends Thread {
 	
 	public static void setMode(int mode) {
 		Editor edit = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).edit();
-		edit.putBoolean(org.sipdroid.sipua.ui.Settings.PREF_SETMODE, true);
+		edit.putBoolean(com.cyeam.cInterphone.ui.Settings.PREF_SETMODE, true);
 		edit.commit();
 		AudioManager am = (AudioManager) Receiver.mContext.getSystemService(Context.AUDIO_SERVICE);
 		if (Integer.parseInt(Build.VERSION.SDK) >= 5) {
@@ -378,9 +378,9 @@ public class RtpStreamReceiver extends Thread {
 	}
 	
 	public static void restoreMode() {
-		if (PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_SETMODE, org.sipdroid.sipua.ui.Settings.DEFAULT_SETMODE)) {
+		if (PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_SETMODE, com.cyeam.cInterphone.ui.Settings.DEFAULT_SETMODE)) {
 			Editor edit = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).edit();
-			edit.putBoolean(org.sipdroid.sipua.ui.Settings.PREF_SETMODE, false);
+			edit.putBoolean(com.cyeam.cInterphone.ui.Settings.PREF_SETMODE, false);
 			edit.commit();
 			if (Receiver.pstn_state == null || Receiver.pstn_state.equals("IDLE")) {
 				AudioManager am = (AudioManager) Receiver.mContext.getSystemService(Context.AUDIO_SERVICE);
@@ -401,19 +401,19 @@ public class RtpStreamReceiver extends Thread {
 	}
 	
 	public static void restoreSettings() {
-		if (PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_OLDVALID, org.sipdroid.sipua.ui.Settings.DEFAULT_OLDVALID)) {
+		if (PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_OLDVALID, com.cyeam.cInterphone.ui.Settings.DEFAULT_OLDVALID)) {
 			AudioManager am = (AudioManager) Receiver.mContext.getSystemService(Context.AUDIO_SERVICE);
 	        ContentResolver cr = Receiver.mContext.getContentResolver();
-			int oldvibrate = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt(org.sipdroid.sipua.ui.Settings.PREF_OLDVIBRATE, org.sipdroid.sipua.ui.Settings.DEFAULT_OLDVIBRATE);
-			int oldvibrate2 = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt(org.sipdroid.sipua.ui.Settings.PREF_OLDVIBRATE2, org.sipdroid.sipua.ui.Settings.DEFAULT_OLDVIBRATE2);
-			int oldpolicy = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt(org.sipdroid.sipua.ui.Settings.PREF_OLDPOLICY, org.sipdroid.sipua.ui.Settings.DEFAULT_OLDPOLICY);
+			int oldvibrate = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt(com.cyeam.cInterphone.ui.Settings.PREF_OLDVIBRATE, com.cyeam.cInterphone.ui.Settings.DEFAULT_OLDVIBRATE);
+			int oldvibrate2 = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt(com.cyeam.cInterphone.ui.Settings.PREF_OLDVIBRATE2, com.cyeam.cInterphone.ui.Settings.DEFAULT_OLDVIBRATE2);
+			int oldpolicy = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt(com.cyeam.cInterphone.ui.Settings.PREF_OLDPOLICY, com.cyeam.cInterphone.ui.Settings.DEFAULT_OLDPOLICY);
 			am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER,oldvibrate);
 			am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION,oldvibrate2);
 			Settings.System.putInt(cr, Settings.System.WIFI_SLEEP_POLICY, oldpolicy);
 			int oldring = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt("oldring",0);
 			if (oldring > 0) am.setStreamVolume(AudioManager.STREAM_RING, oldring, 0);
 			Editor edit = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).edit();
-			edit.putBoolean(org.sipdroid.sipua.ui.Settings.PREF_OLDVALID, false);
+			edit.putBoolean(com.cyeam.cInterphone.ui.Settings.PREF_OLDVALID, false);
 			edit.commit();
 			PowerManager pm = (PowerManager) Receiver.mContext.getSystemService(Context.POWER_SERVICE);
 			PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK |
@@ -555,8 +555,8 @@ public class RtpStreamReceiver extends Thread {
 	
 	/** Runs it in a new Thread. */
 	public void run() {
-		boolean nodata = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_NODATA, org.sipdroid.sipua.ui.Settings.DEFAULT_NODATA);
-		keepon = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_KEEPON, org.sipdroid.sipua.ui.Settings.DEFAULT_KEEPON);
+		boolean nodata = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_NODATA, com.cyeam.cInterphone.ui.Settings.DEFAULT_NODATA);
+		keepon = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_KEEPON, com.cyeam.cInterphone.ui.Settings.DEFAULT_KEEPON);
 
 		if (rtp_socket == null) {
 			if (DEBUG)
@@ -571,8 +571,8 @@ public class RtpStreamReceiver extends Thread {
 			println("Reading blocks of max " + buffer.length + " bytes");
 
 		running = true;
-		enableBluetooth(PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_BLUETOOTH,
-				org.sipdroid.sipua.ui.Settings.DEFAULT_BLUETOOTH));
+		enableBluetooth(PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(com.cyeam.cInterphone.ui.Settings.PREF_BLUETOOTH,
+				com.cyeam.cInterphone.ui.Settings.DEFAULT_BLUETOOTH));
 		restored = false;
 
 		android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
@@ -588,7 +588,7 @@ public class RtpStreamReceiver extends Thread {
 		short lin[] = new short[BUFFER_SIZE];
 		short lin2[] = new short[BUFFER_SIZE];
 		int server, headroom, todo, len = 0, m = 1, expseq, getseq, vm = 1, gap, gseq;
-		ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_VOICE_CALL,(int)(ToneGenerator.MAX_VOLUME*2*org.sipdroid.sipua.ui.Settings.getEarGain()));
+		ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_VOICE_CALL,(int)(ToneGenerator.MAX_VOLUME*2*com.cyeam.cInterphone.ui.Settings.getEarGain()));
 		track.play();
 		System.gc();
 		empty();
