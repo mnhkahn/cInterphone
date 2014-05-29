@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+	<TextView
+	    android:id="@+id/process_timer"
+	    android:layout_width="wrap_content"
+	    android:layout_height="45dip"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_toRightOf="@+id/process_label"
+	    android:layout_weight="0.06"
+	    android:gravity="center"
+	    android:text="0s"
+	    android:textSize="16sp" />
+
+	<TextView
+	    android:id="@+id/process_label"
+	    android:layout_width="wrap_content"
+	    android:layout_height="45dip"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_weight="0.06"
+	    android:gravity="center"
+	    android:text="開始流程:"
+	    android:textSize="16sp" />
+
+	<TextView
+	    android:id="@+id/process_now"
+	    android:layout_width="wrap_content"
+	    android:layout_height="45dip"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@+id/process_timer"
+	    android:layout_weight="0.06"
+	    android:gravity="center"
+	    android:text="當前流程"
+	    android:textSize="16sp" />
+
+	<TextView
+	    android:id="@+id/process_next"
+	    android:layout_width="wrap_content"
+	    android:layout_height="45dip"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@+id/process_now"
+	    android:layout_weight="0.06"
+	    android:gravity="center"
+	    android:text="下一個流程"
+	    android:textSize="16sp" />
+
+</RelativeLayout>

@@ -63,6 +63,8 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.demo.ListEditTest;
+import com.cyeam.cInterphone.demo.ProcessViewDemo;
 
 
 /////////////////////////////////////////////////////////////////////
@@ -306,7 +308,8 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		
 		case TEST1:
 //			startActivity(new Intent(this, CameraDemo.class));
-			startActivity(new Intent(this, VideoCamera.class));
+//			startActivity(new Intent(this, VideoCamera.class));
+			startActivity(new Intent(this, ProcessViewDemo.class));
 			break;
 		case TEST2:
 //			startActivity(new Intent(this, PlayDemo.class));
