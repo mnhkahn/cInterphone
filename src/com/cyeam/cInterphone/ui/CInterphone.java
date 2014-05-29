@@ -310,7 +310,8 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 			break;
 		case TEST2:
 //			startActivity(new Intent(this, PlayDemo.class));
-			startActivity(new Intent(this, CallScreen.class));
+//			startActivity(new Intent(this, CallScreen.class));
+			startActivity(new Intent(this, ListEditTest.class));
 			break;
 		}
 
@@ -363,18 +364,18 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 			// below) with the page number as its lone argument.
 
 			// Default fragment.
-			Fragment fragment = new DummySectionFragment();
+			Fragment fragment = new Fragment();
 
 			switch (position) {
 			case 0:
-				fragment = new FavouriteFragment();
+				fragment = new ProcessFragment();
 				break;
 			case 1:
-				fragment = new HistoryFragment();
+				fragment = new HelpFragment();
 				break;
-			case 2:
-				fragment = new ContactFragment();
-				break;
+//			case 2:
+//				fragment = new ContactFragment();
+//				break;
 			}
 
 			return fragment;
@@ -383,7 +384,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 3;
+			return 2;
 		}
 
 		@Override

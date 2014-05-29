@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:gravity="center_vertical" >
+
+    <TextView
+        android:id="@+id/process_index"
+        android:layout_width="45dip"
+        android:layout_height="45dip"
+        android:gravity="center"
+        android:background="@drawable/round"
+        android:textSize="26sp"
+        android:text="0" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="right" >
+
+        <ImageView
+            android:id="@+id/process_update"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/round"
+            android:src="@drawable/ic_menu_edit" />
+
+        <ImageView
+            android:id="@+id/process_delete"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/round"
+            android:src="@drawable/ic_menu_delete" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/process_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/process_index"
+        android:text="cInterphone"
+        android:textColor="#fff"
+        android:textSize="26sp" />
+
+</RelativeLayout>

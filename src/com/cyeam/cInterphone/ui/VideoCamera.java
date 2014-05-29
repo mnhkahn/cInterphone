@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import com.cyeam.cInterphone.model.Process;
 
 import net.majorkernelpanic.streaming.SessionBuilder;
 import net.majorkernelpanic.streaming.gl.SurfaceView;
@@ -269,6 +270,48 @@ public class VideoCamera extends CallScreen implements SipdroidListener,
 
 		mVideoFrame = (VideoView) findViewById(R.id.video_frame_cinterphone);
 
+		// Get processes from db
+		Process[] processes = null;
+
+		for (int i = 0; i < 3; i++) {
+			Process process = new Process();
+			process.setContent("content" + new Integer(i).toString());
+			process.setDuration(500);
+		}
+
+		// Start proable
+		new Thread(new Proable(processes)).start();  
+	}
+
+	class Proable implements Runnable {
+		private Process[] processes;
+		
+		public Proable(Process[] processes) {
+			this.processes = processes;
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			while (true) {
+				try {
+					for (int i = 0; i < processes.length; i++) {
+						Thread.sleep(processes[i].getDuration());
+					}
+					
+					// if (mediaPlayer.isPlaying()) {
+					// lyricView.setOffsetY(lyricView.getOffsetY() -
+					// lyricView.SpeedLrc());
+					// lyricView.SelectIndex(mediaPlayer.getCurrentPosition());
+					// seekBar.setProgress(mediaPlayer.getCurrentPosition());
+					// mHandler.post(mUpdateResults);
+					// }
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	int speakermode;
