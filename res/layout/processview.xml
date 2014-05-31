@@ -15,8 +15,9 @@
             android:id="@+id/process_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00:00"
-            android:textSize="36sp" />
+            android:text="00:00:00s"
+            android:textSize="36sp"
+            android:textColor="#000000" />
     </LinearLayout>
 
     <TextView
@@ -28,9 +29,9 @@
         android:layout_below="@+id/process_timer_container"
         android:layout_weight="0.06"
         android:background="@drawable/grey_border"
-        android:gravity="center"
         android:text="當前流程"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/process_next"
@@ -40,8 +41,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/process_now"
         android:layout_weight="0.06"
+        android:padding="10dp"
         android:background="#efeff4"
-        android:gravity="center"
         android:text="下一個流程"
         android:textSize="16sp" />
 
