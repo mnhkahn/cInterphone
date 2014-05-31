@@ -213,6 +213,11 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" > <!-- Fix Activity -->
         </activity>
+        <activity
+            android:name="com.cyeam.cInterphone.demoListDemo.ListDemo"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" > <!-- Fix Activity -->
+        </activity>
 
         <receiver android:name="org.sipdroid.sipua.ui.OneShotAlarm" />
         <receiver android:name="org.sipdroid.sipua.ui.OneShotAlarm2" />

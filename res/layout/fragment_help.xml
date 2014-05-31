@@ -4,11 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@id/android:list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:textColor="#ffffff" >
-    </ListView>
+    <TextView
+        android:id="@+id/process_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/process_index"
+        android:gravity="center"
+        android:text="在线用户"
+        android:textSize="26sp" />
+    
+    <com.cyeam.cInterphone.ui.ListWidget
+        android:id="@+id/users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+    </com.cyeam.cInterphone.ui.ListWidget>
 
 </LinearLayout>
