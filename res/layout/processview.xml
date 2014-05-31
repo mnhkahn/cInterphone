@@ -4,51 +4,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-	<TextView
-	    android:id="@+id/process_timer"
-	    android:layout_width="wrap_content"
-	    android:layout_height="45dip"
-	    android:layout_alignParentRight="true"
-	    android:layout_alignParentTop="true"
-	    android:layout_toRightOf="@+id/process_label"
-	    android:layout_weight="0.06"
-	    android:gravity="center"
-	    android:text="0s"
-	    android:textSize="16sp" />
+    <LinearLayout
+        android:id="@+id/process_timer_container"
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:background="#ffffff"
+        android:gravity="center" >
 
-	<TextView
-	    android:id="@+id/process_label"
-	    android:layout_width="wrap_content"
-	    android:layout_height="45dip"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentTop="true"
-	    android:layout_weight="0.06"
-	    android:gravity="center"
-	    android:text="開始流程:"
-	    android:textSize="16sp" />
+        <TextView
+            android:id="@+id/process_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00:00"
+            android:textSize="36sp" />
+    </LinearLayout>
 
-	<TextView
-	    android:id="@+id/process_now"
-	    android:layout_width="wrap_content"
-	    android:layout_height="45dip"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentRight="true"
-	    android:layout_below="@+id/process_timer"
-	    android:layout_weight="0.06"
-	    android:gravity="center"
-	    android:text="當前流程"
-	    android:textSize="16sp" />
+    <TextView
+        android:id="@+id/process_now"
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/process_timer_container"
+        android:layout_weight="0.06"
+        android:background="@drawable/grey_border"
+        android:gravity="center"
+        android:text="當前流程"
+        android:textSize="16sp" />
 
-	<TextView
-	    android:id="@+id/process_next"
-	    android:layout_width="wrap_content"
-	    android:layout_height="45dip"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentRight="true"
-	    android:layout_below="@+id/process_now"
-	    android:layout_weight="0.06"
-	    android:gravity="center"
-	    android:text="下一個流程"
-	    android:textSize="16sp" />
+    <TextView
+        android:id="@+id/process_next"
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/process_now"
+        android:layout_weight="0.06"
+        android:background="#efeff4"
+        android:gravity="center"
+        android:text="下一個流程"
+        android:textSize="16sp" />
 
 </RelativeLayout>

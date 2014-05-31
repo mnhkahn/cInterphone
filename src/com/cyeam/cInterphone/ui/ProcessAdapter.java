@@ -22,7 +22,7 @@ import com.cyeam.cInterphone.model.Process;
 public class ProcessAdapter extends ArrayAdapter<Process> {
 
 	private int resource;
-	HashMap<Integer, View> map = new HashMap<Integer, View>();
+//	HashMap<Integer, View> map = new HashMap<Integer, View>();
 
 	public ProcessAdapter(Context context, int resource, List<Process> objects) {
 		super(context, resource, objects);

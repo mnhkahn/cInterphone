@@ -23,6 +23,7 @@ public class ProcessView extends LinearLayout {
 	private List<Process> processes = new ArrayList<Process>();
 	private static CountDownTimer timer = null;
 	private Integer i = 0;
+	private final static String TIMER_FORMAT = "00:00:0%s";
 
 	private void init(Context context) {
 		// 为当前view对象设置布局
@@ -64,12 +65,11 @@ public class ProcessView extends LinearLayout {
 
 			
 			public void onTick(long millisUntilFinished) {
-				timer_view.setText("seconds remaining: " + millisUntilFinished
-						/ 1000);
+				timer_view.setText(String.format(TIMER_FORMAT, millisUntilFinished/ 1000));
 			}
 
 			public void onFinish() {
-				timer_view.setText("done");
+				timer_view.setText(String.format(TIMER_FORMAT, processes.get(i).getDuration()));
 				++i;
 				Timer();
 			}
