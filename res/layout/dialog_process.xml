@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialog"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="#ffffffff"
     android:orientation="horizontal" >
 
@@ -10,28 +10,56 @@
         android:id="@+id/process_content_dialog_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="流程：" />
+        android:layout_alignBottom="@+id/process_content_dialog"
+        android:gravity="center"
+        android:text="流程"
+        android:textColor="#c1b645"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/process_content_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/process_content_dialog_label"
+        android:focusable="true"
         android:minWidth="100dip" />
-
-    <TextView
-        android:id="@+id/process_duration_dialog_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/process_content_dialog"
-        android:text="時間：" />
 
     <EditText
         android:id="@+id/process_duration_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/process_duration_dialog_label"
+        android:layout_toRightOf="@+id/process_duration_dialog_label"
         android:minWidth="100dip" />
+
+    <ImageView
+        android:id="@+id/process_upload"
+        android:layout_width="45dip"
+        android:layout_height="30dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_menu_send" />
+
+    <ImageView
+        android:id="@+id/process_delete"
+        android:layout_width="45dip"
+        android:layout_height="30dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_menu_delete" />
+
+    <TextView
+        android:id="@+id/process_duration_dialog_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/process_content_dialog_label"
+        android:layout_marginTop="24dp"
+        android:layout_toLeftOf="@+id/process_content_dialog"
+        android:text="時間"
+        android:gravity="center"
+        android:textColor="#c1b645"
+        android:textSize="20dp" />
 
 </RelativeLayout>

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="54dp"
-    android:gravity="center_vertical" >
+    android:gravity="center_vertical"
+    android:background="@drawable/grey_border" >
 
     <TextView
         android:id="@+id/process_index"
@@ -18,23 +19,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:gravity="right" >
+        android:gravity="right|center" >
 
         <ImageView
             android:id="@+id/process_update"
             android:layout_width="45dip"
-            android:layout_height="45dip"
+            android:layout_height="30dip"
             android:layout_marginRight="2dp"
-            android:background="@drawable/round"
-            android:src="@drawable/ic_menu_edit" />
-
-        <ImageView
-            android:id="@+id/process_delete"
-            android:layout_width="45dip"
-            android:layout_height="45dip"
-            android:layout_marginRight="2dp"
-            android:background="@drawable/round"
-            android:src="@drawable/ic_menu_delete" />
+            android:src="@drawable/right_arraw" />
     </LinearLayout>
 
     <TextView
@@ -43,8 +35,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/process_index"
+        android:gravity="center"
         android:text="cInterphone"
-        android:textColor="#fff"
         android:textSize="26sp" />
 
 </RelativeLayout>

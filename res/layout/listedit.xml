@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
-
-    <ImageView
-        android:id="@+id/process_add"
-        android:layout_width="45dip"
-        android:layout_height="45dip"
-        android:layout_marginRight="2dp"
-        android:background="@drawable/round"
-        android:src="@drawable/ic_menu_today" />
+    android:layout_height="wrap_content"
+    android:background="#ffffff" >
 
     <ListView
         android:id="@+id/processes"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/process_add" />
+
+    <ImageView
+        android:id="@+id/process_add"
+        android:layout_width="45dip"
+        android:layout_height="45dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/round"
+        android:src="@drawable/create_contact" />
 
 </RelativeLayout>
