@@ -26,6 +26,8 @@ import java.nio.ByteBuffer;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
+import org.sipdroid.sipua.ui.VideoCameraNew_SDK9;
+
 import net.majorkernelpanic.streaming.MediaStream;
 import net.majorkernelpanic.streaming.Session;
 import net.majorkernelpanic.streaming.Stream;
@@ -539,7 +541,7 @@ public abstract class VideoStream extends MediaStream {
 				Looper.prepare();
 				mCameraLooper = Looper.myLooper();
 				try {
-					mCamera = Camera.open(mCameraId);
+					mCamera = Camera.open(VideoCameraNew_SDK9.FindFrontCamera());
 				} catch (RuntimeException e) {
 					exception[0] = e;
 				} finally {
@@ -553,6 +555,7 @@ public abstract class VideoStream extends MediaStream {
 		if (exception[0] != null) throw new CameraInUseException(exception[0].getMessage());
 	}
 
+	@SuppressLint("NewApi")
 	protected synchronized void createCamera() throws RuntimeException {
 		if (mSurfaceView == null)
 			throw new InvalidSurfaceException("Invalid surface !");

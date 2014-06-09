@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_container"
+    android:id="@+id/main_container1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="right"
     android:orientation="horizontal" >
 
-    <View
-        android:id="@+id/video_frame_cinterphone"
+    <VideoView
+        android:id="@+id/video_frame_cinterphone1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
@@ -21,14 +21,14 @@
         android:orientation="horizontal" >
 
         <ImageView
-            android:id="@+id/camera_switch"
+            android:id="@+id/camera_switch1"
             android:layout_width="60dip"
             android:layout_height="60dip"
             android:background="@drawable/round"
             android:src="@drawable/update" />
 
         <ImageView
-            android:id="@+id/camera_stop"
+            android:id="@+id/camera_stop1"
             android:layout_width="60dip"
             android:layout_height="60dip"
             android:layout_marginLeft="30dp"
@@ -37,7 +37,7 @@
             android:src="@drawable/ic_lockscreen_decline_activated" />
 
         <ImageView
-            android:id="@+id/camera_mute"
+            android:id="@+id/camera_mute1"
             android:layout_width="60dip"
             android:layout_height="60dip"
             android:background="@drawable/round"
@@ -45,7 +45,7 @@
     </LinearLayout>
 
     <net.majorkernelpanic.streaming.gl.SurfaceView
-        android:id="@+id/camera_preview"
+        android:id="@+id/camera_preview1"
         android:layout_width="176px"
         android:layout_height="144px"
         android:layout_alignParentRight="true"

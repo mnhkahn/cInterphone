@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <VideoView
+    <View
         android:id="@+id/video_frame_cinterphone"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

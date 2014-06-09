@@ -48,6 +48,8 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.cyeam.cInterphone.ui.VideoCamera;
+
 /**
  * Implementation of a subset of the RTSP protocol (RFC 2326).
  * 
@@ -95,7 +97,6 @@ public class RtspServer extends Service {
 	private boolean mRestart = false;
 	private final LinkedList<CallbackListener> mListeners = new LinkedList<CallbackListener>();
 	
-
 	public RtspServer() {
 	}
 
@@ -218,7 +219,6 @@ public class RtspServer extends Service {
 
 	@Override
 	public void onCreate() {
-
 		// Let's restore the state of the service 
 		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		mPort = Integer.parseInt(mSharedPreferences.getString(KEY_PORT, String.valueOf(mPort)));
@@ -319,6 +319,7 @@ public class RtspServer extends Service {
 		}
 
 		public void run() {
+						
 			Log.i(TAG,"RTSP server listening on port "+mServer.getLocalPort());
 			while (!Thread.interrupted()) {
 				try {
