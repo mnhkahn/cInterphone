@@ -349,7 +349,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 						&& ra.register()) {
 					Receiver.onText(Receiver.REGISTER_NOTIFICATION + i,
 							getUIContext().getString(R.string.reg),
-							R.drawable.sym_presence_idle, 0);
+							R.drawable.presence_away, 0);
 					wl[i].acquire();
 				}
 			} catch (Exception ex) {
@@ -379,7 +379,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 					if (ra != null && ra.register()) {
 						Receiver.onText(Receiver.REGISTER_NOTIFICATION + i,
 								getUIContext().getString(R.string.reg),
-								R.drawable.sym_presence_idle, 0);
+								R.drawable.presence_away, 0);
 						 wl[i].acquire();
 					}
 				}
@@ -412,7 +412,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 					if (ra != null && ra.register()) {
 						Receiver.onText(Receiver.REGISTER_NOTIFICATION + i,
 								getUIContext().getString(R.string.reg),
-								R.drawable.sym_presence_idle, 0);
+								R.drawable.presence_away, 0);
 						wl[i].acquire();
 					}
 				}
@@ -492,7 +492,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 					Receiver.REGISTER_NOTIFICATION + i,
 					getUIContext().getString(
 							i == pref ? R.string.regok : R.string.regclick),
-					R.drawable.sym_presence_available, 0);
+					R.drawable.presence_online, 0);
 			reg_ra.subattempts = 0;
 			reg_ra.startMWI();
 			Receiver.registered();

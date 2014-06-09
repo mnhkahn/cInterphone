@@ -96,7 +96,6 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 
 	ViewPager mViewPager;
 
-	// 浠巗tarting鍒皉unning鐘舵� onCreate onStart onResume
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -116,13 +115,13 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		// Set default fragment.
 		mViewPager.setCurrentItem(0);
 		
-		// 鍒濆鍖朣IP&娉ㄥ唽
 //		Account[] accounts = AccountManager.get(this).getAccountsByType(
 //				"com.google");
 //		if (accounts.length > 0) {
 //			Settings.DEFAULT_USERNAME = accounts[0].name;
 //		}
 		Receiver.engine(this).StartEngine();
+		Receiver.onText(Receiver.TEST_NOTIFICATION, "Cyeam", R.drawable.icon32, 0);
 	}
 
 	@Override
