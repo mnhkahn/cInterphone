@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-	<ListView
-        android:id="@id/android:list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:textColor="#ffffff" >
-    </ListView>
-        
+
+    <com.cyeam.cInterphone.ui.ListEdit
+        android:id="@+id/listedit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </com.cyeam.cInterphone.ui.ListEdit>
+
 </LinearLayout>

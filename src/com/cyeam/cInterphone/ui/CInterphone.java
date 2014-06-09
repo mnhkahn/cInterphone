@@ -74,7 +74,6 @@ import com.cyeam.cInterphone.demo.ProcessViewDemo;
 // see ADDITIONAL_TERMS.txt
 /////////////////////////////////////////////////////////////////////
 
-// 濡傛灉鎯冲湪鍏抽棴dialog鐨勬椂鍊欐墽琛屾煇浜涚▼搴�閭ｄ綘搴旇鑰冭檻浣跨敤DialogInterface.OnDismissListener
 public class CInterphone extends FragmentActivity implements OnDismissListener {
 
 	public static final boolean release = true;
@@ -113,7 +112,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// Set default fragment.
-		mViewPager.setCurrentItem(0);
+		mViewPager.setCurrentItem(1);
 		
 //		Account[] accounts = AccountManager.get(this).getAccountsByType(
 //				"com.google");
@@ -121,7 +120,6 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 //			Settings.DEFAULT_USERNAME = accounts[0].name;
 //		}
 		Receiver.engine(this).StartEngine();
-		Receiver.onText(Receiver.TEST_NOTIFICATION, "Cyeam", R.drawable.icon32, 0);
 	}
 
 	@Override
@@ -244,13 +242,13 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		boolean result = super.onCreateOptionsMenu(menu);
 
 		MenuItem m;
-		m = menu.add(0, TEST1, 0, R.string.test);
-		m.setIcon(android.R.drawable.ic_menu_call);
-		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
-		
-		m = menu.add(0, TEST2, 0, R.string.test);
-		m.setIcon(android.R.drawable.ic_menu_gallery);
-		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
+//		m = menu.add(0, TEST1, 0, R.string.test);
+//		m.setIcon(android.R.drawable.ic_menu_call);
+//		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
+//		
+//		m = menu.add(0, TEST2, 0, R.string.test);
+//		m.setIcon(android.R.drawable.ic_menu_gallery);
+//		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
 		
 		m = menu.add(0, CONFIGURE_MENU_ITEM, 0, R.string.menu_settings);
 		m.setIcon(android.R.drawable.ic_menu_preferences);
@@ -267,7 +265,6 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		return result;
 	}
 
-	// 褰撳鎴风偣鍑昏彍鍗曞綋涓殑鏌愪竴涓�椤规椂锛屼細璋冪敤璇ユ柟娉�
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean result = super.onOptionsItemSelected(item);
@@ -306,16 +303,16 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 			break;
 		}
 		
-		case TEST1:
-//			startActivity(new Intent(this, CameraDemo.class));
-			startActivity(new Intent(this, VideoCamera.class));
-//			startActivity(new Intent(this, ProcessViewDemo.class));
-			break;
-		case TEST2:
-			startActivity(new Intent(this, PlayDemo.class));
-//			startActivity(new Intent(this, CallScreen.class));
-//			startActivity(new Intent(this, ListEditTest.class));
-			break;
+//		case TEST1:
+////			startActivity(new Intent(this, CameraDemo.class));
+//			startActivity(new Intent(this, VideoCamera.class));
+////			startActivity(new Intent(this, ProcessViewDemo.class));
+//			break;
+//		case TEST2:
+//			startActivity(new Intent(this, PlayDemo.class));
+////			startActivity(new Intent(this, CallScreen.class));
+////			startActivity(new Intent(this, ListEditTest.class));
+//			break;
 		}
 
 		return result;
@@ -362,10 +359,6 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
-
 			// Default fragment.
 			Fragment fragment = new Fragment();
 

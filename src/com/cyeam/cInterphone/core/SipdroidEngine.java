@@ -133,20 +133,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 				Context.POWER_SERVICE);
 		WifiManager wm = (WifiManager) getUIContext().getSystemService(
 				Context.WIFI_SERVICE);
-		if (wl == null) {
-			if (!PreferenceManager.getDefaultSharedPreferences(getUIContext())
-					.contains(com.cyeam.cInterphone.ui.Settings.PREF_KEEPON)) {
-				Editor edit = PreferenceManager.getDefaultSharedPreferences(
-						getUIContext()).edit();
 
-				edit.putBoolean(com.cyeam.cInterphone.ui.Settings.PREF_KEEPON,
-						true);
-				edit.commit();
-			}
-			wl = new PowerManager.WakeLock[LINES];
-			pwl = new PowerManager.WakeLock[LINES];
-			wwl = new WifiManager.WifiLock[LINES];
-		}
 		pref = ChangeAccount.getPref(Receiver.mContext);
 
 		uas = new UserAgent[LINES];
@@ -163,21 +150,6 @@ public class SipdroidEngine implements RegisterAgentListener {
 		int i = 0;
 
 		for (UserAgentProfile user_profile : user_profiles) {
-			if (wl[i] == null) {
-				wl[i] = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-						"Sipdroid.SipdroidEngine");
-				pwl[i] = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
-						| PowerManager.ACQUIRE_CAUSES_WAKEUP,
-						"Sipdroid.SipdroidEngine");
-				if (!PreferenceManager.getDefaultSharedPreferences(
-						getUIContext()).getBoolean(
-						com.cyeam.cInterphone.ui.Settings.PREF_KEEPON,
-						com.cyeam.cInterphone.ui.Settings.DEFAULT_KEEPON)) {
-					wwl[i] = wm.createWifiLock(3, "Sipdroid.SipdroidEngine");
-					wwl[i].setReferenceCounted(false);
-				}
-			}
-
 			try {
 				SipStack.debug_level = 0;
 				// SipStack.log_path = "/data/data/org.sipdroid.sipua";
@@ -428,23 +400,23 @@ public class SipdroidEngine implements RegisterAgentListener {
 
 		int i = 0;
 		for (RegisterAgent ra : ras) {
-			unregister(i);
+//			unregister(i);
 			while (ra != null && ra.CurrentState != RegisterAgent.UNREGISTERED
 					&& SystemClock.elapsedRealtime() - time < 2000)
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e1) {
 				}
-			if (wl[i].isHeld()) {
-				wl[i].release();
-				if (pwl[i] != null && pwl[i].isHeld())
-					pwl[i].release();
-				if (wwl[i] != null && wwl[i].isHeld())
-					wwl[i].release();
-			}
-			if (kas[i] != null) {
-				Receiver.alarm(0, LoopAlarm.class);
-			}
+//			if (wl[i].isHeld()) {
+//				wl[i].release();
+//				if (pwl[i] != null && pwl[i].isHeld())
+//					pwl[i].release();
+//				if (wwl[i] != null && wwl[i].isHeld())
+//					wwl[i].release();
+//			}
+//			if (kas[i] != null) {
+//				Receiver.alarm(0, LoopAlarm.class);
+//			}
 			Receiver.onText(Receiver.REGISTER_NOTIFICATION + i, null, 0, 0);
 			if (ra != null)
 				ra.halt();
@@ -555,7 +527,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 			retry = true;
 			Receiver.onText(Receiver.REGISTER_NOTIFICATION + i, getUIContext()
 					.getString(R.string.regfailed) + " (" + result + ")",
-					R.drawable.sym_presence_away, 0);
+					R.drawable.presence_busy, 0);
 		}
 		if (retry) {
 			retry = false;
@@ -568,7 +540,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 					}
 				}
 				if (wwl[i] != null && !wwl[i].isHeld() && Receiver.on_wlan) {
-					wwl[i].acquire();
+//					wwl[i].acquire();
 					retry = true;
 				}
 			}

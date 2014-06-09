@@ -26,6 +26,13 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 
+import org.sipdroid.media.Bluetooth;
+import org.sipdroid.media.RtpStreamReceiver;
+import org.sipdroid.media.RtpStreamSender;
+import org.sipdroid.sipua.phone.Call;
+import org.sipdroid.sipua.phone.Connection;
+import org.zoolu.sip.provider.SipProvider;
+
 import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
@@ -39,14 +46,16 @@ import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.net.NetworkInfo.DetailedState;
+import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiConfiguration;
@@ -56,28 +65,20 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
-import android.os.StrictMode;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import org.sipdroid.media.Bluetooth;
-import org.sipdroid.media.RtpStreamReceiver;
-import org.sipdroid.media.RtpStreamSender;
-import org.sipdroid.sipua.phone.Call;
-import org.sipdroid.sipua.phone.Connection;
-import org.zoolu.sip.provider.SipProvider;
-
-import com.cyeam.cInterphone.*;
+import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.core.SipdroidEngine;
 import com.cyeam.cInterphone.core.UserAgent;
-import com.cyeam.cInterphone.ui.InterphoneActivity;
-import com.cyeam.cInterphone.ui.VideoCamera;
+import com.cyeam.cInterphone.ui.CInterphone;
 
 public class Receiver extends BroadcastReceiver {
 
@@ -367,7 +368,7 @@ public class Receiver extends BroadcastReceiver {
 								0);
 					else
 						notification.contentIntent = PendingIntent.getActivity(
-								mContext, 0, createIntent(Sipdroid.class), 0);
+								mContext, 0, createIntent(CInterphone.class), 0);
 					if (mInCallResId == R.drawable.presence_busy) {
 						notification.flags |= Notification.FLAG_SHOW_LIGHTS;
 						notification.ledARGB = 0xffff0000; /* red */
@@ -407,6 +408,7 @@ public class Receiver extends BroadcastReceiver {
 					contentView.setTextViewText(R.id.text1, text);
 				notification.contentView = contentView;
 			}
+			notification.largeIcon = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.icon32);
 			mNotificationMgr.notify(type, notification);
 		} else {
 			mNotificationMgr.cancel(type);

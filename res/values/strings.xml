@@ -30,8 +30,8 @@
     <string name="app_name">cInterphone</string>
     <string name="pstn_name">电话</string>
     <string name="sip_name">Sipdroid，当可用时</string>
-    <string name="favourite">个人收藏</string>
-    <string name="history">最近通话</string>
+    <string name="favourite">对讲流程</string>
+    <string name="history">主页</string>
     <string name="contact">联系人</string>
     <string name="setting">设置</string>
     <string name="toast_add_favourtie_success">收藏 %s 成功!</string>
