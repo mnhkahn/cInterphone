@@ -4,21 +4,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/process_content"
+    <com.cyeam.cInterphone.ui.ListWidget
+        android:id="@+id/users_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </com.cyeam.cInterphone.ui.ListWidget>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/process_index"
-        android:gravity="center"
-        android:text="在线用户"
-        android:textSize="26sp" />
-    
-    <com.cyeam.cInterphone.ui.ListWidget
-        android:id="@+id/users"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
-    </com.cyeam.cInterphone.ui.ListWidget>
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/help"
+            android:textSize="26sp" />
+
+        <ImageView
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="184dp"
+            android:background="@drawable/round"
+            android:src="@drawable/ic_menu_help" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="vertical"
+        android:scrollbars="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="667dp"
+            android:src="@drawable/help" />
+    </ScrollView>
 
 </LinearLayout>

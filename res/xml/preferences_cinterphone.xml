@@ -2,10 +2,10 @@
 
     <PreferenceCategory android:title="@string/settings_select_role" >
         <ListPreference
-            android:defaultValue="default"
+            android:defaultValue="默认"
             android:entries="@array/role"
-            android:entryValues="@array/role_values"
-            android:key="listPref"
+            android:entryValues="@array/role"
+            android:key="role"
             android:title="@string/settings_current_role" />
     </PreferenceCategory>
 

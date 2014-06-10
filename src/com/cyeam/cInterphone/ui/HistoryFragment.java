@@ -68,13 +68,13 @@ public class HistoryFragment extends ListFragment {
 	private List<Contact> getData() {
 		List<Contact> contacts = new ArrayList<Contact>();
 		
-		db = dbHelper.getReadableDatabase();
-		Cursor historyCursor = db.query(DbHelper.HISTORY_TABLE, new String[]{DbHelper.C_USER_ID, DbHelper.C_DATE, DbHelper.C_CALL_TYPE}, null, null, null, null, null);
-		while (historyCursor.moveToNext()) {
-			Contact contact = Contact.getContact(getActivity().getContentResolver(), historyCursor.getLong(0));
-			contact.setDate(new Date(historyCursor.getString(1)));
-			contacts.add(contact);
-		}
+//		db = dbHelper.getReadableDatabase();
+////		Cursor historyCursor = db.query(DbHelper.HISTORY_TABLE, new String[]{DbHelper.C_USER_ID, DbHelper.C_DATE, DbHelper.C_CALL_TYPE}, null, null, null, null, null);
+//		while (historyCursor.moveToNext()) {
+//			Contact contact = Contact.getContact(getActivity().getContentResolver(), historyCursor.getLong(0));
+//			contact.setDate(new Date(historyCursor.getString(1)));
+//			contacts.add(contact);
+//		}
 		return contacts;
 	}
 }

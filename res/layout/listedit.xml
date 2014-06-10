@@ -3,14 +3,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="#ffffff" >
-
+    
     <ListView
         android:id="@+id/processes"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/process_add" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/process_add"
         android:layout_width="45dip"
         android:layout_height="45dip"
@@ -19,5 +19,34 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/round"
         android:src="@drawable/create_contact" />
+
+     <TextView
+         android:id="@+id/textView1"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignBottom="@+id/procress_refersh"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentTop="true"
+         android:gravity="center"
+         android:text="流程"
+         android:textSize="26sp" />
+
+     <ImageView
+         android:layout_width="45dip"
+         android:layout_height="45dip"
+         android:layout_alignBottom="@+id/textView1"
+         android:layout_marginRight="166dp"
+         android:layout_toLeftOf="@+id/process_add"
+         android:background="@drawable/round"
+         android:src="@drawable/ic_menu_sort_by_size" />
+
+     <ImageButton
+         android:id="@+id/procress_refersh"
+         android:layout_width="45dip"
+         android:layout_height="45dip"
+         android:layout_alignParentTop="true"
+         android:layout_toLeftOf="@+id/process_add"
+         android:background="@drawable/round"
+         android:src="@drawable/ic_menu_refresh" />
 
 </RelativeLayout>

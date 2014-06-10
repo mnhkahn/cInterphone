@@ -114,6 +114,8 @@ http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_ev
 
     <string name="settings_vquality">视频质量</string>
 
+    <string name="vquality_display_values0">高 (352x288 @ 360kbit)</string>
+    <string name="vquality_display_values1">低 (176x144 @ 192kbit)</string>
     <string-array name="vquality_display_values">
         <item>高 (352x288 @ 360kbit)</item>
         <item>低 (176x144 @ 192kbit)</item>
@@ -162,6 +164,9 @@ http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_ev
     <string name="settings_select_server">配置服务器</string>
     <string name="settings_select_video">配置视频质量</string>
     <string name="settings_current_role">当前角色：</string>
+    <string name="role0">指挥</string>
+    <string name="role1">协调</string>
+    <string name="role2">默认</string>
 
     <string-array name="role">
         <item>指挥</item>
@@ -363,5 +368,7 @@ http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_ev
     <string name="settings_profile_menu_export">Export</string>
     <string name="settings_line">Line</string>
     <string name="dialog_port">Would you like to change SIP port from 5060 to 5061 for improved reliability?</string>
+    
+    <string name="help">使用帮助</string>
 
 </resources>
