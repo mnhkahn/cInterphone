@@ -69,11 +69,6 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 	// Which profile file to delete
 	private int profileToDelete;
 
-	// IDs of the menu items
-	private static final int MENU_IMPORT = 0;
-	private static final int MENU_DELETE = 1;
-	private static final int MENU_EXPORT = 2;
-
 	// All possible values of the PREF_PREF preference (see bellow) 
 	public static final String VAL_PREF_PSTN = "PSTN";
 	public static final String VAL_PREF_SIP = "SIP";
@@ -154,7 +149,7 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 	// Default values of the preferences
 	public static final String	DEFAULT_USERNAME = "";
 	public static final String	DEFAULT_PASSWORD = "";
-	public static final String	DEFAULT_SERVER = "pbxes.org";
+	public static final String	DEFAULT_SERVER = "192.168.1.102";
 	public static final String	DEFAULT_DOMAIN = "";
 	public static final String	DEFAULT_FROMUSER = "";
 	public static final String	DEFAULT_PORT = "" + SipStack.default_port;
@@ -266,6 +261,7 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 		}			
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -275,38 +271,41 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 		setDefaultValues();
 	}
 	
+	@SuppressWarnings("deprecation")
 	void reload() {
 		setPreferenceScreen(null);
 		addPreferencesFromResource(R.xml.preferences_cinterphone);		
 	}
 
+	@SuppressWarnings("deprecation")
 	private void setDefaultValues() {
-		settings = getSharedPreferences(sharedPrefsFile, MODE_PRIVATE);
+//		settings = getSharedPreferences(sharedPrefsFile, MODE_PRIVATE);
+		settings = PreferenceManager.getDefaultSharedPreferences(this);
 
 		for (int i = 0; i < SipdroidEngine.LINES; i++) {
 			String j = (i!=0?""+i:"");
 			if (settings.getString(PREF_SERVER+j, "").equals("")) {
-				CheckBoxPreference cb = (CheckBoxPreference) getPreferenceScreen().findPreference(PREF_WLAN+j);
-				cb.setChecked(true);
+//				CheckBoxPreference cb = (CheckBoxPreference) getPreferenceScreen().findPreference(PREF_WLAN+j);
+//				cb.setChecked(true);
 				Editor edit = settings.edit();
 
 				edit.putString(PREF_PORT+j, "5061");
 				edit.putString(PREF_SERVER+j, DEFAULT_SERVER);
 				edit.putString(PREF_PREF+j, DEFAULT_PREF);				
-				edit.putString(PREF_PROTOCOL+j, DEFAULT_PROTOCOL);
+//				edit.putString(PREF_PROTOCOL+j, DEFAULT_PROTOCOL);
 				edit.commit();
 	        	Receiver.engine(this).updateDNS();
 	        	reload();
 			}
 		}
-		if (settings.getString(PREF_STUN_SERVER, "").equals("")) {
-			Editor edit = settings.edit();
-
-			edit.putString(PREF_STUN_SERVER, DEFAULT_STUN_SERVER);
-			edit.putString(PREF_STUN_SERVER_PORT, DEFAULT_STUN_SERVER_PORT);				
-			edit.commit();
-			reload();
-		}
+//		if (settings.getString(PREF_STUN_SERVER, "").equals("")) {
+//			Editor edit = settings.edit();
+//
+//			edit.putString(PREF_STUN_SERVER, DEFAULT_STUN_SERVER);
+//			edit.putString(PREF_STUN_SERVER_PORT, DEFAULT_STUN_SERVER_PORT);				
+//			edit.commit();
+//			reload();
+//		}
 
 //		if (! settings.contains(PREF_MWI_ENABLED)) {
 //			CheckBoxPreference cb = (CheckBoxPreference) getPreferenceScreen().findPreference(PREF_MWI_ENABLED);
@@ -316,14 +315,14 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 //			CheckBoxPreference cb = (CheckBoxPreference) getPreferenceScreen().findPreference(PREF_REGISTRATION);
 //			cb.setChecked(true);
 //		}
-		if (Sipdroid.market) {
-			CheckBoxPreference cb = (CheckBoxPreference) getPreferenceScreen().findPreference(PREF_3G);
-			cb.setChecked(false);
-			CheckBoxPreference cb2 = (CheckBoxPreference) getPreferenceScreen().findPreference(PREF_EDGE);
-			cb2.setChecked(false);
-			getPreferenceScreen().findPreference(PREF_3G).setEnabled(false);
-			getPreferenceScreen().findPreference(PREF_EDGE).setEnabled(false);
-		}
+//		if (Sipdroid.market) {
+//			CheckBoxPreference cb = (CheckBoxPreference) getPreferenceScreen().findPreference(PREF_3G);
+//			cb.setChecked(false);
+//			CheckBoxPreference cb2 = (CheckBoxPreference) getPreferenceScreen().findPreference(PREF_EDGE);
+//			cb2.setChecked(false);
+//			getPreferenceScreen().findPreference(PREF_3G).setEnabled(false);
+//			getPreferenceScreen().findPreference(PREF_EDGE).setEnabled(false);
+//		}
 
 		settings.registerOnSharedPreferenceChangeListener(this);
 
@@ -333,59 +332,10 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-	    menu.add(0, MENU_IMPORT, 0, getString(R.string.settings_profile_menu_import)).setIcon(android.R.drawable.ic_menu_upload);
-	    menu.add(0, MENU_EXPORT, 0, getString(R.string.settings_profile_menu_export)).setIcon(android.R.drawable.ic_menu_save);
-	    menu.add(0, MENU_DELETE, 0, getString(R.string.settings_profile_menu_delete)).setIcon(android.R.drawable.ic_menu_delete);
+//	    menu.add(0, MENU_IMPORT, 0, getString(R.string.settings_profile_menu_import)).setIcon(android.R.drawable.ic_menu_upload);
+//	    menu.add(0, MENU_EXPORT, 0, getString(R.string.settings_profile_menu_export)).setIcon(android.R.drawable.ic_menu_save);
+//	    menu.add(0, MENU_DELETE, 0, getString(R.string.settings_profile_menu_delete)).setIcon(android.R.drawable.ic_menu_delete);
         return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-    	context = this;
-
-    	switch (item.getItemId()) {
-            case MENU_IMPORT:
-            	// Get the content of the directory
-            	profileFiles = getProfileList();
-            	if (profileFiles != null && profileFiles.length > 0) {
-	            	// Show dialog with the files
-	    			new AlertDialog.Builder(this)
-	    			.setTitle(getString(R.string.settings_profile_dialog_profiles_title))
-	    			.setIcon(android.R.drawable.ic_menu_upload)
-	    			.setItems(profileFiles, profileOnClick)
-	    			.show();
-            	} else {
-	                Toast.makeText(this, "No profile found.", Toast.LENGTH_SHORT).show();
-            	}
-                return true;
-                
-            case MENU_EXPORT:
-            	exportSettings();
-            	break;
-
-            case MENU_DELETE:
-            	// Get the content of the directory
-            	profileFiles = getProfileList();
-            	new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.settings_profile_dialog_delete_title))
-                .setIcon(android.R.drawable.ic_menu_delete)
-    			.setItems(profileFiles, new DialogInterface.OnClickListener() {
-    				// Ask the user to be sure to delete it
-    				public void onClick(DialogInterface dialog, int whichItem) {
-        				profileToDelete = whichItem;
-    					new AlertDialog.Builder(context)
-    	                .setIcon(android.R.drawable.ic_dialog_alert)
-    	                .setTitle(getString(R.string.settings_profile_dialog_delete_title))
-    	                .setMessage(getString(R.string.settings_profile_dialog_delete_text, profileFiles[whichItem]))
-    	                .setPositiveButton(android.R.string.ok, deleteOkButtonClick)
-    	                .setNegativeButton(android.R.string.cancel, null)
-    	                .show();
-    				}
-    			})
-                .show();
-                return true;
-        }
-
-        return false;
     }
 
     public static String[] getProfileList() {
@@ -586,20 +536,20 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
        			server = settings.getString(PREF_SERVER+j, DEFAULT_SERVER);
 	    	getPreferenceScreen().findPreference(PREF_USERNAME+j).setSummary(username); 
 	    	getPreferenceScreen().findPreference(PREF_SERVER+j).setSummary(server);
-	    	if (settings.getString(PREF_DOMAIN+j, DEFAULT_DOMAIN).length() == 0) {
-	    		getPreferenceScreen().findPreference(PREF_DOMAIN+j).setSummary(getString(R.string.settings_domain2));
-	    	} else {
-	    		getPreferenceScreen().findPreference(PREF_DOMAIN+j).setSummary(settings.getString(PREF_DOMAIN+j, DEFAULT_DOMAIN));
-	    	}
-	    	if (settings.getString(PREF_FROMUSER+j,DEFAULT_FROMUSER).length() == 0) {
-	    		getPreferenceScreen().findPreference(PREF_FROMUSER+j).setSummary(getString(R.string.settings_callerid2));
-	    	} else {
-	    		getPreferenceScreen().findPreference(PREF_FROMUSER+j).setSummary(settings.getString(PREF_FROMUSER+j, DEFAULT_FROMUSER));
-	    	}
+//	    	if (settings.getString(PREF_DOMAIN+j, DEFAULT_DOMAIN).length() == 0) {
+//	    		getPreferenceScreen().findPreference(PREF_DOMAIN+j).setSummary(getString(R.string.settings_domain2));
+//	    	} else {
+//	    		getPreferenceScreen().findPreference(PREF_DOMAIN+j).setSummary(settings.getString(PREF_DOMAIN+j, DEFAULT_DOMAIN));
+//	    	}
+//	    	if (settings.getString(PREF_FROMUSER+j,DEFAULT_FROMUSER).length() == 0) {
+//	    		getPreferenceScreen().findPreference(PREF_FROMUSER+j).setSummary(getString(R.string.settings_callerid2));
+//	    	} else {
+//	    		getPreferenceScreen().findPreference(PREF_FROMUSER+j).setSummary(settings.getString(PREF_FROMUSER+j, DEFAULT_FROMUSER));
+//	    	}
 	    	getPreferenceScreen().findPreference(PREF_PORT+j).setSummary(settings.getString(PREF_PORT+j, DEFAULT_PORT));
-	    	getPreferenceScreen().findPreference(PREF_PROTOCOL+j).setSummary(settings.getString(PREF_PROTOCOL+j,
-	    		settings.getString(PREF_SERVER+j, DEFAULT_SERVER).equals(DEFAULT_SERVER) ? "tcp" : "udp").toUpperCase());
-	    	getPreferenceScreen().findPreference(PREF_ACCOUNT+j).setSummary(username.equals("")||server.equals("")?getResources().getString(R.string.settings_line)+" "+(i+1):username+"@"+server);
+//	    	getPreferenceScreen().findPreference(PREF_PROTOCOL+j).setSummary(settings.getString(PREF_PROTOCOL+j,
+//	    		settings.getString(PREF_SERVER+j, DEFAULT_SERVER).equals(DEFAULT_SERVER) ? "tcp" : "udp").toUpperCase());
+//	    	getPreferenceScreen().findPreference(PREF_ACCOUNT+j).setSummary(username.equals("")||server.equals("")?getResources().getString(R.string.settings_line)+" "+(i+1):username+"@"+server);
        	}
        	
 //    	getPreferenceScreen().findPreference(PREF_SEARCH).setSummary(settings.getString(PREF_SEARCH, DEFAULT_SEARCH)); 

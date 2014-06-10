@@ -159,6 +159,8 @@ http://mnhkahn.github.io/postgraduate%20design/2014/02/04/postgraduate_design_ev
     </string-array>
 
     <string name="settings_select_role">请选择角色</string>
+    <string name="settings_select_server">配置服务器</string>
+    <string name="settings_select_video">配置视频质量</string>
     <string name="settings_current_role">当前角色：</string>
 
     <string-array name="role">

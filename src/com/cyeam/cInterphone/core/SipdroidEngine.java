@@ -296,7 +296,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 		if (ra != null && ra.unregister()) {
 			Receiver.alarm(0, LoopAlarm.class);
 			Receiver.onText(Receiver.REGISTER_NOTIFICATION + i, getUIContext()
-					.getString(R.string.reg), R.drawable.sym_presence_idle, 0);
+					.getString(R.string.reg), R.drawable.presence_away, 0);
 			wl[i].acquire();
 		} else
 			Receiver.onText(Receiver.REGISTER_NOTIFICATION + i, null, 0, 0);
