@@ -30,6 +30,8 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.cyeam.cInterphone.R;
+import com.cyeam.cInterphone.http.CyeamHttp;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class ListWidget extends LinearLayout {
 
@@ -49,11 +51,12 @@ public class ListWidget extends LinearLayout {
 		refresh.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				isRefresh = true;
+//				isRefresh = true;
+				getUsers("fuck");
 			}
 		});
-		
-		usersThread.start();
+		getUsers("fuck");
+//		usersThread.start();
 	}
 
 	// 复写父类的构造方法
@@ -63,74 +66,38 @@ public class ListWidget extends LinearLayout {
 		// 初始化view对象
 		init(context);
 	}
-
-	//
-	// public static List getData(Context context) {
-	//
-	// }
-
-	private Thread usersThread = new Thread() {
-		@Override
-		public void run() {
-			AndroidHttpClient req = AndroidHttpClient.newInstance("cInterphone");
-			HttpGet get = new HttpGet();
-			HttpResponse resq = null;
-			try {
-				get.setURI(new URI("http://192.168.1.102:8080/users/fdsa"));
+	
+	public void getUsers(String username) {
+		CyeamHttp.get("users/" + username, null, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(JSONArray finalResult) {
+				List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
 				
-				while (true) {
-					while (isRefresh) {
-						List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
-						resq = req.execute(get);
-						BufferedReader reader = new BufferedReader(
-								new InputStreamReader(resq.getEntity().getContent(),
-										"UTF-8"));
-						String json = "";
-						String line;
-						while ((line = reader.readLine()) != null) {
-							json += line;					
+				for (int i = 0; i < finalResult.length(); i++) {
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					try {
+						JSONObject obj = finalResult.getJSONObject(i);
+						map.put("id", i + 1);
+						map.put("content", obj.get("username"));
+						if (obj.get("role").equals("Command")) {
+							map.put("role", "管理员");
 						}
-
-						JSONTokener tokener = new JSONTokener(json);
-						JSONArray finalResult = new JSONArray(tokener);
-
-						for (int i = 0; i < finalResult.length(); i++) {
-							HashMap<String, Object> map = new HashMap<String, Object>();
-							JSONObject obj = finalResult.getJSONObject(i);
-							map.put("id", i + 1);
-							map.put("content", obj.get("username"));
-							if (obj.get("role").equals("Command")) {
-								map.put("role", "管理员");
-							}
-							else {
-								map.put("role", "");
-							}
-							data.add(map);
+						else {
+							map.put("role", "");
 						}
-						adapter = new SimpleAdapter(context, data, R.layout.item,
-								 new String[] {"id", "content", "role" }, new int[] { R.id.list_index,
-								 R.id.list_content, R.id.list_content1});
-						hander.sendEmptyMessage(0); // 下载完成后发送处理消息
-						isRefresh = false;
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+					data.add(map);
 				}
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				req.close();
+				adapter = new SimpleAdapter(context, data, R.layout.item,
+						 new String[] {"id", "content", "role" }, new int[] { R.id.list_index,
+						 R.id.list_content, R.id.list_content1});
+				hander.sendEmptyMessage(0); // 下载完成后发送处理消息
 			}
-		}
-	};
+		});
+	}
 	
 	private Handler hander = new Handler(){
         @Override

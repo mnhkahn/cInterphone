@@ -1,30 +1,18 @@
 package com.cyeam.cInterphone.ui;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.http.AndroidHttpClient;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -32,12 +20,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.cyeam.cInterphone.R;
-import com.cyeam.cInterphone.model.Contact;
+import com.cyeam.cInterphone.http.CyeamHttp;
 import com.cyeam.cInterphone.model.Process;
 import com.cyeam.cInterphone.sqlite.DbHelper;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class ListEdit extends LinearLayout {
 
@@ -46,7 +34,6 @@ public class ListEdit extends LinearLayout {
 	private ImageButton refresh;
 	private ProcessAdapter adapter;
 	private Context mContext;
-	private boolean isRefresh = true;
 	private Intent intent;
 
 	private void init(Context context) {
@@ -69,11 +56,39 @@ public class ListEdit extends LinearLayout {
 
 			@Override
 			public void onClick(View v) {
-				isRefresh = true;
+				getProcesses();
 			}
 		});
 
 		processListView = (ListView) findViewById(R.id.processes);
+	}
+	
+	public void getProcesses() {
+		CyeamHttp.get("process", null, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(JSONArray finalResult) {
+				db = dbHelper.getWritableDatabase();
+				db.execSQL("delete from '" + DbHelper.PROCESS_TABLE	 + "';");
+				ContentValues values = new ContentValues();
+				for (int i = 0; i < finalResult.length(); i++) {
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					JSONObject obj;
+					try {
+						obj = finalResult.getJSONObject(i);
+						values.clear();
+						values.put(DbHelper.C_ID, i + 1);
+						values.put(DbHelper.C_CONTENT, obj.getString("content"));
+						values.put(DbHelper.C_DURATION, obj.getLong("duration"));
+						db.insertOrThrow(DbHelper.PROCESS_TABLE, null, values);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				db.close();
+				hander.sendEmptyMessage(0); // 下载完成后发送处理消息
+			}
+		});
 	}
 
 	// 复写父类的构造方法
@@ -89,69 +104,13 @@ public class ListEdit extends LinearLayout {
 				getData(context));
 		processListView.setAdapter(adapter);
 		
-		processThread.start();
+		getProcesses();
 	}
-
-	private Thread processThread = new Thread() {
-		@Override
-		public void run() {
-			AndroidHttpClient req = AndroidHttpClient
-					.newInstance("cInterphone");
-			HttpGet get = new HttpGet();
-			HttpResponse resq = null;
-			try {
-				get.setURI(new URI("http://192.168.1.102:8080/process"));
-
-				while (true) {
-					while (isRefresh) {
-						List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
-						resq = req.execute(get);
-						BufferedReader reader = new BufferedReader(
-								new InputStreamReader(resq.getEntity()
-										.getContent(), "UTF-8"));
-						String json = "";
-						String line;
-						while ((line = reader.readLine()) != null) {
-							json += line;
-						}
-
-						JSONTokener tokener = new JSONTokener(json);
-						JSONArray finalResult = new JSONArray(tokener);
-
-						db = dbHelper.getWritableDatabase();
-						db.execSQL("delete from '" + DbHelper.PROCESS_TABLE	 + "';");
-						ContentValues values = new ContentValues();
-						for (int i = 0; i < finalResult.length(); i++) {
-							HashMap<String, Object> map = new HashMap<String, Object>();
-							JSONObject obj = finalResult.getJSONObject(i);
-							values.clear();
-							values.put(DbHelper.C_ID, i + 1);
-							values.put(DbHelper.C_CONTENT, obj.getString("content"));
-							values.put(DbHelper.C_DURATION, obj.getLong("duration"));
-							db.insertOrThrow(DbHelper.PROCESS_TABLE, null, values);
-						}
-						db.close();
-						hander.sendEmptyMessage(0); // 下载完成后发送处理消息
-						isRefresh = false;
-					}
-				}
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				req.close();
-			}
-		}
-	};
+	
+	public void setData(JSONArray finalResult) {
+		
+		
+	}
 
 	private Handler hander = new Handler() {
 		@Override
