@@ -62,7 +62,7 @@
         android:required="false" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <application
+    <application android:name="com.baidu.frontia.FrontiaApplication"
         android:icon="@drawable/icon64"
         android:label="@string/app_name" >
         <activity
@@ -227,6 +227,7 @@
         <receiver android:name="org.sipdroid.sipua.ui.LoopLocation" />
         <receiver android:name="org.sipdroid.sipua.ui.Caller" >
             <intent-filter android:priority="-1" >
+
                 <!-- 拨打电话时会发送action为android.intent.action.NEW_OUTGOING_CALL的广播 -->
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
@@ -236,6 +237,7 @@
             android:name="org.sipdroid.sipua.ui.Receiver"
             android:enabled="true" >
             <intent-filter>
+
                 <!-- 开机启动 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <!-- apk从设备内存移至SD卡或从SD卡移至设备内存之后 -->
@@ -244,8 +246,10 @@
                 <action android:name="android.intent.action.EXTERNAL_APPLICATIONS_UNAVAILABLE" />
             </intent-filter>
             <intent-filter>
+
                 <!-- A new version of an application package has been installed, replacing an existing version that was previously installed. -->
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
                 <data android:scheme="package" />
                 <data android:path="org.sipdroid.sipua" />
             </intent-filter>
@@ -261,6 +265,59 @@
         <service android:name="com.cyeam.cInterphone.service.RecordService" >
         </service>
         <service android:name="net.majorkernelpanic.streaming.rtsp.RtspServer" />
+
+        <!-- push应用定义消息receiver声明 -->
+        <receiver android:name="com.baidu.push.example.MyPushMessageReceiver" >
+            <intent-filter>
+
+                <!-- 接收push消息 -->
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+            </intent-filter>
+        </receiver>
+
+        <!-- push必须的receviver和service声明 -->
+        <receiver
+            android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD" />
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+            </intent-filter>
+        </service>
+        <!-- push结束 -->
+
+
+        <!-- 在百度开发者中心查询应用的API Key -->
+        <meta-data
+            android:name="api_key"
+            android:value="vkl8Pc6QCUjHSemG0wUwVAzQ" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" >
@@ -315,5 +372,8 @@
     </uses-permission>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 </manifest>

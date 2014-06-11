@@ -28,10 +28,9 @@ import java.util.Locale;
 import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.RegisterService;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -62,11 +61,12 @@ import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.baidu.android.pushservice.CustomPushNotificationBuilder;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
+import com.baidu.push.example.Push;
+import com.baidu.push.example.Utils;
 import com.cyeam.cInterphone.R;
-import com.cyeam.cInterphone.demo.ListEditTest;
-import com.cyeam.cInterphone.demo.PlayDemo;
-import com.cyeam.cInterphone.demo.ProcessViewDemo;
-
 
 /////////////////////////////////////////////////////////////////////
 // this the main activity of cInterphone
@@ -99,7 +99,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
-//		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 
 		// Create the adapter that will return a fragment for each of the three
@@ -113,13 +113,27 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 
 		// Set default fragment.
 		mViewPager.setCurrentItem(1);
-		
-//		Account[] accounts = AccountManager.get(this).getAccountsByType(
-//				"com.google");
-//		if (accounts.length > 0) {
-//			Settings.DEFAULT_USERNAME = accounts[0].name;
-//		}
+
+		// Account[] accounts = AccountManager.get(this).getAccountsByType(
+		// "com.google");
+		// if (accounts.length > 0) {
+		// Settings.DEFAULT_USERNAME = accounts[0].name;
+		// }
 		Receiver.engine(this).StartEngine();
+
+		PushManager.startWork(getApplicationContext(),
+				PushConstants.LOGIN_TYPE_API_KEY,
+				Utils.getMetaValue(CInterphone.this, "api_key"));
+		CustomPushNotificationBuilder cBuilder = new CustomPushNotificationBuilder(
+				this, R.layout.ongoing_call_notification, R.id.icon, R.id.text1, R.id.text2);
+		cBuilder.setNotificationFlags(Notification.FLAG_AUTO_CANCEL);
+		cBuilder.setNotificationDefaults(Notification.DEFAULT_SOUND
+				| Notification.DEFAULT_VIBRATE);
+		cBuilder.setStatusbarIcon(R.drawable.icon64);
+		cBuilder.setLayoutDrawable(R.drawable.icon22);
+		PushManager.setNotificationBuilder(this, 0, cBuilder);
+		
+		Push.Push(new com.cyeam.cInterphone.model.Notification("hello, world"));
 	}
 
 	@Override
@@ -242,26 +256,26 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		boolean result = super.onCreateOptionsMenu(menu);
 
 		MenuItem m;
-//		m = menu.add(0, TEST1, 0, R.string.test);
-//		m.setIcon(android.R.drawable.ic_menu_call);
-//		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
-//		
-//		m = menu.add(0, TEST2, 0, R.string.test);
-//		m.setIcon(android.R.drawable.ic_menu_gallery);
-//		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
-		
+		// m = menu.add(0, TEST1, 0, R.string.test);
+		// m.setIcon(android.R.drawable.ic_menu_call);
+		// m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
+		//
+		// m = menu.add(0, TEST2, 0, R.string.test);
+		// m.setIcon(android.R.drawable.ic_menu_gallery);
+		// m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
+
 		m = menu.add(0, CONFIGURE_MENU_ITEM, 0, R.string.menu_settings);
 		m.setIcon(android.R.drawable.ic_menu_preferences);
 		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
-		
+
 		m = menu.add(0, ABOUT_MENU_ITEM, 0, R.string.menu_about);
 		m.setIcon(android.R.drawable.ic_menu_info_details);
 		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
-		
+
 		m = menu.add(0, EXIT_MENU_ITEM, 0, R.string.menu_exit);
 		m.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 		m.setShowAsAction(m.SHOW_AS_ACTION_IF_ROOM);
-		
+
 		return result;
 	}
 
@@ -280,7 +294,8 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 							getString(R.string.about).replace("\\n", "\n")
 									.replace("${VERSION}", getVersion(this)))
 					.setTitle(getString(R.string.menu_about))
-					.setIcon(android.R.drawable.ic_menu_info_details).setCancelable(true).show();
+					.setIcon(android.R.drawable.ic_menu_info_details)
+					.setCancelable(true).show();
 			break;
 
 		case EXIT_MENU_ITEM:
@@ -295,24 +310,26 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 
 		case CONFIGURE_MENU_ITEM: {
 			try {
-//				intent = new Intent(this, com.cyeam.cInterphone.ui.Settings.class);
-				intent = new Intent(this, com.cyeam.cInterphone.ui.Settings.class);
+				// intent = new Intent(this,
+				// com.cyeam.cInterphone.ui.Settings.class);
+				intent = new Intent(this,
+						com.cyeam.cInterphone.ui.Settings.class);
 				startActivity(intent);
 			} catch (ActivityNotFoundException e) {
 			}
 			break;
 		}
-		
-//		case TEST1:
-////			startActivity(new Intent(this, CameraDemo.class));
-//			startActivity(new Intent(this, VideoCamera.class));
-////			startActivity(new Intent(this, ProcessViewDemo.class));
-//			break;
-//		case TEST2:
-//			startActivity(new Intent(this, PlayDemo.class));
-////			startActivity(new Intent(this, CallScreen.class));
-////			startActivity(new Intent(this, ListEditTest.class));
-//			break;
+
+		// case TEST1:
+		// // startActivity(new Intent(this, CameraDemo.class));
+		// startActivity(new Intent(this, VideoCamera.class));
+		// // startActivity(new Intent(this, ProcessViewDemo.class));
+		// break;
+		// case TEST2:
+		// startActivity(new Intent(this, PlayDemo.class));
+		// // startActivity(new Intent(this, CallScreen.class));
+		// // startActivity(new Intent(this, ListEditTest.class));
+		// break;
 		}
 
 		return result;
@@ -369,9 +386,9 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 			case 1:
 				fragment = new HelpFragment();
 				break;
-//			case 2:
-//				fragment = new ContactFragment();
-//				break;
+			// case 2:
+			// fragment = new ContactFragment();
+			// break;
 			}
 
 			return fragment;
@@ -397,7 +414,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 			return null;
 		}
 	}
-	
+
 	public static class DummySectionFragment extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
