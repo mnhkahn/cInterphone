@@ -1,5 +1,7 @@
 package com.cyeam.cInterphone.http;
 
+import android.util.Log;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -20,6 +22,7 @@ public class CyeamHttp {
 	}
 
 	private static String getAbsoluteUrl(String relativeUrl) {
+		Log.e("URL", BASE_URL + relativeUrl);
 		return BASE_URL + relativeUrl;
 	}
 }

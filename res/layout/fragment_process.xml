@@ -15,7 +15,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/process_duration_dialog_label"
         android:gravity="center|center_horizontal|center_vertical"
@@ -25,7 +25,7 @@
             android:id="@+id/notification_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/process_duration_dialog_label"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/process_duration_dialog_label"
@@ -40,18 +40,20 @@
             android:id="@+id/process_duration_dialog_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="标题"
             android:textColor="#c1b645"
             android:textSize="30dp" />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/relativeLayout1"
         android:gravity="center|center_horizontal|center_vertical"
@@ -61,7 +63,7 @@
             android:id="@+id/notification_content"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/process_duration_dialog_label"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/process_duration_dialog_label"
@@ -73,12 +75,14 @@
             android:id="@+id/process_duration_dialog_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="内容"
             android:textColor="#c1b645"
             android:textSize="30dp" />
+
     </RelativeLayout>
 
     <RelativeLayout
