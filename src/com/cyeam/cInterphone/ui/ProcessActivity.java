@@ -11,8 +11,11 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
@@ -20,15 +23,35 @@ import android.widget.Toast;
 
 import com.cyeam.cInterphone.R;
 import com.cyeam.cInterphone.http.CyeamHttp;
+import com.cyeam.cInterphone.model.Process;
+import com.cyeam.cInterphone.sqlite.DbHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class ProcessActivity extends Activity {
-	private Context mContext;
 	private int processid;
 	private TimePicker tp;
 	private EditText content_text;
 	private ImageButton upload;
 	private ImageButton delete;
+	
+	private DbHelper dbHelper;
+	private SQLiteDatabase db;
+	
+	public Process getProcess(int id) {
+		Process process = new Process();
+		db = dbHelper.getReadableDatabase();
+		Cursor cursor = db.query(DbHelper.PROCESS_TABLE, new String[] {
+				DbHelper.C_ID, DbHelper.C_CONTENT, DbHelper.C_DURATION },
+				DbHelper.C_ID + "=?", new String[] {Integer.toString(id)}, null, null, null);
+		if (cursor.moveToNext()) {
+			process.setId(cursor.getInt(0));
+			process.setContent(cursor.getString(1));
+			process.setDuration(cursor.getLong(2));
+		}
+		
+		db.close();
+		return process;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +59,32 @@ public class ProcessActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dialog_process);
 		
-		mContext = this;
+		dbHelper = new DbHelper(this);
 		
 		tp = (TimePicker) findViewById(R.id.tpPicker);
 		tp.setIs24HourView(true);
 		
-		processid = getIntent().getIntExtra("processid", -1);
-		Toast.makeText(this, "" + processid,
-				Toast.LENGTH_SHORT).show();
-		
 		upload = (ImageButton) findViewById(R.id.process_upload);
 		delete = (ImageButton) findViewById(R.id.process_delete);
 		content_text = (EditText) findViewById(R.id.process_content_dialog);
+		
+		processid = getIntent().getIntExtra("processid", -1);
+		
+		if (processid != -1) {
+			Process process = getProcess(processid);
+			content_text.setText(process.getContent());
+			tp.setCurrentHour((int) (process.getDuration() / 3600));
+			tp.setCurrentMinute((int) (process.getDuration() - tp.getCurrentHour() * 3600));
+		}
+		
+		delete.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		upload.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -81,19 +118,21 @@ public class ProcessActivity extends Activity {
 						new JsonHttpResponseHandler() {
 							@Override
 							public void onSuccess(JSONArray finalResult) {
-								Toast.makeText(mContext, "添加成功",
+								Toast.makeText(CInterphoneApplication.getInstance(), "添加成功",
 										Toast.LENGTH_SHORT).show();
 							}
-
 							@Override
 							public void onFailure(int statusCode,
 									Header[] headers, String responseBody,
 									Throwable e) {
-								Toast.makeText(mContext, "添加失败:" + statusCode,
+								Toast.makeText(CInterphoneApplication.getInstance(), "添加失败:" + statusCode,
 										Toast.LENGTH_SHORT).show();
 								super.onFailure(statusCode, headers, responseBody, e);
 							}
 						});
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  
+				imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+				onBackPressed();
 			}
 		});
 		
