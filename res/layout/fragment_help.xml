@@ -4,6 +4,57 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="403dp"
+            android:layout_height="96dip"
+            android:layout_weight="0.93"
+            android:contentDescription="性别"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rool_coordinate"
+                android:layout_width="150dip"
+                android:layout_height="96dip"
+                android:text="协调"
+                android:textSize="30dp" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/role_commandar"
+                android:layout_width="150dip"
+                android:layout_height="96dip"
+                android:checked="true"
+                android:text="指挥"
+                android:textSize="30dp" />
+
+            <RadioButton
+                android:id="@+id/role_default"
+                android:layout_width="150dip"
+                android:layout_height="96dip"
+                android:text="默认"
+                android:textSize="30dp" >
+            </RadioButton>
+        </RadioGroup>
+
+        <ImageButton
+            android:id="@+id/sip_invite"
+            android:layout_width="96dip"
+            android:layout_height="96dip"
+            android:src="@drawable/ic_jog_dial_answer" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </LinearLayout>
+
     <com.cyeam.cInterphone.ui.ListWidget
         android:id="@+id/users_widget"
         android:layout_width="wrap_content"
@@ -30,7 +81,6 @@
             android:layout_marginRight="184dp"
             android:background="@drawable/round"
             android:src="@drawable/ic_menu_help" />
-
     </RelativeLayout>
 
     <ScrollView
