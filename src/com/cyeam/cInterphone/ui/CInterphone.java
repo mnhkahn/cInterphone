@@ -125,14 +125,15 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 				PushConstants.LOGIN_TYPE_API_KEY,
 				Utils.getMetaValue(CInterphone.this, "api_key"));
 		CustomPushNotificationBuilder cBuilder = new CustomPushNotificationBuilder(
-				this, R.layout.ongoing_call_notification, R.id.icon, R.id.text1, R.id.text2);
+				this, R.layout.ongoing_call_notification, R.id.icon,
+				R.id.text1, R.id.text2);
 		cBuilder.setNotificationFlags(Notification.FLAG_AUTO_CANCEL);
 		cBuilder.setNotificationDefaults(Notification.DEFAULT_SOUND
 				| Notification.DEFAULT_VIBRATE);
 		cBuilder.setStatusbarIcon(R.drawable.icon64);
 		cBuilder.setLayoutDrawable(R.drawable.icon22);
 		PushManager.setNotificationBuilder(this, 0, cBuilder);
-		
+
 		Push.Push(new com.cyeam.cInterphone.model.Notification("hello, world"));
 	}
 
@@ -386,9 +387,9 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 			case 1:
 				fragment = new HelpFragment();
 				break;
-			// case 2:
-			// fragment = new ContactFragment();
-			// break;
+			case 2:
+				fragment = new PushFragment();
+				break;
 			}
 
 			return fragment;
@@ -397,7 +398,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 2;
+			return 3;
 		}
 
 		@Override
@@ -409,7 +410,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 			case 1:
 				return getString(R.string.history).toUpperCase(l);
 			case 2:
-				return getString(R.string.contact).toUpperCase(l);
+				return getString(R.string.push).toUpperCase(l);
 			}
 			return null;
 		}

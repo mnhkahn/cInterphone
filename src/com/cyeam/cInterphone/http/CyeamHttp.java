@@ -1,5 +1,8 @@
 package com.cyeam.cInterphone.http;
 
+import org.apache.http.HttpEntity;
+
+import android.content.Context;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -15,10 +18,10 @@ public class CyeamHttp {
 			AsyncHttpResponseHandler responseHandler) {
 		client.get(getAbsoluteUrl(url), params, responseHandler);
 	}
-
-	public static void post(String url, RequestParams params,
+	
+	public static void post(Context context, String url, HttpEntity entity, String contentType,
 			AsyncHttpResponseHandler responseHandler) {
-		client.post(getAbsoluteUrl(url), params, responseHandler);
+		client.post(context, getAbsoluteUrl(url), entity, contentType, responseHandler);
 	}
 
 	private static String getAbsoluteUrl(String relativeUrl) {

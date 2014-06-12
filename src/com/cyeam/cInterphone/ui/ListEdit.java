@@ -104,12 +104,6 @@ public class ListEdit extends LinearLayout {
 				getData(context));
 		processListView.setAdapter(adapter);
 		
-		getProcesses();
-	}
-	
-	public void setData(JSONArray finalResult) {
-		
-		
 	}
 
 	private Handler hander = new Handler() {

@@ -32,7 +32,7 @@
     <string name="sip_name">Sipdroid，当可用时</string>
     <string name="favourite">对讲流程</string>
     <string name="history">主页</string>
-    <string name="contact">联系人</string>
+    <string name="push">推送消息</string>
     <string name="setting">设置</string>
     <string name="toast_add_favourtie_success">收藏 %s 成功!</string>
     <string name="toast_del_favourtie_success">取消 %s 收藏成功!</string>
