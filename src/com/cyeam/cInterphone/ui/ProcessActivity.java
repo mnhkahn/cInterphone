@@ -53,12 +53,12 @@ public class ProcessActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				String content = content_text.getText().toString();
-//				try {
-//					content = URLEncoder.encode(content, "utf-8");
-//				} catch (UnsupportedEncodingException e2) {
-//					// TODO Auto-generated catch block
-//					e2.printStackTrace();
-//				}
+				try {
+					content = URLEncoder.encode(content, "utf-8");
+				} catch (UnsupportedEncodingException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				int t = tp.getCurrentHour() * 3600 + tp.getCurrentMinute() * 60;
 
 				JSONObject process = new JSONObject();
@@ -77,7 +77,7 @@ public class ProcessActivity extends Activity {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				CyeamHttp.post(v.getContext(), "process", entity, "text/plain;charset=UTF-8",
+				CyeamHttp.post(v.getContext(), "process", entity, "application/x-www-form-urlencoded; charset=utf-8",
 						new JsonHttpResponseHandler() {
 							@Override
 							public void onSuccess(JSONArray finalResult) {

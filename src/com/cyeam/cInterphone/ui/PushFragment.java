@@ -35,7 +35,7 @@ public class PushFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		title_text = (TextView) getActivity().findViewById(
-				R.id.notification_title);
+				R.id.notification_title0);
 		content_text = (TextView) getActivity().findViewById(
 				R.id.notification_content);
 		send = (ImageButton) getActivity().findViewById(
