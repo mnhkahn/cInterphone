@@ -91,7 +91,7 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 	AutoCompleteTextView sip_uri_box, sip_uri_box2;
 	Button createButton;
 
-	SectionsPagerAdapter mSectionsPagerAdapter;
+	FragmentPagerAdapter mSectionsPagerAdapter;
 
 	ViewPager mViewPager;
 
@@ -140,7 +140,6 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 	@Override
 	public void onStart() {
 		super.onStart();
-		Receiver.engine(this).registerMore();
 	}
 
 	@Override
@@ -411,6 +410,48 @@ public class CInterphone extends FragmentActivity implements OnDismissListener {
 				return getString(R.string.history).toUpperCase(l);
 			case 2:
 				return getString(R.string.push).toUpperCase(l);
+			}
+			return null;
+		}
+	}
+
+	public class SectionsPagerAdapter2 extends FragmentPagerAdapter {
+
+		public SectionsPagerAdapter2(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			// Default fragment.
+			Fragment fragment = new Fragment();
+
+			switch (position) {
+			case 0:
+				fragment = new ProcessFragment();
+				break;
+			case 1:
+				fragment = new HelpFragment();
+				break;
+			}
+
+			return fragment;
+		}
+
+		@Override
+		public int getCount() {
+			// Show 3 total pages.
+			return 2;
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			Locale l = Locale.getDefault();
+			switch (position) {
+			case 0:
+				return getString(R.string.favourite).toUpperCase(l);
+			case 1:
+				return getString(R.string.history).toUpperCase(l);
 			}
 			return null;
 		}

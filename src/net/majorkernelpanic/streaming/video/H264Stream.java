@@ -107,8 +107,7 @@ public class H264Stream extends VideoStream {
 	public synchronized void configure() throws IllegalStateException, IOException {
 		super.configure();
 		mMode = mRequestedMode;
-//		mQuality = mRequestedQuality.clone();
-		mQuality = new VideoQuality(800, 600, 30, 500000);
+		mQuality = mRequestedQuality.clone();
 		mConfig = testH264();
 	}
 	

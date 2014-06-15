@@ -14,16 +14,8 @@
             android:layout_width="403dp"
             android:layout_height="96dip"
             android:layout_weight="0.93"
-            android:contentDescription="性别"
+            android:contentDescription="角色"
             android:orientation="horizontal" >
-
-            <RadioButton
-                android:id="@+id/rool_coordinate"
-                android:layout_width="150dip"
-                android:layout_height="96dip"
-                android:text="协调"
-                android:textSize="30dp" >
-            </RadioButton>
 
             <RadioButton
                 android:id="@+id/role_commandar"
@@ -32,6 +24,14 @@
                 android:checked="true"
                 android:text="指挥"
                 android:textSize="30dp" />
+            
+            <RadioButton
+                android:id="@+id/rool_coordinate"
+                android:layout_width="150dip"
+                android:layout_height="96dip"
+                android:text="协调"
+                android:textSize="30dp" >
+            </RadioButton>
 
             <RadioButton
                 android:id="@+id/role_default"

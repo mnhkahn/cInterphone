@@ -32,6 +32,7 @@ import org.zoolu.sip.provider.SipStack;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -477,6 +478,12 @@ public class Settings extends PreferenceActivity implements
 		for (int i = 0; i < SipdroidEngine.LINES; i++) {
 			String j = (i != 0 ? "" + i : "");
 			String role = settings.getString(PREF_ROLE, DEFAULT_ROLE);
+			
+			Intent intent = new Intent();//创建Intent对象
+			intent.setAction("com.cyeam.cInterphone.ui.update");
+			intent.putExtra("role", role);
+			sendBroadcast(intent);//发送广播
+			
 			String username = settings.getString(PREF_USERNAME + j,
 					DEFAULT_USERNAME);
 			String server = settings.getString(PREF_SERVER

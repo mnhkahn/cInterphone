@@ -69,7 +69,8 @@
             android:name="com.cyeam.cInterphone.ui.CInterphone"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
-            android:launchMode="singleInstance" >
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="stateUnchanged" >
             <intent-filter>
 
                 <!-- 启动显示的Activity -->

@@ -25,7 +25,6 @@ import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.net.UnknownHostException;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -50,7 +49,7 @@ public class RtpSocket implements Runnable {
 	public final static int TRANSPORT_TCP = 0x01;	
 	
 	public static final int RTP_HEADER_LENGTH = 12;
-	public static final int MTU = 20000;
+	public static final int MTU = 1300;
 
 	private MulticastSocket mSocket;
 	private DatagramPacket[] mPackets;
@@ -116,8 +115,6 @@ public class RtpSocket implements Runnable {
 
 		try {
 		mSocket = new MulticastSocket();
-		InetAddress address = InetAddress.getByName("239.0.0.1"); // 必须使用D类地址  
-		mSocket.joinGroup(address); // 以D类地址为标识，加入同一个组才能实现广播
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -175,15 +172,8 @@ public class RtpSocket implements Runnable {
 			mTransport = TRANSPORT_UDP;
 			mPort = dport;
 			for (int i=0;i<mBufferCount;i++) {
-//				mPackets[i].setPort(dport);
-//				mPackets[i].setAddress(dest);
-				mPackets[i].setPort(9080);
-				try {
-					mPackets[i].setAddress(InetAddress.getByName("239.0.0.1"));
-				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				mPackets[i].setPort(dport);
+				mPackets[i].setAddress(dest);
 			}
 			mReport.setDestination(dest, rtcpPort);
 		}
@@ -311,15 +301,7 @@ public class RtpSocket implements Runnable {
 				mOldTimestamp = mTimestamps[mBufferOut];
 				if (mCount++>30) {
 					if (mTransport == TRANSPORT_UDP) {
-						mPackets[mBufferOut].setPort(9080);
-						try {
-							mPackets[mBufferOut].setAddress(InetAddress.getByName("239.0.0.1"));
-						} catch (UnknownHostException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 						mSocket.send(mPackets[mBufferOut]);
-//						System.out.println("FUCK" + mPackets[mBufferOut].getLength());
 					} else {
 						sendTCP();
 					}
